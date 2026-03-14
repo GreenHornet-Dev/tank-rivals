@@ -1506,7 +1506,7 @@ function drawComputerChar(ctx, x, y, isP2, color) {
   ctx.restore();
 }
 
-function drawWormChar(ctx, x, y, isP2, color) {
+function drawCarChar(ctx, x, y, isP2, color) {   ctx.save();   ctx.translate(x, y);   const cc = color || (isP2 ? '#0088ff' : '#ff4422');   const dark = shadeColor(cc, -35);   const light = shadeColor(cc, 25);   // Shadow   ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.55,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fill(); ctx.restore();   // Car body   ctx.beginPath(); ctx.roundRect(-20,4,40,14,3); ctx.fillStyle=cc; ctx.fill();   // Cabin / roof   ctx.beginPath(); ctx.roundRect(-13,-10,26,16,4); ctx.fillStyle=light; ctx.fill();   // Windshield front   ctx.beginPath(); ctx.roundRect(-10,-8,10,12,2); ctx.fillStyle='rgba(140,210,255,0.8)'; ctx.fill();   // Rear window   ctx.beginPath(); ctx.roundRect(2,-8,8,12,2); ctx.fillStyle='rgba(140,210,255,0.6)'; ctx.fill();   // Hood   ctx.beginPath(); ctx.roundRect(8,0,12,8,2); ctx.fillStyle=dark; ctx.fill();   // Trunk   ctx.beginPath(); ctx.roundRect(-20,0,12,8,2); ctx.fillStyle=dark; ctx.fill();   // Grill   ctx.beginPath(); ctx.roundRect(17,4,4,6,1); ctx.fillStyle='#333'; ctx.fill();   ctx.beginPath(); ctx.arc(18,7,1.5,0,Math.PI*2); ctx.fillStyle='#ffcc00'; ctx.fill();   // Taillight   ctx.beginPath(); ctx.roundRect(-21,4,4,6,1); ctx.fillStyle='#330000'; ctx.fill();   ctx.beginPath(); ctx.arc(-20,7,1.5,0,Math.PI*2); ctx.fillStyle='#ff2200'; ctx.fill();   // Wheels   [[-12,18],[12,18]].forEach(([wx,wy])=>{     ctx.beginPath(); ctx.arc(wx,wy,7,0,Math.PI*2); ctx.fillStyle='#222'; ctx.fill();     ctx.beginPath(); ctx.arc(wx,wy,4,0,Math.PI*2); ctx.fillStyle='#888'; ctx.fill();     ctx.beginPath(); ctx.arc(wx,wy,2,0,Math.PI*2); ctx.fillStyle='#ccc'; ctx.fill();   });   // Color stripe   ctx.beginPath(); ctx.rect(-20,8,40,3); ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.fill();   // Player number badge   ctx.beginPath(); ctx.arc(isP2?-6:6,-2,5,0,Math.PI*2); ctx.fillStyle=isP2?'#35c5ff':'#ff6b35'; ctx.fill();   ctx.fillStyle='#fff'; ctx.font='bold 6px monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';   ctx.fillText(isP2?'2':'1',isP2?-6:6,-2);   ctx.restore(); } function drawWormChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
   const wc = color || (isP2 ? '#44bbff' : '#ff6644');
   const dark = shadeColor(wc, -30);
@@ -1994,7 +1994,7 @@ function renderGame() {
     // Draw barrel (gorillas don't need barrel — they throw with arms)
     const NO_BARREL_SKINS = [SKINS.gorillas, SKINS.halloween, SKINS.valentines, SKINS.stpatrick,
       SKINS.easter, SKINS.thanksgiving, SKINS.newyear, SKINS.summer,
-      SKINS.greenhornet, SKINS.computer, SKINS.cars];
+      SKINS.greenhornet, SKINS.computer, SKINS.cars, SKINS.carsbattle];
     if(!NO_BARREL_SKINS.includes(currentSkin)){
       const u=t.upgrades||{};
       const bLen = BARREL_LEN + (u.barrel||0)*6;
