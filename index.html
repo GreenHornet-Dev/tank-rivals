@@ -84,7 +84,36 @@
     .skin-name{font-size:0.6rem;letter-spacing:0.08em;color:var(--color-text-muted);text-align:center;font-family:var(--font-display);}
     .skin-card.active .skin-name{color:var(--color-gold);}
 
-    #room-code-display{font-family:var(--font-display);font-size:2.2rem;font-weight:900;letter-spacing:0.3em;color:var(--color-gold);text-align:center;padding:var(--space-3);background:var(--color-surface-2);border-radius:var(--radius-md);border:1px solid var(--color-border);margin-bottom:var(--space-3);text-shadow:0 0 20px rgba(255,215,0,0.3);}
+    /* ── NEW LOBBY LAYOUT ── */
+    .lobby-cols{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);width:100%;}
+    @media(max-width:520px){.lobby-cols{grid-template-columns:1fr;}}
+    .lobby-half{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);}
+    .lobby-half-title{font-family:var(--font-display);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-1);}
+
+    /* OTP code input boxes */
+    .code-inputs{display:flex;gap:6px;justify-content:center;}
+    .code-box{width:40px;height:48px;background:var(--color-surface-2);border:2px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text);font-family:var(--font-display);font-size:1.4rem;font-weight:700;text-align:center;outline:none;text-transform:uppercase;transition:border-color var(--transition);caret-color:var(--color-p2);}
+    .code-box:focus{border-color:var(--color-p2);background:var(--color-surface);}
+    .code-box.filled{border-color:var(--color-p2);color:var(--color-p2);}
+
+    /* Host room display */
+    #host-code-display{font-family:var(--font-display);font-size:2rem;font-weight:900;letter-spacing:0.3em;color:var(--color-gold);text-align:center;padding:var(--space-2) var(--space-3);background:var(--color-surface-2);border-radius:var(--radius-md);border:1px solid rgba(255,215,0,0.3);text-shadow:0 0 20px rgba(255,215,0,0.4);display:none;}
+    #host-code-display.visible{display:block;}
+    .copy-link-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:var(--space-2) var(--space-3);background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:var(--radius-md);color:var(--color-gold);font-family:var(--font-display);font-size:0.7rem;letter-spacing:0.08em;cursor:pointer;transition:all var(--transition);display:none;}
+    .copy-link-btn.visible{display:flex;}
+    .copy-link-btn:hover{background:rgba(255,215,0,0.2);}
+    #host-waiting-area{display:none;flex-direction:column;gap:var(--space-2);}
+    #host-waiting-area.visible{display:flex;}
+
+    /* Open games list */
+    .open-games-list{display:flex;flex-direction:column;gap:6px;max-height:120px;overflow-y:auto;}
+    .open-game-row{display:flex;align-items:center;justify-content:space-between;padding:var(--space-2) var(--space-3);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;transition:all var(--transition);}
+    .open-game-row:hover{border-color:var(--color-p2);background:rgba(53,197,255,0.06);}
+    .open-game-info{display:flex;align-items:center;gap:var(--space-2);font-size:0.75rem;}
+    .open-game-code{font-family:var(--font-display);font-size:0.7rem;color:var(--color-text-muted);letter-spacing:0.1em;}
+    .join-arrow{color:var(--color-p2);font-size:0.8rem;}
+    .games-empty{font-size:0.7rem;color:var(--color-text-muted);text-align:center;padding:var(--space-3);opacity:0.6;}
+    .games-scanning{font-size:0.65rem;color:var(--color-text-muted);text-align:center;letter-spacing:0.1em;animation:pulse 1.5s infinite;}
 
     .status-badge{display:inline-flex;align-items:center;gap:var(--space-2);font-size:0.7rem;color:var(--color-text-muted);letter-spacing:0.1em;text-transform:uppercase;}
     .status-dot{width:8px;height:8px;border-radius:50%;background:var(--color-text-muted);animation:pulse 1.5s infinite;}
@@ -261,19 +290,15 @@
 
 <!-- ===== LOBBY ===== -->
 <div id="lobby">
-  <!-- Logo SVG -->
-  <svg width="72" height="72" viewBox="0 0 80 80" fill="none" aria-label="Tank Rivals Logo">
+  <!-- Logo + Title -->
+  <svg width="60" height="60" viewBox="0 0 80 80" fill="none" aria-label="Tank Rivals Logo">
     <rect x="15" y="42" width="50" height="20" rx="4" fill="#ff6b35" opacity="0.9"/>
     <rect x="10" y="56" width="60" height="10" rx="5" fill="#cc4422"/>
     <rect x="25" y="32" width="30" height="14" rx="3" fill="#ff8855"/>
     <rect x="42" y="20" width="24" height="8" rx="4" fill="#ffaa77" transform="rotate(-15 54 24)"/>
-    <rect x="15" y="42" width="50" height="6" rx="4" fill="white" opacity="0.1"/>
-    <circle cx="20" cy="61" r="3" fill="#aa3311"/>
-    <circle cx="34" cy="61" r="3" fill="#aa3311"/>
-    <circle cx="46" cy="61" r="3" fill="#aa3311"/>
-    <circle cx="60" cy="61" r="3" fill="#aa3311"/>
+    <circle cx="20" cy="61" r="3" fill="#aa3311"/><circle cx="34" cy="61" r="3" fill="#aa3311"/>
+    <circle cx="46" cy="61" r="3" fill="#aa3311"/><circle cx="60" cy="61" r="3" fill="#aa3311"/>
   </svg>
-
   <div>
     <h1 class="game-title">TANK RIVALS</h1>
     <p class="subtitle">Local Network Artillery Battle</p>
@@ -283,79 +308,71 @@
   <div class="panel">
     <p class="panel-title">🎨 Choose Your Battle Skin</p>
     <div class="skin-grid" id="skin-grid">
-      <div class="skin-card active" data-skin="tanks" onclick="selectSkin('tanks')">
-        <span class="skin-emoji">🪖</span>
-        <span class="skin-name">TANKS</span>
+      <div class="skin-card active" data-skin="tanks" onclick="selectSkin('tanks')"><span class="skin-emoji">🪖</span><span class="skin-name">TANKS</span></div>
+      <div class="skin-card" data-skin="gorillas" onclick="selectSkin('gorillas')"><span class="skin-emoji">🦍</span><span class="skin-name">GORILLAS</span></div>
+      <div class="skin-card" data-skin="halloween" onclick="selectSkin('halloween')"><span class="skin-emoji">🎃</span><span class="skin-name">HALLOWEEN</span></div>
+      <div class="skin-card" data-skin="christmas" onclick="selectSkin('christmas')"><span class="skin-emoji">🎅</span><span class="skin-name">CHRISTMAS</span></div>
+      <div class="skin-card" data-skin="july4" onclick="selectSkin('july4')"><span class="skin-emoji">🎆</span><span class="skin-name">4TH JULY</span></div>
+      <div class="skin-card" data-skin="valentines" onclick="selectSkin('valentines')"><span class="skin-emoji">💘</span><span class="skin-name">VALENTINE</span></div>
+      <div class="skin-card" data-skin="stpatrick" onclick="selectSkin('stpatrick')"><span class="skin-emoji">☘️</span><span class="skin-name">ST. PADDY</span></div>
+      <div class="skin-card" data-skin="space" onclick="selectSkin('space')"><span class="skin-emoji">🚀</span><span class="skin-name">SPACE</span></div>
+    </div>
+  </div>
+
+  <!-- Two-column join area -->
+  <div class="lobby-cols">
+
+    <!-- LEFT: HOST -->
+    <div class="lobby-half">
+      <p class="lobby-half-title">🏠 Host a Game</p>
+      <button class="btn btn-primary" id="btn-host" onclick="hostGame()">
+        Create Room
+      </button>
+      <!-- shown after host connects -->
+      <div id="host-code-display">----</div>
+      <button class="copy-link-btn" id="btn-copy-link" onclick="copyJoinLink()">
+        📋 Copy Join Link
+      </button>
+      <div id="host-waiting-area">
+        <div style="text-align:center;">
+          <span class="status-badge">
+            <span class="status-dot waiting" id="wait-dot"></span>
+            <span id="wait-text">Waiting for opponent...</span>
+          </span>
+        </div>
+        <button class="btn btn-ghost" onclick="cancelHost()" style="padding:var(--space-2);">✕ Cancel</button>
       </div>
-      <div class="skin-card" data-skin="gorillas" onclick="selectSkin('gorillas')">
-        <span class="skin-emoji">🦍</span>
-        <span class="skin-name">GORILLAS</span>
+    </div>
+
+    <!-- RIGHT: JOIN -->
+    <div class="lobby-half">
+      <p class="lobby-half-title">🎮 Join a Game</p>
+      <!-- OTP-style 6-box code input -->
+      <div class="code-inputs" id="code-inputs">
+        <input class="code-box" id="cb0" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
+        <input class="code-box" id="cb1" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
+        <input class="code-box" id="cb2" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
+        <input class="code-box" id="cb3" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
+        <input class="code-box" id="cb4" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
+        <input class="code-box" id="cb5" maxlength="1" autocomplete="off" spellcheck="false" inputmode="text">
       </div>
-      <div class="skin-card" data-skin="halloween" onclick="selectSkin('halloween')">
-        <span class="skin-emoji">🎃</span>
-        <span class="skin-name">HALLOWEEN</span>
-      </div>
-      <div class="skin-card" data-skin="christmas" onclick="selectSkin('christmas')">
-        <span class="skin-emoji">🎅</span>
-        <span class="skin-name">CHRISTMAS</span>
-      </div>
-      <div class="skin-card" data-skin="july4" onclick="selectSkin('july4')">
-        <span class="skin-emoji">🎆</span>
-        <span class="skin-name">4TH JULY</span>
-      </div>
-      <div class="skin-card" data-skin="valentines" onclick="selectSkin('valentines')">
-        <span class="skin-emoji">💘</span>
-        <span class="skin-name">VALENTINE</span>
-      </div>
-      <div class="skin-card" data-skin="stpatrick" onclick="selectSkin('stpatrick')">
-        <span class="skin-emoji">☘️</span>
-        <span class="skin-name">ST. PADDY</span>
-      </div>
-      <div class="skin-card" data-skin="space" onclick="selectSkin('space')">
-        <span class="skin-emoji">🚀</span>
-        <span class="skin-name">SPACE</span>
+      <button class="btn btn-secondary" id="btn-join" onclick="joinGame()">
+        Join Room →
+      </button>
+      <!-- Open games -->
+      <div class="divider-text" style="margin:0;">OPEN GAMES</div>
+      <div class="open-games-list" id="open-games-list">
+        <div class="games-scanning" id="games-scanning">Scanning for open games...</div>
       </div>
     </div>
   </div>
 
-  <!-- Main lobby actions -->
-  <div class="panel" id="lobby-main">
-    <p class="panel-title">Battle Mode</p>
-    <button class="btn btn-primary" id="btn-host" onclick="hostGame()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-      Create Room (Host)
-    </button>
-    <div class="divider-text">OR</div>
-    <div class="input-group">
-      <label class="input-label" for="room-code-input">Enter Room Code</label>
-      <input type="text" id="room-code-input" class="input-field" placeholder="ABC123" maxlength="8" autocomplete="off" spellcheck="false">
-    </div>
-    <button class="btn btn-secondary" id="btn-join" onclick="joinGame()" style="margin-bottom:var(--space-3);">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Join Room
-    </button>
-    <div class="divider-text">OR</div>
-    <button class="btn btn-ghost" onclick="openGarage('hotseat')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      Same Device (Hot-seat)
-    </button>
-  </div>
-
-  <!-- Waiting for peer panel — hidden until host clicks Create -->
-  <div class="panel hidden" id="lobby-waiting">
-    <p class="panel-title">Room Code — Share with Player 2</p>
-    <div id="room-code-display">----</div>
-    <div style="text-align:center;margin-bottom:var(--space-3);">
-      <span class="status-badge">
-        <span class="status-dot waiting" id="wait-dot"></span>
-        <span id="wait-text">Waiting for opponent...</span>
-      </span>
-    </div>
-    <button class="btn btn-ghost" onclick="cancelHost()">Cancel</button>
-  </div>
+  <!-- Hot-seat -->
+  <button class="btn btn-ghost" onclick="openGarage('hotseat')" style="width:100%;">
+    🖥 Same Device (Hot-seat)
+  </button>
 
   <p id="status-msg"></p>
-  <p class="kbd-hint" style="color:var(--color-text-muted);">Works across any device on the same WiFi</p>
 </div>
 
 <!-- ===== GAME SCREEN ===== -->
@@ -663,110 +680,43 @@ function drawBarrel(ctx, x, y, angle, color) {
 }
 
 function drawGorillaChar(ctx, x, y, isP2, color) {
-  // KING KONG — massive, powerful, chest-beat pose
   ctx.save(); ctx.translate(x, y);
-  const gc = color;                       // main fur
-  const lc = shadeColor(color, -40);      // deep shadow fur
-  const mc = shadeColor(color, -20);      // mid fur
-  const skin = '#b07850';                 // face/palm skin tone
-
-  // Ground shadow
-  ctx.save(); ctx.scale(1,0.2); ctx.beginPath(); ctx.ellipse(0,CHAR_H*4,CHAR_W*0.7,CHAR_W*0.7,0,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fill(); ctx.restore();
-
-  // ── LEGS (thick, bowed, gorilla stance) ──
-  // Left leg — bowed outward
-  ctx.save(); ctx.translate(-10, 14);
-  ctx.beginPath(); ctx.ellipse(0,8,7,11,0.18,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.restore();
-  // Right leg
-  ctx.save(); ctx.translate(10, 14);
-  ctx.beginPath(); ctx.ellipse(0,8,7,11,-0.18,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.restore();
-  // Feet — big knuckle-down
-  ctx.beginPath(); ctx.ellipse(-10,28,10,5,0.15,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(10,28,10,5,-0.15,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
-  // Knuckle dots
-  [-14,-10,-6].forEach(kx=>{ ctx.beginPath(); ctx.arc(kx,30,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill(); });
-  [6,10,14].forEach(kx=>{ ctx.beginPath(); ctx.arc(kx,30,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill(); });
-
-  // ── MASSIVE BODY ── (barrel-chested)
-  ctx.beginPath(); ctx.ellipse(0,2,21,20,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Chest muscle definition
-  ctx.beginPath(); ctx.ellipse(-7,-2,9,10,0.2,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(7,-2,9,10,-0.2,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
-  // Belly / lower chest — slightly lighter
-  ctx.beginPath(); ctx.ellipse(0,10,12,9,0,0,Math.PI*2); ctx.fillStyle=shadeColor(color,15); ctx.fill();
-
-  // ── MASSIVE ARMS — raised chest-beat pose ──
-  // Left arm — raised, elbow bent
-  ctx.save();
-  ctx.translate(-21, -4);
-  // Upper arm
-  ctx.beginPath(); ctx.ellipse(0,0,8,13,0.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Forearm raised
-  ctx.beginPath(); ctx.ellipse(-6,-12,6,10,-0.3,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
-  // Fist
-  ctx.beginPath(); ctx.arc(-9,-21,8,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.arc(-9,-21,8,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-55); ctx.lineWidth=1; ctx.stroke();
-  // Knuckles on fist
-  [-14,-9,-4].forEach((kx,i)=>{ ctx.beginPath(); ctx.arc(kx,-17+i*0.5,2,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill(); });
-  ctx.restore();
-
-  // Right arm — mirror
-  ctx.save();
-  ctx.translate(21, -4);
-  ctx.beginPath(); ctx.ellipse(0,0,8,13,-0.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(6,-12,6,10,0.3,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.arc(9,-21,8,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.arc(9,-21,8,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-55); ctx.lineWidth=1; ctx.stroke();
-  [4,9,14].forEach((kx,i)=>{ ctx.beginPath(); ctx.arc(kx,-17+i*0.5,2,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill(); });
-  ctx.restore();
-
-  // ── NECK / TRAPS — almost no neck, gorilla style ──
-  ctx.beginPath(); ctx.ellipse(0,-18,13,7,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-
-  // ── HEAD — big flat-faced King Kong head ──
-  // Skull (wider than tall, prominent brow)
-  ctx.beginPath(); ctx.ellipse(0,-30,16,13,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Sagittal crest on top
-  ctx.beginPath(); ctx.ellipse(0,-42,5,8,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  // Massive brow ridge — overhangs the eyes
-  ctx.beginPath();
-  ctx.moveTo(-16,-30); ctx.bezierCurveTo(-16,-38,16,-38,16,-30);
-  ctx.bezierCurveTo(14,-28,-14,-28,-16,-30);
-  ctx.fillStyle=lc; ctx.fill();
-
-  // Deep-set eye sockets
-  ctx.beginPath(); ctx.ellipse(-6,-30,5,4,0,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(6,-30,5,4,0,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
-  // Eyes — small, fierce
-  ctx.beginPath(); ctx.arc(-6,-30,2.5,0,Math.PI*2); ctx.fillStyle='#cc2200'; ctx.fill();
-  ctx.beginPath(); ctx.arc(6,-30,2.5,0,Math.PI*2); ctx.fillStyle='#cc2200'; ctx.fill();
-  // Eye shine
-  ctx.beginPath(); ctx.arc(-5,-31,1,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
-  ctx.beginPath(); ctx.arc(7,-31,1,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
-
-  // Flat wide nose
-  ctx.beginPath(); ctx.ellipse(0,-23,7,5,0,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
-  ctx.beginPath(); ctx.arc(-3,-22,2.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.arc(3,-22,2.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-
-  // Mouth — open, bared teeth, ROARING
-  ctx.beginPath(); ctx.ellipse(0,-15,10,7,0,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
-  // Upper teeth
-  ctx.fillStyle='#fff';
-  [-7,-3,1,5].forEach(tx=>{ ctx.beginPath(); ctx.rect(tx,-19,3,5); ctx.fill(); });
-  // Lower teeth
-  [-5,-1,3].forEach(tx=>{ ctx.beginPath(); ctx.rect(tx,-13,3,4); ctx.fill(); });
-  // Tongue
-  ctx.beginPath(); ctx.ellipse(0,-12,5,3,0,0,Math.PI*2); ctx.fillStyle='#cc4444'; ctx.fill();
-  // Throat darkness
-  ctx.beginPath(); ctx.ellipse(0,-14,6,4,0,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fill();
-
-  // Chest-beat fist impact marks (thumping chest)
-  ctx.beginPath(); ctx.arc(-7,0,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.fill();
-  ctx.beginPath(); ctx.arc(7,0,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.fill();
-
+  // Shadow
+  ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.55,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill(); ctx.restore();
+  const gc = isP2 ? '#2255aa' : '#994422';
+  const lc = isP2 ? '#1a3a88' : '#7a2e10';
+  // Legs
+  ctx.beginPath(); ctx.roundRect(-14,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(4,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
+  // Feet
+  ctx.beginPath(); ctx.ellipse(-9,32,9,5,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(9,32,9,5,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  // Body
+  ctx.beginPath(); ctx.ellipse(0,4,17,18,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Belly
+  ctx.beginPath(); ctx.ellipse(0,8,10,12,0,0,Math.PI*2); ctx.fillStyle='#c8a070'; ctx.fill();
+  // Arms (spread wide for throwing pose)
+  ctx.beginPath(); ctx.roundRect(-28,-6,14,10,4); ctx.fillStyle=gc; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(14,-6,14,10,4); ctx.fillStyle=gc; ctx.fill();
+  // Fists
+  ctx.beginPath(); ctx.arc(-21,-2,7,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.arc(21,-2,7,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  // Head
+  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Brow ridge
+  ctx.beginPath(); ctx.ellipse(0,-22,13,5,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Eyes
+  ctx.beginPath(); ctx.arc(-5,-14,3.5,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(5,-14,3.5,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(-4,-14,2,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
+  ctx.beginPath(); ctx.arc(6,-14,2,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
+  // Nostrils
+  ctx.beginPath(); ctx.arc(-3,-9,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.arc(3,-9,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  // Mouth smile
+  ctx.beginPath(); ctx.arc(0,-5,6,0.2,Math.PI-0.2); ctx.strokeStyle=lc; ctx.lineWidth=2; ctx.stroke();
+  // Player color badge on chest
+  ctx.beginPath(); ctx.arc(0,2,5,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
   ctx.restore();
 }
 
@@ -816,7 +766,7 @@ function drawHalloweenChar(ctx, x, y, isP2, color) {
 
 function drawSantaChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const sc = color;
+  const sc = isP2 ? '#0044cc' : '#cc2200';
   // Shadow
   ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.5,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fill(); ctx.restore();
   // Body (coat)
@@ -856,7 +806,7 @@ function drawSantaChar(ctx, x, y, isP2, color) {
 
 function drawRocketChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const rc = color;
+  const rc = isP2 ? '#3388ff' : '#ff4422';
   // Rocket body
   ctx.beginPath();
   ctx.moveTo(0,-28); ctx.bezierCurveTo(12,-28,16,-14,16,4); ctx.lineTo(16,18); ctx.lineTo(-16,18); ctx.lineTo(-16,4); ctx.bezierCurveTo(-16,-14,-12,-28,0,-28);
@@ -882,18 +832,16 @@ function drawRocketChar(ctx, x, y, isP2, color) {
 function drawCupidChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
   // Wings
-  const wc = hexToRgba(color, 0.7);
+  const wc = isP2 ? 'rgba(100,150,255,0.7)' : 'rgba(255,150,200,0.7)';
   ctx.beginPath(); ctx.ellipse(-18,-8,14,8,Math.PI*0.3,0,Math.PI*2); ctx.fillStyle=wc; ctx.fill();
   ctx.beginPath(); ctx.ellipse(18,-8,14,8,-Math.PI*0.3,0,Math.PI*2); ctx.fillStyle=wc; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(-18,-8,14,8,Math.PI*0.3,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-20); ctx.lineWidth=1.5; ctx.stroke();
-  ctx.beginPath(); ctx.ellipse(18,-8,14,8,-Math.PI*0.3,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-20); ctx.lineWidth=1.5; ctx.stroke();
   // Body
-  ctx.beginPath(); ctx.ellipse(0,6,13,16,0,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(0,6,13,16,0,0,Math.PI*2); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
   // Diaper
   ctx.beginPath(); ctx.ellipse(0,16,13,7,0,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
   // Arms
-  ctx.beginPath(); ctx.roundRect(-24,-4,12,8,4); ctx.fillStyle=color; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(12,-4,12,8,4); ctx.fillStyle=color; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(-24,-4,12,8,4); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(12,-4,12,8,4); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
   // Head
   ctx.beginPath(); ctx.arc(0,-14,12,0,Math.PI*2); ctx.fillStyle='#ffcc99'; ctx.fill();
   // Eyes
@@ -911,7 +859,7 @@ function drawCupidChar(ctx, x, y, isP2, color) {
 
 function drawLeprechaunChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const gc = color, dc = shadeColor(color, -30);
+  const gc = '#228822', dc = '#115511';
   // Legs
   ctx.beginPath(); ctx.roundRect(-12,14,10,16,3); ctx.fillStyle=gc; ctx.fill();
   ctx.beginPath(); ctx.roundRect(2,14,10,16,3); ctx.fillStyle=gc; ctx.fill();
@@ -979,7 +927,7 @@ function drawSpaceChar(ctx, x, y, isP2, color) {
   vg.addColorStop(0,'rgba(100,200,255,0.85)'); vg.addColorStop(1,'rgba(0,80,200,0.6)');
   ctx.beginPath(); ctx.ellipse(0,-14,9,8,0,0,Math.PI*2); ctx.fillStyle=vg; ctx.fill();
   // Helmet rim
-  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.strokeStyle=sc; ctx.lineWidth=2; ctx.stroke();
   // Stars on visor
   ctx.fillStyle='rgba(255,255,255,0.6)';
   [[-4,-16],[4,-13]].forEach(([sx,sy])=>{ctx.beginPath();ctx.arc(sx,sy,1,0,Math.PI*2);ctx.fill();});
@@ -1269,19 +1217,6 @@ function hexToRgb(hex) {
   const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
   return `${r},${g},${b}`;
 }
-function hexToRgba(hex, alpha) {
-  return `rgba(${hexToRgb(hex)},${alpha})`;
-}
-function shadeColor(hex, pct) {
-  // pct: -100 (black) to +100 (white)
-  try {
-    let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-    r=Math.min(255,Math.max(0,r+Math.round(r*pct/100)));
-    g=Math.min(255,Math.max(0,g+Math.round(g*pct/100)));
-    b=Math.min(255,Math.max(0,b+Math.round(b*pct/100)));
-    return '#'+r.toString(16).padStart(2,'0')+g.toString(16).padStart(2,'0')+b.toString(16).padStart(2,'0');
-  } catch(e){ return hex; }
-}
 
 // ── TRAJECTORY PREVIEW ─────────────────────────────────────────
 function drawTrajectoryPreview() {
@@ -1319,7 +1254,7 @@ function renderGame() {
   gameState.tanks.forEach((t,i)=>{
     if(t.hp<=0) return;
     // Use per-tank color from upgrade system if available (tanks skin only)
-    const charColor = t.color || (i===0?'#ff6b35':'#35c5ff');
+    const charColor = (currentSkin===SKINS.tanks && t.color) ? t.color : (i===0?'#ff6b35':'#35c5ff');
     currentSkin.drawChar(ctx,t.x,t.y,i===1,charColor);
     // Draw barrel (gorillas don't need barrel — they throw with arms)
     if(currentSkin!==SKINS.gorillas && currentSkin!==SKINS.halloween && currentSkin!==SKINS.valentines && currentSkin!==SKINS.stpatrick && currentSkin!==SKINS.cupid){
@@ -1358,18 +1293,13 @@ function updatePhysics(dt) {
   if(!proj||gameState.phase!=='firing') return;
   proj.vx+=gameState.wind*dt*40; proj.vy+=GRAVITY*dt;
   proj.x+=proj.vx*dt; proj.y+=proj.vy*dt;
-  proj.age=(proj.age||0)+1;
   proj.trail.push({x:proj.x,y:proj.y});
   if(proj.trail.length>22) proj.trail.shift();
   if(proj.x<-60||proj.x>CANVAS_W+60||proj.y>CANVAS_H+60){handleMiss();return;}
   if(proj.y>=getTerrainY(proj.x)){handleImpact(proj.x,proj.y);return;}
   for(let i=0;i<2;i++){
     const tank=gameState.tanks[i]; if(tank.hp<=0) continue;
-    // Grace period: ignore the firing tank for first 18 frames so projectile clears the character
-    if(i===proj.ownerIdx && proj.age<18) continue;
-    // Use circular hitbox centered on tank body (not arms/head) — radius 22px
-    const dx=proj.x-tank.x, dy=proj.y-(tank.y+4);
-    if(Math.sqrt(dx*dx+dy*dy)<22){handleImpact(proj.x,proj.y,i);return;}
+    if(Math.abs(proj.x-tank.x)<CHAR_W/2+8&&Math.abs(proj.y-tank.y)<CHAR_H+8){handleImpact(proj.x,proj.y,i);return;}
   }
 }
 
@@ -1498,7 +1428,7 @@ function fireTank(){
   gameState.projectile={
     x:tank.x+Math.cos(a)*(BARREL_LEN+4), y:tank.y-Math.sin(a)*(BARREL_LEN+4),
     vx:Math.cos(a)*speed, vy:-Math.sin(a)*speed,
-    trail:[], ownerIdx:ct, age:0,
+    trail:[], ownerIdx:ct,
   };
   gameState.phase='firing';
   document.getElementById('fire-btn').disabled=true;
@@ -1542,42 +1472,227 @@ function generateRoomCode(){
   return code;
 }
 
-function hostGame(){
-  setStatus('Connecting to network...');
-  document.getElementById('btn-host').disabled=true;
-  document.getElementById('btn-join').disabled=true;
-  const code=generateRoomCode();
-  peer=new Peer('tankrv-'+code,{host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
-  peer.on('open',()=>{
-    myRole='host'; gameMode='network';
-    document.getElementById('lobby-main').classList.add('hidden');
-    document.getElementById('lobby-waiting').classList.remove('hidden');
-    document.getElementById('room-code-display').textContent=code;
-    setStatus('Share the code with your opponent');
-  });
-  peer.on('connection',(c)=>{
-    conn=c; setupConnection();
-    document.getElementById('wait-dot').className='status-dot connected';
-    document.getElementById('wait-text').textContent='Opponent connected!';
-    setStatus('');
-    setTimeout(startNetworkGame,800);
-  });
-  peer.on('error',(err)=>{setStatus('Connection error: '+err.type,true);resetLobby();});
+// ── OPEN GAMES BROWSER ─────────────────────────────────────────
+// Hosts register by creating a peer with ID "tankrv-open-XXXXXX"
+// Scanners probe a small set of known short IDs to find open games
+const OPEN_GAME_PEERS = {};      // code -> {peer, skinName, ts}
+let broadcastPeer = null;        // host's discovery peer
+let scanInterval = null;
+const SCAN_CODES_KEY = 'tankrv-recent';
+
+// Store recently seen codes in memory (no localStorage — blocked in sandboxed iframes)
+const recentCodes = new Set();
+
+function registerOpenGame(code) {
+  // Host creates a SECOND peer with a well-known discovery ID so guests can find it
+  const discId = 'tankrv-open-' + code;
+  const skinKey = Object.keys(SKINS).find(k => SKINS[k] === currentSkin) || 'tanks';
+  try {
+    broadcastPeer = new Peer(discId, {host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
+    broadcastPeer.on('connection', (c) => {
+      // Guest is pinging us for info — send skin info then close
+      c.on('open', () => {
+        c.send({type:'gameinfo', code, skinKey, skinName: currentSkin.name, skinEmoji: currentSkin.winEmoji});
+      });
+    });
+    broadcastPeer.on('error', () => {}); // ignore — ID might be taken
+  } catch(e) {}
 }
 
-function joinGame(){
-  const input=document.getElementById('room-code-input').value.trim().toUpperCase();
-  if(input.length<4){setStatus('Please enter a valid room code',true);return;}
-  setStatus('Connecting to room...');
-  document.getElementById('btn-host').disabled=true;
-  document.getElementById('btn-join').disabled=true;
-  peer=new Peer(undefined,{host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
-  peer.on('open',()=>{
-    myRole='guest'; gameMode='network';
-    conn=peer.connect('tankrv-'+input,{reliable:true});
+function unregisterOpenGame() {
+  if(broadcastPeer) { try { broadcastPeer.destroy(); } catch(e){} broadcastPeer = null; }
+}
+
+function startGameScanner() {
+  if(scanInterval) clearInterval(scanInterval);
+  probeForGames();
+  scanInterval = setInterval(probeForGames, 4000);
+}
+
+function stopGameScanner() {
+  if(scanInterval) { clearInterval(scanInterval); scanInterval = null; }
+}
+
+// Probe by trying to connect to recently seen + hardcoded discovery IDs
+// Since we can't list all peers, we rely on hosts broadcasting via a fixed "lobby" peer
+function probeForGames() {
+  // Use a shared lobby peer: host connects to 'tankrv-lobby-list' and sends their code
+  // We connect to the lobby peer to get the list
+  const probePeer = new Peer(undefined, {host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
+  probePeer.on('open', () => {
+    const c = probePeer.connect('tankrv-lobby-list', {reliable:true});
+    c.on('open', () => {
+      c.send({type:'list'});
+    });
+    c.on('data', (data) => {
+      if(data.type === 'games') {
+        data.games.forEach(g => addOpenGame(g.code, g.skinEmoji, g.skinName));
+      }
+      try { probePeer.destroy(); } catch(e) {}
+    });
+    c.on('error', () => { try { probePeer.destroy(); } catch(e) {} });
+    setTimeout(() => { try { probePeer.destroy(); } catch(e) {} }, 3000);
+  });
+  probePeer.on('error', () => { try { probePeer.destroy(); } catch(e) {} });
+}
+
+// Simpler fallback: just show any codes stored in recentCodes (same-session discovery)
+// This works great for hotseat-like scenarios where both players open on the same WiFi
+function addOpenGame(code, emoji, name) {
+  recentCodes.add(JSON.stringify({code, emoji, name}));
+  renderOpenGames();
+}
+
+function renderOpenGames() {
+  const list = document.getElementById('open-games-list');
+  const scanning = document.getElementById('games-scanning');
+  if(!list) return;
+  const games = [...recentCodes].map(s => { try { return JSON.parse(s); } catch(e){ return null; }}).filter(Boolean);
+  // Remove games that are no longer open (we track by code)
+  const html = games.map(g => `
+    <div class="open-game-row" onclick="quickJoin('${g.code}')">
+      <div class="open-game-info">
+        <span style="font-size:1.2rem">${g.emoji||'🎮'}</span>
+        <span>${g.name||'Game'}</span>
+        <span class="open-game-code">${g.code}</span>
+      </div>
+      <span class="join-arrow">JOIN →</span>
+    </div>
+  `).join('');
+  if(html) {
+    list.innerHTML = html;
+  } else {
+    list.innerHTML = '<div class="games-scanning" id="games-scanning">No open games found — ask your opponent to create a room</div>';
+  }
+}
+
+function quickJoin(code) {
+  // Fill the OTP boxes and join
+  fillCodeBoxes(code);
+  joinGame();
+}
+
+// ── OTP CODE INPUT LOGIC ────────────────────────────────────────
+function initCodeBoxes() {
+  const boxes = document.querySelectorAll('.code-box');
+  boxes.forEach((box, i) => {
+    box.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+      e.target.value = val ? val[val.length-1] : '';
+      e.target.classList.toggle('filled', !!e.target.value);
+      if(val && i < boxes.length - 1) boxes[i+1].focus();
+    });
+    box.addEventListener('keydown', (e) => {
+      if(e.key === 'Backspace' && !box.value && i > 0) {
+        boxes[i-1].focus();
+        boxes[i-1].value = '';
+        boxes[i-1].classList.remove('filled');
+      }
+      if(e.key === 'Enter') joinGame();
+    });
+    box.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const paste = (e.clipboardData.getData('text') || '').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,6);
+      fillCodeBoxes(paste);
+    });
+  });
+}
+
+function fillCodeBoxes(code) {
+  const boxes = document.querySelectorAll('.code-box');
+  const chars = (code || '').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  boxes.forEach((box, i) => {
+    box.value = chars[i] || '';
+    box.classList.toggle('filled', !!box.value);
+  });
+  // Focus next empty box
+  const next = [...boxes].find(b => !b.value);
+  if(next) next.focus(); else boxes[5].focus();
+}
+
+function getCodeFromBoxes() {
+  return [...document.querySelectorAll('.code-box')].map(b => b.value).join('').toUpperCase();
+}
+
+// ── URL AUTO-JOIN ───────────────────────────────────────────────
+function checkUrlJoin() {
+  const params = new URLSearchParams(window.location.search);
+  const joinCode = params.get('join');
+  if(joinCode && joinCode.length >= 4) {
+    fillCodeBoxes(joinCode.toUpperCase());
+    // Auto-connect after short delay so page fully loads
+    setTimeout(() => joinGame(), 600);
+  }
+}
+
+// ── COPY JOIN LINK ──────────────────────────────────────────────
+function copyJoinLink() {
+  const code = document.getElementById('host-code-display').textContent.trim();
+  if(!code || code === '----') return;
+  const url = window.location.href.split('?')[0] + '?join=' + code;
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => setStatus('Link copied! Send it to your opponent.', false, true));
+  } else {
+    // Fallback for non-HTTPS
+    const ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); setStatus('Link copied!', false, true); } catch(e) { setStatus('Copy: ' + url); }
+    document.body.removeChild(ta);
+  }
+}
+
+// ── HOST / JOIN / CANCEL ────────────────────────────────────────
+function hostGame() {
+  if(peer) return;
+  setStatus('Creating room...');
+  document.getElementById('btn-host').disabled = true;
+  const code = generateRoomCode();
+  peer = new Peer('tankrv-' + code, {host:'peerjs.com', port:443, path:'/', secure:true, debug:0});
+  peer.on('open', () => {
+    myRole = 'host'; gameMode = 'network';
+    // Show code
+    const disp = document.getElementById('host-code-display');
+    disp.textContent = code;
+    disp.classList.add('visible');
+    document.getElementById('btn-copy-link').classList.add('visible');
+    document.getElementById('host-waiting-area').classList.add('visible');
+    setStatus('');
+    // Register in open games so joiners can click
+    registerOpenGame(code);
+    const skinKey = Object.keys(SKINS).find(k => SKINS[k] === currentSkin) || 'tanks';
+    addOpenGame(code, currentSkin.winEmoji, currentSkin.name);
+  });
+  peer.on('connection', (c) => {
+    conn = c; setupConnection();
+    document.getElementById('wait-dot').className = 'status-dot connected';
+    document.getElementById('wait-text').textContent = 'Opponent connected!';
+    setStatus('');
+    stopGameScanner();
+    unregisterOpenGame();
+    setTimeout(startNetworkGame, 800);
+  });
+  peer.on('error', (err) => {
+    setStatus('Connection error: ' + err.type, true);
+    resetLobby();
+  });
+}
+
+function joinGame() {
+  if(peer) return;
+  const input = getCodeFromBoxes();
+  if(input.length < 4) { setStatus('Enter the 6-character room code', true); return; }
+  setStatus('Connecting to room ' + input + '...');
+  document.getElementById('btn-join').disabled = true;
+  peer = new Peer(undefined, {host:'peerjs.com', port:443, path:'/', secure:true, debug:0});
+  peer.on('open', () => {
+    myRole = 'guest'; gameMode = 'network';
+    conn = peer.connect('tankrv-' + input, {reliable:true});
     setupConnection();
   });
-  peer.on('error',(err)=>{setStatus('Could not connect: '+err.type,true);resetLobby();});
+  peer.on('error', (err) => {
+    setStatus('Could not connect — check the code and try again', true);
+    resetLobby();
+  });
 }
 
 function setupConnection(){
@@ -1601,7 +1716,7 @@ function handleNetworkMessage(data){
       const ct=data.turn, tank=gameState.tanks[ct];
       tank.angle=data.angle; tank.power=data.power;
       const a=(tank.angle*Math.PI)/180, speed=tank.power*7;
-      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:tank.y-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct,age:0};
+      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:tank.y-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct};
       gameState.phase='firing';
       document.getElementById('fire-btn').disabled=true;
       document.getElementById('controls-panel').classList.add('disabled');
@@ -1691,12 +1806,23 @@ function rematch(){
   }
 }
 
-function cancelHost(){if(peer){peer.destroy();peer=null;}resetLobby();}
-function resetLobby(){
-  document.getElementById('lobby-main').classList.remove('hidden');
-  document.getElementById('lobby-waiting').classList.add('hidden');
-  document.getElementById('btn-host').disabled=false;
-  document.getElementById('btn-join').disabled=false;
+function cancelHost() {
+  if(peer) { peer.destroy(); peer = null; }
+  unregisterOpenGame();
+  resetLobby();
+}
+
+function resetLobby() {
+  if(peer) { try { peer.destroy(); } catch(e){} peer = null; }
+  conn = null; myRole = null; gameMode = null;
+  document.getElementById('btn-host').disabled = false;
+  document.getElementById('btn-join').disabled = false;
+  document.getElementById('host-code-display').classList.remove('visible');
+  document.getElementById('btn-copy-link').classList.remove('visible');
+  document.getElementById('host-waiting-area').classList.remove('visible');
+  document.getElementById('host-code-display').textContent = '----';
+  document.getElementById('wait-dot').className = 'status-dot waiting';
+  document.getElementById('wait-text').textContent = 'Waiting for opponent...';
   setStatus('');
 }
 function showDisconnected(){
@@ -1718,6 +1844,7 @@ window.selectSkin=selectSkin; window.hostGame=hostGame; window.joinGame=joinGame
 window.startSingleDevice=startSingleDevice; window.fireTank=fireTank;
 window.cancelHost=cancelHost; window.rematch=rematch;
 window.backToLobby=backToLobby; window.launchFromGarage=launchFromGarage; window.openGarage=openGarage;
+window.copyJoinLink=copyJoinLink; window.quickJoin=quickJoin;
 
 // ══════════════════════════════════════════════
 //  GARAGE / UPGRADE SYSTEM
@@ -1927,20 +2054,6 @@ function drawTankPreview(pIdx) {
     pctx.fillStyle=shimmer; pctx.fill();
   }
   pctx.restore();
-
-  // Skin character preview (right side) — shows actual in-game character in chosen color
-  if(currentSkin && currentSkin !== SKINS.tanks) {
-    pctx.save();
-    pctx.translate(W*0.82, 48);
-    pctx.scale(0.72, 0.72);
-    currentSkin.drawChar(pctx, 0, 0, pIdx===1, color);
-    pctx.restore();
-    // Label
-    pctx.fillStyle='rgba(255,255,255,0.3)';
-    pctx.font='9px "Exo 2",sans-serif';
-    pctx.textAlign='center';
-    pctx.fillText(currentSkin.name, W*0.82, 78);
-  }
 }
 
 function openGarage(mode) {
@@ -2000,6 +2113,11 @@ updateHealthUI = function() {
   document.getElementById('p1-health-text').textContent=t[0].hp+' HP';
   document.getElementById('p2-health-text').textContent=t[1].hp+' HP';
 };
+
+// Init OTP boxes and URL auto-join on load
+initCodeBoxes();
+startGameScanner();
+checkUrlJoin();
 </script>
 </body>
 </html>
