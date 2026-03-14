@@ -1503,40 +1503,47 @@ function drawWormChar(ctx, x, y, isP2, color) {
   const wc = color || (isP2 ? '#44bbff' : '#ff6644');
   const dark = shadeColor(wc, -30);
   const light = shadeColor(wc, 20);
-  // Body segments (worm-like stacked circles)
-  const segs = [[0,24,7],[0,14,8],[0,3,9],[-1,-7,9],[0,-16,8]];
+  // Body segments (worm-like stacked circles) — draw all EXCEPT head first
+  const segs = [[0,24,7],[0,14,8],[0,3,9],[-1,-7,9]];
   segs.forEach(([sx, sy, sr], i) => {
     ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
     ctx.fillStyle = i % 2 === 0 ? wc : light;
     ctx.fill();
-    // Segment ring line
     ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
     ctx.strokeStyle = dark; ctx.lineWidth = 1; ctx.stroke();
   });
   // Tail tip
   ctx.beginPath(); ctx.arc(0, 29, 4, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
-  // Helmet / hard hat
-  ctx.beginPath(); ctx.ellipse(0, -16, 11, 6, 0, Math.PI, Math.PI*2);
-  ctx.fillStyle = dark; ctx.fill();
-  ctx.beginPath(); ctx.rect(-13, -17, 26, 4); ctx.fillStyle = dark; ctx.fill();
-  // Helmet stripe
-  ctx.beginPath(); ctx.rect(-9, -20, 18, 3); ctx.fillStyle = wc; ctx.fill();
-  // Eyes
-  ctx.beginPath(); ctx.arc(-5, -19, 3.5, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(5, -19, 3.5, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(-4.5, -19, 2, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
-  ctx.beginPath(); ctx.arc(5.5, -19, 2, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
-  // Eye shine
-  ctx.beginPath(); ctx.arc(-4, -20, 0.8, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(6, -20, 0.8, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
-  // Big grin
-  ctx.beginPath(); ctx.arc(0, -14, 6, 0.1, Math.PI-0.1);
+  // HEAD segment (drawn last so helmet sits on top)
+  ctx.beginPath(); ctx.arc(0, -16, 8, 0, Math.PI*2);
+  ctx.fillStyle = wc; ctx.fill();
+  ctx.beginPath(); ctx.arc(0, -16, 8, 0, Math.PI*2);
+  ctx.strokeStyle = dark; ctx.lineWidth = 1; ctx.stroke();
+  // Eyes (on head segment)
+  ctx.beginPath(); ctx.arc(-4, -18, 3, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(4, -18, 3, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(-3.5, -18, 1.7, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.arc(4.5, -18, 1.7, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.arc(-3, -18.8, 0.7, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(5, -18.8, 0.7, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  // Grin
+  ctx.beginPath(); ctx.arc(0, -14, 5, 0.1, Math.PI-0.1);
   ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.stroke();
   // Teeth
   ctx.fillStyle = '#fff';
-  [[-4,-14],[-1,-13],[2,-14]].forEach(([tx,ty])=>{
+  [[-3,-14],[0,-13],[3,-14]].forEach(([tx,ty])=>{
     ctx.beginPath(); ctx.rect(tx,ty,2,3); ctx.fill();
   });
+  // HELMET on top — sits ON the head segment
+  // Brim
+  ctx.beginPath(); ctx.rect(-12, -24, 24, 4); ctx.fillStyle = dark; ctx.fill();
+  // Dome
+  ctx.beginPath(); ctx.ellipse(0, -24, 10, 7, 0, Math.PI, Math.PI*2);
+  ctx.fillStyle = dark; ctx.fill();
+  // Helmet stripe across front
+  ctx.beginPath(); ctx.rect(-8, -25, 16, 3); ctx.fillStyle = wc; ctx.fill();
+  // Visor slit
+  ctx.beginPath(); ctx.rect(-6, -22, 12, 2); ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fill();
   // Arms / tiny stubs holding grenade
   ctx.beginPath(); ctx.ellipse(-16, -4, 5, 3, -0.3, 0, Math.PI*2);
   ctx.fillStyle = wc; ctx.fill();
@@ -2684,84 +2691,27 @@ function drawTankPreview(pIdx) {
   const pctx = pc.getContext('2d');
   const W=200, H=80;
   pctx.clearRect(0,0,W,H);
-  // Background
-  pctx.fillStyle='#1c2030'; pctx.fillRect(0,0,W,H);
-  // Ground strip
-  pctx.fillStyle='#2d5a27'; pctx.fillRect(0,56,W,H-56);
-  pctx.strokeStyle='#5a9a50'; pctx.lineWidth=2; pctx.beginPath(); pctx.moveTo(0,56); pctx.lineTo(W,56); pctx.stroke();
+
+  // Sky background from current skin palette
+  const sky = currentSkin.sky || ['#06080f','#0d1525','#141b2e'];
+  const skyGrad = pctx.createLinearGradient(0,0,0,H);
+  skyGrad.addColorStop(0, sky[0]); skyGrad.addColorStop(1, sky[1]||sky[0]);
+  pctx.fillStyle = skyGrad; pctx.fillRect(0,0,W,H);
+
+  // Ground strip — use skin ground color
+  const gColors = currentSkin.ground || ['#2d5a27','#1e3d1a'];
+  pctx.fillStyle = gColors[0]; pctx.fillRect(0,56,W,H-56);
+  pctx.strokeStyle = currentSkin.groundLine||'#5a9a50';
+  pctx.lineWidth=2; pctx.beginPath(); pctx.moveTo(0,56); pctx.lineTo(W,56); pctx.stroke();
 
   const color = TANK_COLORS[playerUpgrades[pIdx].colorIdx].hex;
-  const u = playerUpgrades[pIdx].levels;
+  const isP2 = pIdx === 1;
 
-  pctx.save(); pctx.translate(W/2, 46);
-
-  // Hull upgrade: larger body
-  const bodyW = 36 + u.hull*4, bodyH = 16 + u.hull*2;
-  // Tread
-  pctx.beginPath(); pctx.roundRect(-bodyW/2-2, bodyH/2-4, bodyW+4, 8, 4);
-  pctx.fillStyle = pIdx===0 ? '#992200':'#006699'; pctx.fill();
-  // Body
-  pctx.beginPath(); pctx.roundRect(-bodyW/2, -bodyH/2+2, bodyW, bodyH, 4);
-  pctx.fillStyle = color; pctx.fill();
-  // Hull armor plates (level 2+)
-  if(u.hull>=2){
-    pctx.beginPath(); pctx.roundRect(-bodyW/2-3, -bodyH/4, 6, bodyH/2, 2);
-    pctx.fillStyle='rgba(255,255,255,0.2)'; pctx.fill();
-    pctx.beginPath(); pctx.roundRect(bodyW/2-3, -bodyH/4, 6, bodyH/2, 2);
-    pctx.fill();
-  }
-  // Body highlight
-  pctx.beginPath(); pctx.roundRect(-bodyW/2+2,-bodyH/2+2,bodyW-10,5,2);
-  pctx.fillStyle='rgba(255,255,255,0.15)'; pctx.fill();
-  // Turret
-  const tRad = 9 + u.hull;
-  pctx.beginPath(); pctx.arc(0,-bodyH/2+2,tRad,0,Math.PI*2);
-  pctx.fillStyle=color; pctx.fill();
-  pctx.strokeStyle='rgba(255,255,255,0.2)'; pctx.lineWidth=2; pctx.stroke();
-  // Barrel — longer & wider with barrel upgrade
-  const bLen = 20 + u.barrel*5;
-  const bWidth = 4 + u.barrel*1.5;
-  pctx.save(); pctx.translate(0,-bodyH/2+2); pctx.rotate(-Math.PI/4);
-  pctx.beginPath(); pctx.roundRect(0,-bWidth/2,bLen,bWidth,bWidth/2);
-  pctx.fillStyle=pIdx===0?'#ffaa77':'#66ddff'; pctx.fill();
-  // Muzzle brake (barrel level 3)
-  if(u.barrel>=3){
-    pctx.beginPath(); pctx.roundRect(bLen-4,-bWidth/2-2,6,bWidth+4,2);
-    pctx.fillStyle='rgba(255,255,255,0.4)'; pctx.fill();
-  }
-  pctx.restore();
-  // Scope antenna (scope upgrade)
-  if(u.scope>=1){
-    pctx.beginPath(); pctx.moveTo(2,-bodyH/2+2); pctx.lineTo(2,-bodyH/2+2-10-u.scope*4);
-    pctx.strokeStyle='#88ffaa'; pctx.lineWidth=1.5; pctx.stroke();
-    pctx.beginPath(); pctx.arc(2,-bodyH/2+2-10-u.scope*4,2,0,Math.PI*2);
-    pctx.fillStyle='#88ffaa'; pctx.fill();
-  }
-  // Engine exhaust pipes (engine upgrade)
-  if(u.engine>=1){
-    [-1,1].forEach(side=>{
-      pctx.beginPath();
-      pctx.roundRect(side*(bodyW/2+1),-bodyH/4,4*(u.engine),4,1);
-      pctx.fillStyle='rgba(255,150,0,0.6)'; pctx.fill();
-    });
-  }
-  // Ammo cluster dots on turret
-  if(u.ammo>=2){
-    for(let d=0;d<u.ammo;d++){
-      const a=(d/u.ammo)*Math.PI*2;
-      pctx.beginPath(); pctx.arc(Math.cos(a)*tRad*0.65,(-bodyH/2+2)+Math.sin(a)*tRad*0.65,1.5,0,Math.PI*2);
-      pctx.fillStyle='#ffd700'; pctx.fill();
-    }
-  }
-  // Paint finish shimmer (paint level 2+)
-  if(u.paint>=2){
-    pctx.beginPath(); pctx.roundRect(-bodyW/2,-bodyH/2+2,bodyW,bodyH,4);
-    const shimmer=pctx.createLinearGradient(-bodyW/2,-bodyH/2+2,bodyW/2,bodyH);
-    shimmer.addColorStop(0,'rgba(255,255,255,0.08)');
-    shimmer.addColorStop(0.5,'rgba(255,255,255,0.18)');
-    shimmer.addColorStop(1,'rgba(255,255,255,0.04)');
-    pctx.fillStyle=shimmer; pctx.fill();
-  }
+  // Scale down to fit 80px tall canvas — characters are ~72px tall total
+  pctx.save();
+  pctx.translate(W/2, 50);
+  pctx.scale(0.85, 0.85);
+  currentSkin.drawChar(pctx, 0, 0, isP2, color);
   pctx.restore();
 }
 
