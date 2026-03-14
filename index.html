@@ -323,6 +323,7 @@
       <div class="skin-card" data-skin="greenhornet" onclick="selectSkin('greenhornet')"><span class="skin-emoji">🐝</span><span class="skin-name">GRN HORNET</span></div>
       <div class="skin-card" data-skin="computer" onclick="selectSkin('computer')"><span class="skin-emoji">💾</span><span class="skin-name">COMPUTER</span></div>
       <div class="skin-card" data-skin="cars" onclick="selectSkin('cars')"><span class="skin-emoji">💣</span><span class="skin-name">3D WORMS</span></div>
+                  <div class="skin-card" data-skin="carsbattle" onclick="selectSkin('carsbattle')"><span class="skin-emoji">🚗</span><span class="skin-name">CARS BATTLE</span></div>
     </div>
   </div>
 
@@ -645,6 +646,18 @@ const SKINS = {
     drawProjectile(ctx, p) { drawGrenadeProjectile(ctx, p); },
     fireWord: 'LOBB!',
   },
+      carsbattle: {
+      name: 'CARS BATTLE', emoji: '🚗', throwEmoji: '🏁',
+      p1Label: '🚗 Racer P1', p2Label: '🚗 Racer P2',
+      projectileEmoji: null,
+      winEmoji: '🏆',
+      sky: ['#87ceeb','#a0d4f5','#c0e8ff'],
+      ground: ['#555555','#444444','#666666','#333333'],
+      groundLine: '#ffffff',
+      drawChar(ctx, x, y, isP2, color) { drawCarChar(ctx, x, y, isP2, color); },
+      drawProjectile(ctx, p) { drawBulletProjectile(ctx, p, '#ffd700'); },
+      fireWord: 'RACE!',
+    },
 };
 
 let currentSkin = SKINS.tanks;
