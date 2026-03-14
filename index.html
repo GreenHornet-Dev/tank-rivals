@@ -316,6 +316,13 @@
       <div class="skin-card" data-skin="valentines" onclick="selectSkin('valentines')"><span class="skin-emoji">💘</span><span class="skin-name">VALENTINE</span></div>
       <div class="skin-card" data-skin="stpatrick" onclick="selectSkin('stpatrick')"><span class="skin-emoji">☘️</span><span class="skin-name">ST. PADDY</span></div>
       <div class="skin-card" data-skin="space" onclick="selectSkin('space')"><span class="skin-emoji">🚀</span><span class="skin-name">SPACE</span></div>
+      <div class="skin-card" data-skin="easter" onclick="selectSkin('easter')"><span class="skin-emoji">🐣</span><span class="skin-name">EASTER</span></div>
+      <div class="skin-card" data-skin="thanksgiving" onclick="selectSkin('thanksgiving')"><span class="skin-emoji">🦃</span><span class="skin-name">THANKS­GIVING</span></div>
+      <div class="skin-card" data-skin="newyear" onclick="selectSkin('newyear')"><span class="skin-emoji">🎉</span><span class="skin-name">NEW YEAR</span></div>
+      <div class="skin-card" data-skin="summer" onclick="selectSkin('summer')"><span class="skin-emoji">🏖️</span><span class="skin-name">SUMMER</span></div>
+      <div class="skin-card" data-skin="greenhornet" onclick="selectSkin('greenhornet')"><span class="skin-emoji">🐝</span><span class="skin-name">GRN HORNET</span></div>
+      <div class="skin-card" data-skin="computer" onclick="selectSkin('computer')"><span class="skin-emoji">💾</span><span class="skin-name">COMPUTER</span></div>
+      <div class="skin-card" data-skin="cars" onclick="selectSkin('cars')"><span class="skin-emoji">💣</span><span class="skin-name">3D WORMS</span></div>
     </div>
   </div>
 
@@ -545,6 +552,90 @@ const SKINS = {
     drawChar(ctx, x, y, isP2, color) { drawSpaceChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '☄️', 22); },
     fireWord: 'BLAST!',
+  },
+  easter: {
+    name: 'EASTER', emoji: '🐣', throwEmoji: '🥚',
+    p1Label: '🐣 Chick P1', p2Label: '🐰 Bunny P2',
+    projectileEmoji: '🥚',
+    winEmoji: '🌸',
+    sky: ['#f0e8ff','#e8d8ff','#d8c8f8'],
+    ground: ['#7ab840','#5a9020','#a0d060','#4a7818'],
+    groundLine: '#c8e880',
+    drawChar(ctx, x, y, isP2, color) { drawEasterChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🥚', 20); },
+    fireWord: 'CRACK!',
+  },
+  thanksgiving: {
+    name: 'THANKS\u00adGIVING', emoji: '🦃', throwEmoji: '🥧',
+    p1Label: '🦃 Turkey P1', p2Label: '🌽 Pilgrim P2',
+    projectileEmoji: '🍗',
+    winEmoji: '🦃',
+    sky: ['#1a0e05','#2e1a08','#3d2510'],
+    ground: ['#6b3d10','#4a2808','#8a5520','#3a1e05'],
+    groundLine: '#c87820',
+    drawChar(ctx, x, y, isP2, color) { drawThanksgivingChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🍗', 22); },
+    fireWord: 'GOBBLE!',
+  },
+  newyear: {
+    name: 'NEW YEAR', emoji: '🎉', throwEmoji: '🥂',
+    p1Label: '🎩 Party P1', p2Label: '🎊 Party P2',
+    projectileEmoji: '🎆',
+    winEmoji: '🥂',
+    sky: ['#000010','#050015','#08001a'],
+    ground: ['#0a0a20','#05050f','#1a1a35','#050510'],
+    groundLine: '#ffd700',
+    drawChar(ctx, x, y, isP2, color) { drawNewYearChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🎆', 24); },
+    fireWord: 'POP!',
+  },
+  summer: {
+    name: 'SUMMER', emoji: '🏖️', throwEmoji: '🌊',
+    p1Label: '🏄 Surfer P1', p2Label: '🤿 Diver P2',
+    projectileEmoji: '🏐',
+    winEmoji: '🌞',
+    sky: ['#0077cc','#0099ee','#33bbff'],
+    ground: ['#f4d03f','#e8c020','#d4a820','#c89010'],
+    groundLine: '#fff8a0',
+    drawChar(ctx, x, y, isP2, color) { drawSummerChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🏐', 20); },
+    fireWord: 'SPIKE!',
+  },
+  greenhornet: {
+    name: 'GREEN HORNET', emoji: '🐝', throwEmoji: '⚡',
+    p1Label: '🐝 Hornet P1', p2Label: '🐝 Hornet P2',
+    projectileEmoji: null,
+    winEmoji: '🐝',
+    sky: ['#000a02','#001505','#002008'],
+    ground: ['#0a2a0a','#051505','#1a4a0a','#082008'],
+    groundLine: '#00ff44',
+    drawChar(ctx, x, y, isP2, color) { drawGreenHornetChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawLaserProjectile(ctx, p); },
+    fireWord: 'STING!',
+  },
+  computer: {
+    name: 'COMPUTER', emoji: '💾', throwEmoji: '💿',
+    p1Label: '🖥️ Bot P1', p2Label: '🖥️ Bot P2',
+    projectileEmoji: null,
+    winEmoji: '🏆',
+    sky: ['#000308','#000510','#000818'],
+    ground: ['#0a0a1a','#050510','#151528','#080815'],
+    groundLine: '#00ccff',
+    drawChar(ctx, x, y, isP2, color) { drawComputerChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawDiskProjectile(ctx, p); },
+    fireWord: 'EXECUTE!',
+  },
+  cars: {
+    name: '3D WORMS', emoji: '💣', throwEmoji: '🪱',
+    p1Label: '🪱 Worm P1', p2Label: '🪱 Worm P2',
+    projectileEmoji: null,
+    winEmoji: '💣',
+    sky: ['#4a7ab8','#5a8ac8','#6a9ad8'],
+    ground: ['#2a5a0a','#1a3a05','#4a8a1a','#1a3008'],
+    groundLine: '#88dd44',
+    drawChar(ctx, x, y, isP2, color) { drawWormChar(ctx, x, y, isP2, color); },
+    drawProjectile(ctx, p) { drawGrenadeProjectile(ctx, p); },
+    fireWord: 'LOBB!',
   },
 };
 
@@ -934,6 +1025,535 @@ function drawSpaceChar(ctx, x, y, isP2, color) {
   ctx.restore();
 }
 
+// ── SEASONAL / NEW CHARACTER RENDERERS ───────────────────────
+function drawEasterChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  if (!isP2) {
+    // Fluffy yellow chick
+    const bc = color || '#ffdd00';
+    // Body — big fluffy circle
+    ctx.beginPath(); ctx.arc(0, 8, 18, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    // Wing left
+    ctx.beginPath(); ctx.ellipse(-16, 6, 8, 5, -0.5, 0, Math.PI*2);
+    ctx.fillStyle = shadeColor(bc, -15); ctx.fill();
+    // Wing right
+    ctx.beginPath(); ctx.ellipse(16, 6, 8, 5, 0.5, 0, Math.PI*2);
+    ctx.fillStyle = shadeColor(bc, -15); ctx.fill();
+    // Head
+    ctx.beginPath(); ctx.arc(0, -10, 13, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    // Eye left
+    ctx.beginPath(); ctx.arc(-5, -12, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = '#222'; ctx.fill();
+    ctx.beginPath(); ctx.arc(-4.2, -12.8, 1, 0, Math.PI*2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    // Eye right
+    ctx.beginPath(); ctx.arc(5, -12, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = '#222'; ctx.fill();
+    ctx.beginPath(); ctx.arc(5.8, -12.8, 1, 0, Math.PI*2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    // Beak
+    ctx.beginPath(); ctx.moveTo(-4, -8); ctx.lineTo(0, -4); ctx.lineTo(4, -8); ctx.closePath();
+    ctx.fillStyle = '#ff9900'; ctx.fill();
+    // Tuft on head
+    ctx.beginPath(); ctx.arc(-3, -22, 4, 0, Math.PI*2); ctx.fillStyle = bc; ctx.fill();
+    ctx.beginPath(); ctx.arc(3, -24, 3, 0, Math.PI*2); ctx.fillStyle = bc; ctx.fill();
+    // Feet
+    ctx.beginPath(); ctx.arc(-8, 25, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#ff9900'; ctx.fill();
+    ctx.beginPath(); ctx.arc(8, 25, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#ff9900'; ctx.fill();
+  } else {
+    // White bunny with long ears
+    const bc = color || '#f8f8f8';
+    const dark = shadeColor(bc, -25);
+    // Ear left
+    ctx.beginPath(); ctx.ellipse(-9, -30, 5, 14, -0.15, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-9, -30, 2.5, 9, -0.15, 0, Math.PI*2);
+    ctx.fillStyle = '#ffaacc'; ctx.fill();
+    // Ear right
+    ctx.beginPath(); ctx.ellipse(9, -30, 5, 14, 0.15, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(9, -30, 2.5, 9, 0.15, 0, Math.PI*2);
+    ctx.fillStyle = '#ffaacc'; ctx.fill();
+    // Body
+    ctx.beginPath(); ctx.ellipse(0, 8, 16, 18, 0, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    // Belly
+    ctx.beginPath(); ctx.ellipse(0, 12, 8, 10, 0, 0, Math.PI*2);
+    ctx.fillStyle = '#ffddee'; ctx.fill();
+    // Head
+    ctx.beginPath(); ctx.arc(0, -10, 13, 0, Math.PI*2);
+    ctx.fillStyle = bc; ctx.fill();
+    // Eye left
+    ctx.beginPath(); ctx.arc(-5, -12, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = '#cc0044'; ctx.fill();
+    ctx.beginPath(); ctx.arc(-4.2, -12.8, 1, 0, Math.PI*2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    // Eye right
+    ctx.beginPath(); ctx.arc(5, -12, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = '#cc0044'; ctx.fill();
+    ctx.beginPath(); ctx.arc(5.8, -12.8, 1, 0, Math.PI*2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    // Nose
+    ctx.beginPath(); ctx.arc(0, -7, 2, 0, Math.PI*2);
+    ctx.fillStyle = '#ff6688'; ctx.fill();
+    // Paws
+    ctx.beginPath(); ctx.ellipse(-18, 4, 6, 4, -0.3, 0, Math.PI*2);
+    ctx.fillStyle = dark; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(18, 4, 6, 4, 0.3, 0, Math.PI*2);
+    ctx.fillStyle = dark; ctx.fill();
+    // Feet
+    ctx.beginPath(); ctx.ellipse(-8, 26, 8, 4, 0, 0, Math.PI*2);
+    ctx.fillStyle = dark; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(8, 26, 8, 4, 0, 0, Math.PI*2);
+    ctx.fillStyle = dark; ctx.fill();
+    // Tail
+    ctx.beginPath(); ctx.arc(0, 22, 6, 0, Math.PI*2);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawThanksgivingChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  if (!isP2) {
+    // Puffed-up turkey with fan tail feathers
+    const fc = color || '#8b4513';
+    // Fan tail feathers (behind body)
+    const featherColors = ['#cc2200','#ff8800','#ffcc00','#880088','#0044cc'];
+    for (let i = 0; i < 5; i++) {
+      const ang = -Math.PI*0.75 + i * (Math.PI*0.375);
+      ctx.save();
+      ctx.rotate(ang);
+      ctx.beginPath(); ctx.ellipse(0, -22, 5, 16, 0, 0, Math.PI*2);
+      ctx.fillStyle = featherColors[i]; ctx.fill();
+      ctx.restore();
+    }
+    // Body
+    ctx.beginPath(); ctx.ellipse(0, 8, 16, 18, 0, 0, Math.PI*2);
+    ctx.fillStyle = fc; ctx.fill();
+    // Breast
+    ctx.beginPath(); ctx.ellipse(0, 10, 10, 12, 0, 0, Math.PI*2);
+    ctx.fillStyle = shadeColor(fc, 20); ctx.fill();
+    // Head
+    ctx.beginPath(); ctx.arc(0, -10, 11, 0, Math.PI*2);
+    ctx.fillStyle = fc; ctx.fill();
+    // Wattle (red)
+    ctx.beginPath(); ctx.ellipse(3, -4, 4, 7, 0.3, 0, Math.PI*2);
+    ctx.fillStyle = '#cc1100'; ctx.fill();
+    // Beak
+    ctx.beginPath(); ctx.moveTo(-4, -11); ctx.lineTo(-9, -8); ctx.lineTo(-4, -6); ctx.closePath();
+    ctx.fillStyle = '#ffaa00'; ctx.fill();
+    // Eye
+    ctx.beginPath(); ctx.arc(4, -13, 3, 0, Math.PI*2);
+    ctx.fillStyle = '#ffaa00'; ctx.fill();
+    ctx.beginPath(); ctx.arc(4, -13, 1.5, 0, Math.PI*2);
+    ctx.fillStyle = '#000'; ctx.fill();
+    // Wings
+    ctx.beginPath(); ctx.ellipse(-20, 4, 7, 5, -0.4, 0, Math.PI*2);
+    ctx.fillStyle = shadeColor(fc, -20); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(20, 4, 7, 5, 0.4, 0, Math.PI*2);
+    ctx.fillStyle = shadeColor(fc, -20); ctx.fill();
+    // Legs
+    ctx.beginPath(); ctx.rect(-8, 24, 5, 10); ctx.fillStyle = '#ffaa00'; ctx.fill();
+    ctx.beginPath(); ctx.rect(3, 24, 5, 10); ctx.fillStyle = '#ffaa00'; ctx.fill();
+  } else {
+    // Pilgrim with hat
+    const sc = color || '#443322';
+    // Legs
+    ctx.beginPath(); ctx.rect(-10, 18, 8, 14); ctx.fillStyle = sc; ctx.fill();
+    ctx.beginPath(); ctx.rect(2, 18, 8, 14); ctx.fillStyle = sc; ctx.fill();
+    // Shoes
+    ctx.beginPath(); ctx.ellipse(-6, 33, 7, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(6, 33, 7, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+    // Shoe buckles
+    ctx.beginPath(); ctx.rect(-9, 30, 6, 4); ctx.fillStyle = '#ffd700'; ctx.fill();
+    ctx.beginPath(); ctx.rect(3, 30, 6, 4); ctx.fillStyle = '#ffd700'; ctx.fill();
+    // Body / coat
+    ctx.beginPath(); ctx.rect(-15, -4, 30, 24); ctx.fillStyle = sc; ctx.fill();
+    // White collar
+    ctx.beginPath(); ctx.moveTo(-8, -4); ctx.lineTo(0, 4); ctx.lineTo(8, -4); ctx.closePath();
+    ctx.fillStyle = '#eeeedd'; ctx.fill();
+    // Buckle belt
+    ctx.beginPath(); ctx.rect(-16, 8, 32, 5); ctx.fillStyle = '#222'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-4, 7, 8, 7); ctx.fillStyle = '#ffd700'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-2, 9, 4, 3); ctx.fillStyle = '#222'; ctx.fill();
+    // Arms
+    ctx.beginPath(); ctx.roundRect(-24, -2, 11, 8, 3); ctx.fillStyle = sc; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(13, -2, 11, 8, 3); ctx.fillStyle = sc; ctx.fill();
+    // Hands
+    ctx.beginPath(); ctx.arc(-19, 2, 5, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+    ctx.beginPath(); ctx.arc(19, 2, 5, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+    // Head
+    ctx.beginPath(); ctx.arc(0, -14, 11, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+    // Eyes
+    ctx.beginPath(); ctx.arc(-4, -15, 2, 0, Math.PI*2); ctx.fillStyle = '#333'; ctx.fill();
+    ctx.beginPath(); ctx.arc(4, -15, 2, 0, Math.PI*2); ctx.fillStyle = '#333'; ctx.fill();
+    // Mouth smile
+    ctx.beginPath(); ctx.arc(0, -11, 4, 0.2, Math.PI-0.2);
+    ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.stroke();
+    // Pilgrim hat brim
+    ctx.beginPath(); ctx.rect(-14, -26, 28, 4); ctx.fillStyle = '#222'; ctx.fill();
+    // Hat crown
+    ctx.beginPath(); ctx.rect(-9, -44, 18, 20); ctx.fillStyle = '#222'; ctx.fill();
+    // Hat buckle
+    ctx.beginPath(); ctx.rect(-5, -30, 10, 7); ctx.fillStyle = '#ffd700'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-3, -29, 6, 5); ctx.fillStyle = '#222'; ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawNewYearChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  const pc = color || (isP2 ? '#aa00aa' : '#cc8800');
+  const dark = shadeColor(pc, -30);
+  // Legs
+  ctx.beginPath(); ctx.roundRect(-10, 16, 8, 14, 2); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(2, 16, 8, 14, 2); ctx.fillStyle = dark; ctx.fill();
+  // Shoes
+  ctx.beginPath(); ctx.ellipse(-6, 31, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6, 31, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+  // Tuxedo body
+  ctx.beginPath(); ctx.roundRect(-14, -4, 28, 22, 3); ctx.fillStyle = dark; ctx.fill();
+  // Shirt front
+  ctx.beginPath(); ctx.moveTo(-6,-4); ctx.lineTo(0,4); ctx.lineTo(6,-4); ctx.closePath();
+  ctx.fillStyle = '#ffffff'; ctx.fill();
+  // Bow tie
+  ctx.beginPath(); ctx.moveTo(-6,-2); ctx.lineTo(0,1); ctx.lineTo(-6,4); ctx.closePath();
+  ctx.fillStyle = pc; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(6,-2); ctx.lineTo(0,1); ctx.lineTo(6,4); ctx.closePath();
+  ctx.fillStyle = pc; ctx.fill();
+  ctx.beginPath(); ctx.arc(0,1,2,0,Math.PI*2); ctx.fillStyle=pc; ctx.fill();
+  // Arms
+  ctx.beginPath(); ctx.roundRect(-25, -2, 13, 8, 4); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(12, -2, 13, 8, 4); ctx.fillStyle = dark; ctx.fill();
+  // Hands holding champagne glass
+  ctx.beginPath(); ctx.arc(-19, 2, 6, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+  // Champagne glass (right hand)
+  ctx.beginPath(); ctx.arc(19, 2, 6, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(26,-8); ctx.lineTo(30,-8); ctx.lineTo(28,-2); ctx.lineTo(26,-8); ctx.closePath();
+  ctx.fillStyle = 'rgba(255,220,80,0.85)'; ctx.fill();
+  ctx.strokeStyle='rgba(255,255,200,0.6)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.beginPath(); ctx.rect(27.5,-8,1,6); ctx.fillStyle='#aaa'; ctx.fill();
+  ctx.beginPath(); ctx.rect(25.5,6,5,1.5); ctx.fillStyle='#aaa'; ctx.fill();
+  // Head
+  ctx.beginPath(); ctx.arc(0, -14, 12, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+  // Eyes
+  ctx.beginPath(); ctx.arc(-4, -15, 2, 0, Math.PI*2); ctx.fillStyle = '#333'; ctx.fill();
+  ctx.beginPath(); ctx.arc(4, -15, 2, 0, Math.PI*2); ctx.fillStyle = '#333'; ctx.fill();
+  // Big smile
+  ctx.beginPath(); ctx.arc(0, -11, 5, 0.1, Math.PI-0.1);
+  ctx.strokeStyle='#333'; ctx.lineWidth=2; ctx.stroke();
+  // Top hat / tiara
+  if (!isP2) {
+    // Top hat
+    ctx.beginPath(); ctx.rect(-13,-26,26,4); ctx.fillStyle='#111'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-8,-42,16,18); ctx.fillStyle='#111'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-8,-28,16,4); ctx.fillStyle=pc; ctx.fill();
+    // Hat numbers  "2026"
+    ctx.fillStyle='#ffd700'; ctx.font='bold 6px monospace';
+    ctx.textAlign='center'; ctx.fillText('2026',-0,-31);
+  } else {
+    // Crown / tiara
+    ctx.beginPath();
+    ctx.moveTo(-12,-26); ctx.lineTo(-12,-36); ctx.lineTo(-6,-30); ctx.lineTo(0,-38); ctx.lineTo(6,-30); ctx.lineTo(12,-36); ctx.lineTo(12,-26); ctx.closePath();
+    ctx.fillStyle = pc; ctx.fill();
+    // Gems
+    ['#ff0044','#ffd700','#00aaff'].forEach((gc,i)=>{
+      ctx.beginPath(); ctx.arc(-6+i*6,-30,2.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+    });
+    // Confetti streamers
+    [[-18,-20,'#ff4400'],[18,-22,'#00aaff'],[-22,-10,'#ffdd00']].forEach(([cx,cy,cc])=>{
+      ctx.beginPath(); ctx.ellipse(cx,cy,3,6,0.5,0,Math.PI*2); ctx.fillStyle=cc; ctx.fill();
+    });
+  }
+  ctx.restore();
+}
+
+function drawSummerChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  if (!isP2) {
+    // Surfer with board
+    const sc = color || '#ff6600';
+    // Surfboard (behind character)
+    ctx.save(); ctx.rotate(0.25);
+    ctx.beginPath(); ctx.ellipse(18, 10, 6, 20, 0, 0, Math.PI*2);
+    ctx.fillStyle = sc; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(18, 10, 3, 16, 0, 0, Math.PI*2);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+    ctx.restore();
+    // Legs
+    ctx.beginPath(); ctx.roundRect(-9, 16, 7, 14, 2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(2, 16, 7, 14, 2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+    // Board shorts
+    ctx.beginPath(); ctx.rect(-12, 8, 24, 12);
+    ctx.fillStyle = sc; ctx.fill();
+    // Shorts pattern
+    ctx.fillStyle='rgba(255,255,255,0.3)';
+    [[-8,10],[0,12],[6,10]].forEach(([fx,fy])=>{
+      ctx.beginPath(); ctx.arc(fx,fy,3,0,Math.PI*2); ctx.fill();
+    });
+    // Body / tan skin
+    ctx.beginPath(); ctx.ellipse(0, 0, 13, 12, 0, 0, Math.PI*2);
+    ctx.fillStyle = '#ffcc88'; ctx.fill();
+    // Arms
+    ctx.beginPath(); ctx.roundRect(-24, -4, 13, 8, 4); ctx.fillStyle = '#ffcc88'; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(11, -4, 13, 8, 4); ctx.fillStyle = '#ffcc88'; ctx.fill();
+    // Head
+    ctx.beginPath(); ctx.arc(0, -14, 12, 0, Math.PI*2); ctx.fillStyle = '#ffcc88'; ctx.fill();
+    // Sunglasses
+    ctx.beginPath(); ctx.roundRect(-10,-17,8,5,2); ctx.fillStyle='#002244'; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(2,-17,8,5,2); ctx.fillStyle='#002244'; ctx.fill();
+    ctx.beginPath(); ctx.rect(-2,-15,4,1); ctx.fillStyle='#888'; ctx.fill();
+    // Hair (surfer blonde spiky)
+    ctx.fillStyle='#ffdd44';
+    [[-6,-26],[0,-28],[6,-26],[-3,-27],[3,-27]].forEach(([hx,hy])=>{
+      ctx.beginPath(); ctx.ellipse(hx,hy,3,5,-0.1+Math.random()*0.2,0,Math.PI*2); ctx.fill();
+    });
+    // Smile
+    ctx.beginPath(); ctx.arc(0,-11,4,0.2,Math.PI-0.2);
+    ctx.strokeStyle='#aa5500'; ctx.lineWidth=1.5; ctx.stroke();
+  } else {
+    // Scuba diver
+    const sc = color || '#0055aa';
+    // Tank on back
+    ctx.beginPath(); ctx.roundRect(10,-8,10,24,4); ctx.fillStyle='#888'; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(11,0,8,10,2); ctx.fillStyle='#aaa'; ctx.fill();
+    // Legs
+    ctx.beginPath(); ctx.roundRect(-9,16,7,16,2); ctx.fillStyle=sc; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(2,16,7,16,2); ctx.fillStyle=sc; ctx.fill();
+    // Fins
+    ctx.beginPath(); ctx.ellipse(-6,34,10,4,0,0,Math.PI*2); ctx.fillStyle='#ffcc00'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(6,34,10,4,0,0,Math.PI*2); ctx.fillStyle='#ffcc00'; ctx.fill();
+    // Wetsuit body
+    ctx.beginPath(); ctx.ellipse(0,4,14,16,0,0,Math.PI*2); ctx.fillStyle=sc; ctx.fill();
+    // Wetsuit stripe
+    ctx.beginPath(); ctx.rect(-14,-2,28,8);
+    ctx.fillStyle=shadeColor(sc,30); ctx.fill();
+    // Arms
+    ctx.beginPath(); ctx.roundRect(-24,-4,13,8,4); ctx.fillStyle=sc; ctx.fill();
+    ctx.beginPath(); ctx.roundRect(11,-4,13,8,4); ctx.fillStyle=sc; ctx.fill();
+    // Gloves
+    ctx.beginPath(); ctx.arc(-18,0,6,0,Math.PI*2); ctx.fillStyle=shadeColor(sc,-20); ctx.fill();
+    ctx.beginPath(); ctx.arc(18,0,6,0,Math.PI*2); ctx.fillStyle=shadeColor(sc,-20); ctx.fill();
+    // Head / helmet
+    ctx.beginPath(); ctx.arc(0,-14,13,0,Math.PI*2); ctx.fillStyle=sc; ctx.fill();
+    // Mask
+    const mg = ctx.createLinearGradient(-9,-20,9,-8);
+    mg.addColorStop(0,'rgba(100,200,255,0.7)'); mg.addColorStop(1,'rgba(0,100,200,0.5)');
+    ctx.beginPath(); ctx.ellipse(0,-14,9,7,0,0,Math.PI*2); ctx.fillStyle=mg; ctx.fill();
+    ctx.beginPath(); ctx.arc(0,-14,9,0,Math.PI*2);
+    ctx.strokeStyle=shadeColor(sc,-30); ctx.lineWidth=2; ctx.stroke();
+    // Breathing hose
+    ctx.beginPath(); ctx.moveTo(9,-10); ctx.quadraticCurveTo(16,-6,13,4);
+    ctx.strokeStyle='#555'; ctx.lineWidth=2; ctx.stroke();
+    // Air bubbles
+    ctx.fillStyle='rgba(100,200,255,0.5)';
+    [[-8,2],[-12,-2],[-6,6]].forEach(([bx,by])=>{
+      ctx.beginPath(); ctx.arc(bx,by,2.5,0,Math.PI*2); ctx.fill();
+    });
+  }
+  ctx.restore();
+}
+
+function drawGreenHornetChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  const gc = color || '#00cc44';
+  const dark = shadeColor(gc, -35);
+  const light = shadeColor(gc, 20);
+  // Cape (behind body)
+  ctx.beginPath();
+  ctx.moveTo(-14, -4); ctx.quadraticCurveTo(-22, 14, -16, 28);
+  ctx.lineTo(16, 28); ctx.quadraticCurveTo(22, 14, 14, -4); ctx.closePath();
+  ctx.fillStyle = dark; ctx.fill();
+  // Cape highlights
+  ctx.beginPath(); ctx.moveTo(-8,8); ctx.lineTo(-4,26); ctx.lineTo(4,26); ctx.lineTo(8,8); ctx.closePath();
+  ctx.fillStyle = 'rgba(0,255,80,0.12)'; ctx.fill();
+  // Body / suit
+  ctx.beginPath(); ctx.ellipse(0, 6, 13, 16, 0, 0, Math.PI*2);
+  ctx.fillStyle = gc; ctx.fill();
+  // Suit stripe / chest
+  ctx.beginPath(); ctx.rect(-12, 0, 24, 8);
+  ctx.fillStyle = dark; ctx.fill();
+  // Hornet stinger logo on chest
+  ctx.fillStyle = '#ffd700';
+  ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('GH', 0, 7);
+  // Legs
+  ctx.beginPath(); ctx.roundRect(-10, 20, 8, 12, 2); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(2, 20, 8, 12, 2); ctx.fillStyle = dark; ctx.fill();
+  // Boots
+  ctx.beginPath(); ctx.ellipse(-6, 33, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6, 33, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
+  // Arms
+  ctx.beginPath(); ctx.roundRect(-24, -2, 13, 8, 4); ctx.fillStyle = gc; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(11, -2, 13, 8, 4); ctx.fillStyle = gc; ctx.fill();
+  // Laser gun (right hand)
+  ctx.beginPath(); ctx.rect(24, 0, 12, 5); ctx.fillStyle = '#333'; ctx.fill();
+  ctx.beginPath(); ctx.rect(35, 1, 4, 3); ctx.fillStyle = '#00ff44'; ctx.fill();
+  ctx.beginPath(); ctx.rect(23, 2, 3, 5); ctx.fillStyle = '#555'; ctx.fill();
+  // Gloves
+  ctx.beginPath(); ctx.arc(-18, 2, 6, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.arc(18, 2, 6, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
+  // Head
+  ctx.beginPath(); ctx.arc(0, -14, 12, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
+  // Mask over eyes
+  ctx.beginPath(); ctx.rect(-12, -19, 24, 8); ctx.fillStyle = dark; ctx.fill();
+  // Eye lenses (glowing)
+  ctx.beginPath(); ctx.ellipse(-4, -15, 4, 3, 0, 0, Math.PI*2);
+  ctx.fillStyle = '#00ff44'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(4, -15, 4, 3, 0, 0, Math.PI*2);
+  ctx.fillStyle = '#00ff44'; ctx.fill();
+  // Glow
+  ctx.shadowColor='#00ff44'; ctx.shadowBlur=6;
+  ctx.beginPath(); ctx.ellipse(-4,-15,4,3,0,0,Math.PI*2); ctx.fillStyle='rgba(0,255,68,0.4)'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(4,-15,4,3,0,0,Math.PI*2); ctx.fillStyle='rgba(0,255,68,0.4)'; ctx.fill();
+  ctx.shadowBlur=0;
+  // Hat / fedora brim
+  ctx.beginPath(); ctx.rect(-15, -25, 30, 4); ctx.fillStyle = '#111'; ctx.fill();
+  // Hat crown
+  ctx.beginPath(); ctx.rect(-9, -40, 18, 17); ctx.fillStyle = dark; ctx.fill();
+  // Hat band
+  ctx.beginPath(); ctx.rect(-9, -27, 18, 4); ctx.fillStyle = gc; ctx.fill();
+  // Hornet wing-sticker on hat
+  ctx.beginPath(); ctx.arc(0, -35, 3, 0, Math.PI*2); ctx.fillStyle = '#ffd700'; ctx.fill();
+  ctx.restore();
+}
+
+function drawComputerChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  const cc = color || (isP2 ? '#0088ff' : '#00ccff');
+  const dark = shadeColor(cc, -35);
+  // Robot body / chassis
+  ctx.beginPath(); ctx.roundRect(-15, -2, 30, 24, 4);
+  ctx.fillStyle = '#334455'; ctx.fill();
+  // Body color panel
+  ctx.beginPath(); ctx.roundRect(-11, 2, 22, 14, 2);
+  ctx.fillStyle = dark; ctx.fill();
+  // LED indicators
+  const ledColors = [cc, '#ff4444', '#ffdd00'];
+  ledColors.forEach((lc, i) => {
+    ctx.beginPath(); ctx.arc(-6 + i*6, 6, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = lc; ctx.fill();
+    ctx.shadowColor = lc; ctx.shadowBlur = 5;
+    ctx.fill(); ctx.shadowBlur = 0;
+  });
+  // Disk slot
+  ctx.beginPath(); ctx.rect(-8, 10, 16, 3); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.rect(-6, 10.5, 12, 2); ctx.fillStyle = '#444'; ctx.fill();
+  // Disk being inserted (sticking out)
+  ctx.beginPath(); ctx.rect(-5, 9, 10, 3); ctx.fillStyle = '#888'; ctx.fill();
+  ctx.beginPath(); ctx.rect(-3, 9.5, 6, 2); ctx.fillStyle = cc; ctx.fill();
+  // Legs
+  ctx.beginPath(); ctx.roundRect(-10, 22, 8, 12, 2); ctx.fillStyle = '#334455'; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(2, 22, 8, 12, 2); ctx.fillStyle = '#334455'; ctx.fill();
+  // Feet / base pads
+  ctx.beginPath(); ctx.roundRect(-13, 32, 12, 5, 2); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(1, 32, 12, 5, 2); ctx.fillStyle = '#222'; ctx.fill();
+  // Arms
+  ctx.beginPath(); ctx.roundRect(-27, 0, 14, 8, 3); ctx.fillStyle = '#334455'; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(13, 0, 14, 8, 3); ctx.fillStyle = '#334455'; ctx.fill();
+  // Claws / hands
+  ctx.beginPath(); ctx.arc(-20, 4, 6, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.arc(20, 4, 6, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  // Claw prongs
+  [[-24,0],[-20,-6],[-16,0]].forEach(([cx,cy])=>{
+    ctx.beginPath(); ctx.rect(cx,cy,3,6); ctx.fillStyle='#555'; ctx.fill();
+  });
+  [[-26,4],[-22,-2],[-18,4]].forEach(([cx,cy])=>{
+    ctx.beginPath(); ctx.arc(cx+1.5,cy,1.5,0,Math.PI*2); ctx.fillStyle=cc; ctx.fill();
+  });
+  // Head — boxy CRT monitor
+  ctx.beginPath(); ctx.roundRect(-16, -30, 32, 30, 4);
+  ctx.fillStyle = '#334455'; ctx.fill();
+  // Screen
+  ctx.beginPath(); ctx.roundRect(-12, -27, 24, 22, 2);
+  ctx.fillStyle = '#000'; ctx.fill();
+  // Screen glow
+  ctx.beginPath(); ctx.roundRect(-12, -27, 24, 22, 2);
+  const sg = ctx.createLinearGradient(-12,-27,12,-5);
+  sg.addColorStop(0, hexToRgba(cc, 0.3));
+  sg.addColorStop(1, hexToRgba(cc, 0.05));
+  ctx.fillStyle = sg; ctx.fill();
+  // Face pixels / scanlines
+  ctx.shadowColor = cc; ctx.shadowBlur = 8;
+  // Pixel eyes
+  ctx.fillStyle = cc;
+  [[-7,-20],[3,-20]].forEach(([ex,ey])=>{
+    ctx.beginPath(); ctx.rect(ex,ey,5,5); ctx.fill();
+  });
+  // Pixel mouth / loading bar
+  ctx.beginPath(); ctx.rect(-7,-11,14,3); ctx.fillStyle='#444'; ctx.fill();
+  ctx.beginPath(); ctx.rect(-7,-11,isP2?8:12,3); ctx.fillStyle=cc; ctx.fill();
+  ctx.shadowBlur = 0;
+  // Antenna
+  ctx.beginPath(); ctx.rect(-1,-38,2,10); ctx.fillStyle='#888'; ctx.fill();
+  ctx.beginPath(); ctx.arc(0,-40,4,0,Math.PI*2);
+  ctx.fillStyle = cc; ctx.fill();
+  ctx.shadowColor=cc; ctx.shadowBlur=8; ctx.fill(); ctx.shadowBlur=0;
+  ctx.restore();
+}
+
+function drawWormChar(ctx, x, y, isP2, color) {
+  ctx.save(); ctx.translate(x, y);
+  const wc = color || (isP2 ? '#44bbff' : '#ff6644');
+  const dark = shadeColor(wc, -30);
+  const light = shadeColor(wc, 20);
+  // Body segments (worm-like stacked circles)
+  const segs = [[0,24,7],[0,14,8],[0,3,9],[-1,-7,9],[0,-16,8]];
+  segs.forEach(([sx, sy, sr], i) => {
+    ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
+    ctx.fillStyle = i % 2 === 0 ? wc : light;
+    ctx.fill();
+    // Segment ring line
+    ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
+    ctx.strokeStyle = dark; ctx.lineWidth = 1; ctx.stroke();
+  });
+  // Tail tip
+  ctx.beginPath(); ctx.arc(0, 29, 4, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
+  // Helmet / hard hat
+  ctx.beginPath(); ctx.ellipse(0, -16, 11, 6, 0, Math.PI, Math.PI*2);
+  ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.rect(-13, -17, 26, 4); ctx.fillStyle = dark; ctx.fill();
+  // Helmet stripe
+  ctx.beginPath(); ctx.rect(-9, -20, 18, 3); ctx.fillStyle = wc; ctx.fill();
+  // Eyes
+  ctx.beginPath(); ctx.arc(-5, -19, 3.5, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(5, -19, 3.5, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(-4.5, -19, 2, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  ctx.beginPath(); ctx.arc(5.5, -19, 2, 0, Math.PI*2); ctx.fillStyle = '#222'; ctx.fill();
+  // Eye shine
+  ctx.beginPath(); ctx.arc(-4, -20, 0.8, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(6, -20, 0.8, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
+  // Big grin
+  ctx.beginPath(); ctx.arc(0, -14, 6, 0.1, Math.PI-0.1);
+  ctx.strokeStyle = '#333'; ctx.lineWidth = 2; ctx.stroke();
+  // Teeth
+  ctx.fillStyle = '#fff';
+  [[-4,-14],[-1,-13],[2,-14]].forEach(([tx,ty])=>{
+    ctx.beginPath(); ctx.rect(tx,ty,2,3); ctx.fill();
+  });
+  // Arms / tiny stubs holding grenade
+  ctx.beginPath(); ctx.ellipse(-16, -4, 5, 3, -0.3, 0, Math.PI*2);
+  ctx.fillStyle = wc; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(16, -4, 5, 3, 0.3, 0, Math.PI*2);
+  ctx.fillStyle = wc; ctx.fill();
+  // Grenade (right side)
+  ctx.beginPath(); ctx.arc(22, -8, 6, 0, Math.PI*2); ctx.fillStyle = '#3a3a3a'; ctx.fill();
+  ctx.beginPath(); ctx.rect(19, -14, 6, 4); ctx.fillStyle = '#555'; ctx.fill();
+  // Pin ring
+  ctx.beginPath(); ctx.arc(24, -14, 3, 0, Math.PI*2);
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 1.5; ctx.stroke();
+  // Grenade stripes
+  ctx.beginPath(); ctx.arc(22,-8,6,0,Math.PI*2);
+  ctx.strokeStyle='#555'; ctx.lineWidth=1; ctx.stroke();
+  ctx.restore();
+}
+
 // ── PROJECTILE DRAWING ────────────────────────────────────────
 function drawBulletProjectile(ctx, p, color) {
   ctx.save();
@@ -990,6 +1610,87 @@ function drawFirecrackerProjectile(ctx, p, isP2) {
 }
 
 // ── TERRAIN / BACKGROUND DRAWING ──────────────────────────────
+function drawLaserProjectile(ctx, p) {
+  ctx.save();
+  const a = Math.atan2(p.vy, p.vx);
+  ctx.translate(p.x, p.y); ctx.rotate(a);
+  // Outer glow beam
+  ctx.shadowColor = '#00ff44'; ctx.shadowBlur = 14;
+  ctx.beginPath(); ctx.rect(-18, -3, 36, 6);
+  ctx.fillStyle = 'rgba(0,255,68,0.25)'; ctx.fill();
+  // Core beam
+  ctx.beginPath(); ctx.rect(-16, -2, 32, 4);
+  ctx.fillStyle = '#00ff44'; ctx.fill();
+  // Bright core line
+  ctx.beginPath(); ctx.rect(-16, -1, 32, 2);
+  ctx.fillStyle = '#ccffdd'; ctx.fill();
+  // Leading tip flare
+  ctx.beginPath(); ctx.arc(16, 0, 4, 0, Math.PI*2);
+  ctx.fillStyle = '#ffffff'; ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.restore();
+}
+
+function drawDiskProjectile(ctx, p) {
+  ctx.save();
+  const a = Math.atan2(p.vy, p.vx);
+  ctx.translate(p.x, p.y); ctx.rotate(a + (p.age||0) * 0.3);
+  // Floppy disk body
+  ctx.shadowColor = '#00ccff'; ctx.shadowBlur = 10;
+  ctx.beginPath(); ctx.roundRect(-10, -10, 20, 20, 2);
+  ctx.fillStyle = '#222'; ctx.fill();
+  // Label
+  ctx.beginPath(); ctx.roundRect(-7, -8, 14, 10, 1);
+  ctx.fillStyle = '#00ccff'; ctx.fill();
+  // Shutter slot
+  ctx.beginPath(); ctx.rect(-4, 4, 8, 4);
+  ctx.fillStyle = '#555'; ctx.fill();
+  // Metal hub
+  ctx.beginPath(); ctx.arc(0, 0, 3, 0, Math.PI*2);
+  ctx.fillStyle = '#888'; ctx.fill();
+  ctx.shadowBlur = 0;
+  // Trail
+  if (p.trail && p.trail.length > 1) {
+    ctx.resetTransform();
+    ctx.beginPath(); ctx.moveTo(p.trail[0].x, p.trail[0].y);
+    for (let i=1; i<p.trail.length; i++) ctx.lineTo(p.trail[i].x, p.trail[i].y);
+    ctx.strokeStyle = 'rgba(0,180,255,0.4)'; ctx.lineWidth = 3;
+    ctx.setLineDash([5,5]); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.restore();
+}
+
+function drawGrenadeProjectile(ctx, p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  const spin = (p.age||0) * 0.15;
+  ctx.rotate(spin);
+  // Body
+  ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI*2);
+  ctx.fillStyle = '#3a3a3a'; ctx.fill();
+  // Top handle
+  ctx.beginPath(); ctx.roundRect(-3, -12, 6, 6, 1);
+  ctx.fillStyle = '#555'; ctx.fill();
+  // Pin ring
+  ctx.beginPath(); ctx.arc(4, -12, 3.5, 0, Math.PI*2);
+  ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 1.5; ctx.stroke();
+  // Body markings
+  ctx.beginPath(); ctx.arc(0, 0, 8, 0, Math.PI*2);
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-8, 0); ctx.lineTo(8, 0);
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 1; ctx.stroke();
+  // Fuse spark trail
+  if (p.trail && p.trail.length > 1) {
+    ctx.restore();
+    ctx.save();
+    ctx.beginPath(); ctx.moveTo(p.trail[0].x, p.trail[0].y);
+    for (let i=1; i<p.trail.length; i++) ctx.lineTo(p.trail[i].x, p.trail[i].y);
+    ctx.strokeStyle = 'rgba(255,180,50,0.6)'; ctx.lineWidth = 2;
+    ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.restore();
+}
+
 function drawBackground(ctx) {
   const sky = currentSkin.sky;
   const grad = ctx.createLinearGradient(0,0,0,CANVAS_H);
@@ -1488,7 +2189,7 @@ function registerOpenGame(code) {
   const discId = 'tankrv-open-' + code;
   const skinKey = Object.keys(SKINS).find(k => SKINS[k] === currentSkin) || 'tanks';
   try {
-    broadcastPeer = new Peer(discId, {host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
+    broadcastPeer = new Peer(discId, {host:'0.peerjs.com',port:443,path:'/',secure:true,debug:0});
     broadcastPeer.on('connection', (c) => {
       // Guest is pinging us for info — send skin info then close
       c.on('open', () => {
@@ -1518,7 +2219,7 @@ function stopGameScanner() {
 function probeForGames() {
   // Use a shared lobby peer: host connects to 'tankrv-lobby-list' and sends their code
   // We connect to the lobby peer to get the list
-  const probePeer = new Peer(undefined, {host:'peerjs.com',port:443,path:'/',secure:true,debug:0});
+  const probePeer = new Peer(undefined, {host:'0.peerjs.com',port:443,path:'/',secure:true,debug:0});
   probePeer.on('open', () => {
     const c = probePeer.connect('tankrv-lobby-list', {reliable:true});
     c.on('open', () => {
@@ -1644,11 +2345,19 @@ function copyJoinLink() {
 // ── HOST / JOIN / CANCEL ────────────────────────────────────────
 function hostGame() {
   if(peer) return;
-  setStatus('Creating room...');
+  setStatus('Connecting to server...');
   document.getElementById('btn-host').disabled = true;
   const code = generateRoomCode();
-  peer = new Peer('tankrv-' + code, {host:'peerjs.com', port:443, path:'/', secure:true, debug:0});
+  peer = new Peer('tankrv-' + code, {host:'0.peerjs.com', port:443, path:'/', secure:true, debug:0});
+  // Timeout if server doesn't respond
+  const hostTimeout = setTimeout(() => {
+    if(myRole !== 'host') {
+      setStatus('Server timeout — try again', true);
+      resetLobby();
+    }
+  }, 8000);
   peer.on('open', () => {
+    clearTimeout(hostTimeout);
     myRole = 'host'; gameMode = 'network';
     // Show code
     const disp = document.getElementById('host-code-display');
@@ -1683,7 +2392,7 @@ function joinGame() {
   if(input.length < 4) { setStatus('Enter the 6-character room code', true); return; }
   setStatus('Connecting to room ' + input + '...');
   document.getElementById('btn-join').disabled = true;
-  peer = new Peer(undefined, {host:'peerjs.com', port:443, path:'/', secure:true, debug:0});
+  peer = new Peer(undefined, {host:'0.peerjs.com', port:443, path:'/', secure:true, debug:0});
   peer.on('open', () => {
     myRole = 'guest'; gameMode = 'network';
     conn = peer.connect('tankrv-' + input, {reliable:true});
