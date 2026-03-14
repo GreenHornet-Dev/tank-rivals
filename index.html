@@ -663,43 +663,110 @@ function drawBarrel(ctx, x, y, angle, color) {
 }
 
 function drawGorillaChar(ctx, x, y, isP2, color) {
+  // KING KONG — massive, powerful, chest-beat pose
   ctx.save(); ctx.translate(x, y);
-  // Shadow
-  ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.55,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill(); ctx.restore();
-  const gc = color;
-  const lc = shadeColor(color, -35);
-  // Legs
-  ctx.beginPath(); ctx.roundRect(-14,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(4,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
-  // Feet
-  ctx.beginPath(); ctx.ellipse(-9,32,9,5,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(9,32,9,5,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  // Body
-  ctx.beginPath(); ctx.ellipse(0,4,17,18,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Belly
-  ctx.beginPath(); ctx.ellipse(0,8,10,12,0,0,Math.PI*2); ctx.fillStyle='#c8a070'; ctx.fill();
-  // Arms (spread wide for throwing pose)
-  ctx.beginPath(); ctx.roundRect(-28,-6,14,10,4); ctx.fillStyle=gc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(14,-6,14,10,4); ctx.fillStyle=gc; ctx.fill();
-  // Fists
-  ctx.beginPath(); ctx.arc(-21,-2,7,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.arc(21,-2,7,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  // Head
-  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Brow ridge
-  ctx.beginPath(); ctx.ellipse(0,-22,13,5,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  // Eyes
-  ctx.beginPath(); ctx.arc(-5,-14,3.5,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(5,-14,3.5,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(-4,-14,2,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
-  ctx.beginPath(); ctx.arc(6,-14,2,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
-  // Nostrils
-  ctx.beginPath(); ctx.arc(-3,-9,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  ctx.beginPath(); ctx.arc(3,-9,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
-  // Mouth smile
-  ctx.beginPath(); ctx.arc(0,-5,6,0.2,Math.PI-0.2); ctx.strokeStyle=lc; ctx.lineWidth=2; ctx.stroke();
-  // Player color badge on chest
-  ctx.beginPath(); ctx.arc(0,2,5,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
+  const gc = color;                       // main fur
+  const lc = shadeColor(color, -40);      // deep shadow fur
+  const mc = shadeColor(color, -20);      // mid fur
+  const skin = '#b07850';                 // face/palm skin tone
+
+  // Ground shadow
+  ctx.save(); ctx.scale(1,0.2); ctx.beginPath(); ctx.ellipse(0,CHAR_H*4,CHAR_W*0.7,CHAR_W*0.7,0,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fill(); ctx.restore();
+
+  // ── LEGS (thick, bowed, gorilla stance) ──
+  // Left leg — bowed outward
+  ctx.save(); ctx.translate(-10, 14);
+  ctx.beginPath(); ctx.ellipse(0,8,7,11,0.18,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.restore();
+  // Right leg
+  ctx.save(); ctx.translate(10, 14);
+  ctx.beginPath(); ctx.ellipse(0,8,7,11,-0.18,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.restore();
+  // Feet — big knuckle-down
+  ctx.beginPath(); ctx.ellipse(-10,28,10,5,0.15,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(10,28,10,5,-0.15,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
+  // Knuckle dots
+  [-14,-10,-6].forEach(kx=>{ ctx.beginPath(); ctx.arc(kx,30,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill(); });
+  [6,10,14].forEach(kx=>{ ctx.beginPath(); ctx.arc(kx,30,1.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill(); });
+
+  // ── MASSIVE BODY ── (barrel-chested)
+  ctx.beginPath(); ctx.ellipse(0,2,21,20,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Chest muscle definition
+  ctx.beginPath(); ctx.ellipse(-7,-2,9,10,0.2,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(7,-2,9,10,-0.2,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
+  // Belly / lower chest — slightly lighter
+  ctx.beginPath(); ctx.ellipse(0,10,12,9,0,0,Math.PI*2); ctx.fillStyle=shadeColor(color,15); ctx.fill();
+
+  // ── MASSIVE ARMS — raised chest-beat pose ──
+  // Left arm — raised, elbow bent
+  ctx.save();
+  ctx.translate(-21, -4);
+  // Upper arm
+  ctx.beginPath(); ctx.ellipse(0,0,8,13,0.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Forearm raised
+  ctx.beginPath(); ctx.ellipse(-6,-12,6,10,-0.3,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
+  // Fist
+  ctx.beginPath(); ctx.arc(-9,-21,8,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.arc(-9,-21,8,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-55); ctx.lineWidth=1; ctx.stroke();
+  // Knuckles on fist
+  [-14,-9,-4].forEach((kx,i)=>{ ctx.beginPath(); ctx.arc(kx,-17+i*0.5,2,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill(); });
+  ctx.restore();
+
+  // Right arm — mirror
+  ctx.save();
+  ctx.translate(21, -4);
+  ctx.beginPath(); ctx.ellipse(0,0,8,13,-0.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6,-12,6,10,0.3,0,Math.PI*2); ctx.fillStyle=mc; ctx.fill();
+  ctx.beginPath(); ctx.arc(9,-21,8,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.arc(9,-21,8,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-55); ctx.lineWidth=1; ctx.stroke();
+  [4,9,14].forEach((kx,i)=>{ ctx.beginPath(); ctx.arc(kx,-17+i*0.5,2,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill(); });
+  ctx.restore();
+
+  // ── NECK / TRAPS — almost no neck, gorilla style ──
+  ctx.beginPath(); ctx.ellipse(0,-18,13,7,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+
+  // ── HEAD — big flat-faced King Kong head ──
+  // Skull (wider than tall, prominent brow)
+  ctx.beginPath(); ctx.ellipse(0,-30,16,13,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+  // Sagittal crest on top
+  ctx.beginPath(); ctx.ellipse(0,-42,5,8,0,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  // Massive brow ridge — overhangs the eyes
+  ctx.beginPath();
+  ctx.moveTo(-16,-30); ctx.bezierCurveTo(-16,-38,16,-38,16,-30);
+  ctx.bezierCurveTo(14,-28,-14,-28,-16,-30);
+  ctx.fillStyle=lc; ctx.fill();
+
+  // Deep-set eye sockets
+  ctx.beginPath(); ctx.ellipse(-6,-30,5,4,0,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(6,-30,5,4,0,0,Math.PI*2); ctx.fillStyle='#111'; ctx.fill();
+  // Eyes — small, fierce
+  ctx.beginPath(); ctx.arc(-6,-30,2.5,0,Math.PI*2); ctx.fillStyle='#cc2200'; ctx.fill();
+  ctx.beginPath(); ctx.arc(6,-30,2.5,0,Math.PI*2); ctx.fillStyle='#cc2200'; ctx.fill();
+  // Eye shine
+  ctx.beginPath(); ctx.arc(-5,-31,1,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(7,-31,1,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
+
+  // Flat wide nose
+  ctx.beginPath(); ctx.ellipse(0,-23,7,5,0,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
+  ctx.beginPath(); ctx.arc(-3,-22,2.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+  ctx.beginPath(); ctx.arc(3,-22,2.5,0,Math.PI*2); ctx.fillStyle=lc; ctx.fill();
+
+  // Mouth — open, bared teeth, ROARING
+  ctx.beginPath(); ctx.ellipse(0,-15,10,7,0,0,Math.PI*2); ctx.fillStyle=skin; ctx.fill();
+  // Upper teeth
+  ctx.fillStyle='#fff';
+  [-7,-3,1,5].forEach(tx=>{ ctx.beginPath(); ctx.rect(tx,-19,3,5); ctx.fill(); });
+  // Lower teeth
+  [-5,-1,3].forEach(tx=>{ ctx.beginPath(); ctx.rect(tx,-13,3,4); ctx.fill(); });
+  // Tongue
+  ctx.beginPath(); ctx.ellipse(0,-12,5,3,0,0,Math.PI*2); ctx.fillStyle='#cc4444'; ctx.fill();
+  // Throat darkness
+  ctx.beginPath(); ctx.ellipse(0,-14,6,4,0,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fill();
+
+  // Chest-beat fist impact marks (thumping chest)
+  ctx.beginPath(); ctx.arc(-7,0,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(7,0,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.fill();
+
   ctx.restore();
 }
 
