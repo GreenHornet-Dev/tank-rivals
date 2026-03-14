@@ -1358,13 +1358,18 @@ function updatePhysics(dt) {
   if(!proj||gameState.phase!=='firing') return;
   proj.vx+=gameState.wind*dt*40; proj.vy+=GRAVITY*dt;
   proj.x+=proj.vx*dt; proj.y+=proj.vy*dt;
+  proj.age=(proj.age||0)+1;
   proj.trail.push({x:proj.x,y:proj.y});
   if(proj.trail.length>22) proj.trail.shift();
   if(proj.x<-60||proj.x>CANVAS_W+60||proj.y>CANVAS_H+60){handleMiss();return;}
   if(proj.y>=getTerrainY(proj.x)){handleImpact(proj.x,proj.y);return;}
   for(let i=0;i<2;i++){
     const tank=gameState.tanks[i]; if(tank.hp<=0) continue;
-    if(Math.abs(proj.x-tank.x)<CHAR_W/2+8&&Math.abs(proj.y-tank.y)<CHAR_H+8){handleImpact(proj.x,proj.y,i);return;}
+    // Grace period: ignore the firing tank for first 18 frames so projectile clears the character
+    if(i===proj.ownerIdx && proj.age<18) continue;
+    // Use circular hitbox centered on tank body (not arms/head) — radius 22px
+    const dx=proj.x-tank.x, dy=proj.y-(tank.y+4);
+    if(Math.sqrt(dx*dx+dy*dy)<22){handleImpact(proj.x,proj.y,i);return;}
   }
 }
 
@@ -1493,7 +1498,7 @@ function fireTank(){
   gameState.projectile={
     x:tank.x+Math.cos(a)*(BARREL_LEN+4), y:tank.y-Math.sin(a)*(BARREL_LEN+4),
     vx:Math.cos(a)*speed, vy:-Math.sin(a)*speed,
-    trail:[], ownerIdx:ct,
+    trail:[], ownerIdx:ct, age:0,
   };
   gameState.phase='firing';
   document.getElementById('fire-btn').disabled=true;
@@ -1596,7 +1601,7 @@ function handleNetworkMessage(data){
       const ct=data.turn, tank=gameState.tanks[ct];
       tank.angle=data.angle; tank.power=data.power;
       const a=(tank.angle*Math.PI)/180, speed=tank.power*7;
-      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:tank.y-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct};
+      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:tank.y-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct,age:0};
       gameState.phase='firing';
       document.getElementById('fire-btn').disabled=true;
       document.getElementById('controls-panel').classList.add('disabled');
