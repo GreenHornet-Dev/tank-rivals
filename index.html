@@ -158,18 +158,6 @@
     footer a{color:inherit;text-decoration:none;}
     footer a:hover{opacity:1;color:var(--color-text);}
 
-    /* ── PAUSE / HOW-TO-PLAY MENU ── */
-    #pause-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(13,15,20,0.92);backdrop-filter:blur(10px);z-index:60;}
-    #pause-overlay.hidden{display:none;}
-    .pause-title{font-family:var(--font-display);font-size:clamp(1.4rem,4vw,2.4rem);font-weight:900;letter-spacing:0.12em;color:var(--color-gold);margin-bottom:var(--space-4);text-align:center;}
-    .how-to-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3) var(--space-8);margin-bottom:var(--space-6);max-width:480px;width:100%;}
-    .how-row{display:flex;align-items:center;gap:var(--space-3);}
-    .how-keys{display:flex;gap:4px;flex-shrink:0;}
-    .how-desc{font-size:0.75rem;color:var(--color-text-muted);letter-spacing:0.05em;}
-    .pause-divider{width:100%;max-width:480px;border:none;border-top:1px solid var(--color-border);margin-bottom:var(--space-4);}
-    .pause-hint{font-size:0.65rem;color:var(--color-text-muted);letter-spacing:0.1em;margin-bottom:var(--space-6);text-align:center;}
-    .pause-actions{display:flex;gap:var(--space-3);}
-
     /* ── GARAGE SCREEN ── */
     #garage-screen{width:100%;max-width:860px;padding:var(--space-4) var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-3);overflow-y:auto;max-height:100vh;}
     #garage-screen.hidden{display:none!important;}
@@ -327,22 +315,6 @@
         <span class="skin-emoji">🚀</span>
         <span class="skin-name">SPACE</span>
       </div>
-      <div class="skin-card" data-skin="worms" onclick="selectSkin('worms')">
-        <span class="skin-emoji">🪱</span>
-        <span class="skin-name">WORMS</span>
-      </div>
-      <div class="skin-card" data-skin="greenhornet" onclick="selectSkin('greenhornet')">
-        <span class="skin-emoji">🐝</span>
-        <span class="skin-name">GRN HORNET</span>
-      </div>
-      <div class="skin-card" data-skin="computer" onclick="selectSkin('computer')">
-        <span class="skin-emoji">💻</span>
-        <span class="skin-name">COMPUTER</span>
-      </div>
-      <div class="skin-card" data-skin="cars" onclick="selectSkin('cars')">
-        <span class="skin-emoji">🏎️</span>
-        <span class="skin-name">CARS</span>
-      </div>
     </div>
   </div>
 
@@ -435,7 +407,7 @@
 
   <!-- Keyboard hints -->
   <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:11;pointer-events:none;">
-    <span class="kbd-hint"><kbd class="kbd">← →</kbd> Angle &nbsp;<kbd class="kbd">↑ ↓</kbd> Power &nbsp;<kbd class="kbd">Space</kbd> Fire &nbsp;<kbd class="kbd">Esc</kbd> Menu</span>
+    <span class="kbd-hint"><kbd class="kbd">← →</kbd> Angle &nbsp;<kbd class="kbd">↑ ↓</kbd> Power &nbsp;<kbd class="kbd">Space</kbd> Fire</span>
   </div>
 
   <!-- Connection status -->
@@ -448,43 +420,6 @@
     <div class="msg-sub" id="overlay-sub">Player 1 wins!</div>
     <button class="btn-sm" onclick="rematch()">Play Again</button>
   </div>
-
-  <!-- Pause / How-to-play overlay (toggle with Escape) -->
-  <div id="pause-overlay" class="hidden">
-    <div class="pause-title">⏸ PAUSED</div>
-    <div class="how-to-grid">
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">← →</kbd></div>
-        <div class="how-desc">Adjust angle</div>
-      </div>
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">↑ ↓</kbd></div>
-        <div class="how-desc">Adjust power</div>
-      </div>
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">Space</kbd></div>
-        <div class="how-desc">Fire!</div>
-      </div>
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">Esc</kbd></div>
-        <div class="how-desc">Pause / Resume</div>
-      </div>
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">Sliders</kbd></div>
-        <div class="how-desc">Mouse / touch controls</div>
-      </div>
-      <div class="how-row">
-        <div class="how-keys"><kbd class="kbd">Garage</kbd></div>
-        <div class="how-desc">Upgrade before battle</div>
-      </div>
-    </div>
-    <hr class="pause-divider">
-    <div class="pause-hint">OBJECTIVE: Reduce the enemy tank to 0 HP</div>
-    <div class="pause-actions">
-      <button class="btn-sm" onclick="togglePause()">▶ RESUME</button>
-      <button class="btn-sm" onclick="quitToLobby()">✕ QUIT</button>
-    </div>
-  </div>
 </div>
 
 <footer><a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a></footer>
@@ -493,8 +428,7 @@
 // ================================================================
 //  TANK RIVALS — Full Game with Skin System
 //  Skins: Tanks · Gorillas · Halloween · Christmas · 4th July
-//         Valentine · St. Patrick · Space · Worms
-//         Green Hornet · Computer · Cars
+//         Valentine · St. Patrick · Space
 // ================================================================
 
 // ── SKIN DEFINITIONS ──────────────────────────────────────────
@@ -507,7 +441,6 @@ const SKINS = {
     sky: ['#06080f','#0d1525','#141b2e'],
     ground: ['#2d5a27','#1e3d1a','#4a3010','#2a1a0a'],
     groundLine: '#5a9a50',
-    shotOriginY: -20,
     drawChar(ctx, x, y, isP2, color) { drawTankChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawBulletProjectile(ctx, p, '#ffd700'); },
     fireWord: 'FIRE!',
@@ -520,7 +453,6 @@ const SKINS = {
     sky: ['#1a0a05','#3d1a0a','#5a2d10'],
     ground: ['#3d5a1a','#2d4010','#6b4520','#3a2010'],
     groundLine: '#7ab040',
-    shotOriginY: -6,
     drawChar(ctx, x, y, isP2, color) { drawGorillaChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🍌', 22); },
     fireWord: 'THROW!',
@@ -533,7 +465,6 @@ const SKINS = {
     sky: ['#0a0008','#1a0a2a','#2a0a3a'],
     ground: ['#1a0a2a','#100820','#3a1510','#1a0808'],
     groundLine: '#8b00ff',
-    shotOriginY: -10,
     drawChar(ctx, x, y, isP2, color) { drawHalloweenChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🦇', 20); },
     fireWord: 'HAUNT!',
@@ -546,7 +477,6 @@ const SKINS = {
     sky: ['#0a1a2a','#0d2035','#102540'],
     ground: ['#eef5ff','#d0e8ff','#8baad0','#5a7a9a'],
     groundLine: '#ffffff',
-    shotOriginY: -6,
     drawChar(ctx, x, y, isP2, color) { drawSantaChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '⛄', 20); },
     fireWord: 'LAUNCH!',
@@ -559,7 +489,6 @@ const SKINS = {
     sky: ['#000520','#000d35','#001055'],
     ground: ['#2a4a1a','#1e3a10','#3a2508','#1a1005'],
     groundLine: '#44aa44',
-    shotOriginY: -18,
     drawChar(ctx, x, y, isP2, color) { drawRocketChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawFirecrackerProjectile(ctx, p, isP2Color(p)); },
     fireWord: 'LAUNCH!',
@@ -572,7 +501,6 @@ const SKINS = {
     sky: ['#1a0010','#2a0020','#3a0030'],
     ground: ['#5a1a2a','#3a0a1a','#8a3a4a','#4a1a2a'],
     groundLine: '#ff69b4',
-    shotOriginY: -8,
     drawChar(ctx, x, y, isP2, color) { drawCupidChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '💘', 20); },
     fireWord: 'SHOOT!',
@@ -585,7 +513,6 @@ const SKINS = {
     sky: ['#001a05','#002a08','#003510'],
     ground: ['#1a5a0a','#0d3a05','#2d7a10','#1a4a08'],
     groundLine: '#88ee44',
-    shotOriginY: -8,
     drawChar(ctx, x, y, isP2, color) { drawLeprechaunChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '🪙', 18); },
     fireWord: 'FLING!',
@@ -598,62 +525,9 @@ const SKINS = {
     sky: ['#000005','#000010','#00001a'],
     ground: ['#1a1a3a','#10103a','#2a2a5a','#0a0a20'],
     groundLine: '#4444ff',
-    shotOriginY: -18,
     drawChar(ctx, x, y, isP2, color) { drawSpaceChar(ctx, x, y, isP2, color); },
     drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '☄️', 22); },
     fireWord: 'BLAST!',
-  },
-  worms: {
-    name: 'WORMS', emoji: '🪱', throwEmoji: '💣',
-    p1Label: 'Worm Red', p2Label: 'Worm Blue',
-    projectileEmoji: '💣',
-    winEmoji: '🪱',
-    sky: ['#1a3a0a','#2a5510','#0d2205'],
-    ground: ['#4a7a20','#2d5010','#6b9a30','#1e3808'],
-    groundLine: '#88dd44',
-    shotOriginY: -14,
-    drawChar(ctx, x, y, isP2, color) { drawWormChar(ctx, x, y, isP2, color); },
-    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '💣', 20); },
-    fireWord: 'FIRE!',
-  },
-  greenhornet: {
-    name: 'GREEN HORNET', emoji: '🐝', throwEmoji: '⚡',
-    p1Label: 'Hornet Alpha', p2Label: 'Hornet Beta',
-    projectileEmoji: null,
-    winEmoji: '🐝',
-    sky: ['#000a00','#001200','#001a00'],
-    ground: ['#0d1a0d','#1a2a10','#0a0f0a','#050a05'],
-    groundLine: '#00ff44',
-    shotOriginY: -6,
-    drawChar(ctx, x, y, isP2, color) { drawGreenHornetChar(ctx, x, y, isP2, color); },
-    drawProjectile(ctx, p) { drawLaserProjectile(ctx, p); },
-    fireWord: 'STING!',
-  },
-  computer: {
-    name: 'COMPUTER', emoji: '💻', throwEmoji: '💾',
-    p1Label: 'CPU Red', p2Label: 'CPU Blue',
-    projectileEmoji: '💾',
-    winEmoji: '💻',
-    sky: ['#020408','#030608','#010305'],
-    ground: ['#0a1a08','#061206','#0d200a','#040c04'],
-    groundLine: '#00ff88',
-    shotOriginY: -18,
-    drawChar(ctx, x, y, isP2, color) { drawComputerChar(ctx, x, y, isP2, color); },
-    drawProjectile(ctx, p) { drawEmojiProjectile(ctx, p, '💾', 22); },
-    fireWord: 'EXECUTE!',
-  },
-  cars: {
-    name: 'CARS', emoji: '🏎️', throwEmoji: '🔧',
-    p1Label: 'Racer Red', p2Label: 'Racer Blue',
-    projectileEmoji: null,
-    winEmoji: '🏆',
-    sky: ['#1a0a28','#2a1040','#0d0518'],
-    ground: ['#1a1a1a','#222222','#2a2a2a','#111111'],
-    groundLine: '#ffffff',
-    shotOriginY: -10,
-    drawChar(ctx, x, y, isP2, color) { drawCarChar(ctx, x, y, isP2, color); },
-    drawProjectile(ctx, p) { drawOilSlickProjectile(ctx, p); },
-    fireWord: 'LAUNCH!',
   },
 };
 
@@ -695,13 +569,6 @@ let gameState = {
 let canvas, ctx, trajCanvas, trajCtx;
 let lastTime = 0, animFrameId = null;
 let emojiCache = {};
-
-// ── VFX STATE ─────────────────────────────────────────────────
-let screenShake = {x:0, y:0, mag:0, decay:0.82};
-let damageFloaters = [];   // {x,y,text,color,vy,alpha,born}
-let muzzleFlashes  = [];   // {x,y,angle,born,dur}
-let fireWordPopup  = null; // {text,x,y,born,dur}
-let skinParticles  = [];   // generic extra particles per skin
 
 // ── TERRAIN ───────────────────────────────────────────────────
 function generateTerrain() {
@@ -795,528 +662,12 @@ function drawBarrel(ctx, x, y, angle, color) {
   ctx.restore();
 }
 
-// ── GREEN HORNET CHARACTER ────────────────────────────────────
-function drawGreenHornetChar(ctx, x, y, isP2, color) {
-  ctx.save(); ctx.translate(x, y);
-  const gc = '#00cc44';   // main green body
-  const gd = '#007722';   // dark green
-  const gh = '#88ffbb';   // highlight
-  const bc = '#111111';   // black stripe
-  const ec = '#00ff88';   // eye glow
-
-  // Shadow
-  ctx.save(); ctx.scale(1,0.22);
-  ctx.beginPath(); ctx.ellipse(0,CHAR_H*3.2,20,9,0,0,Math.PI*2);
-  ctx.fillStyle='rgba(0,0,0,0.35)'; ctx.fill();
-  ctx.restore();
-
-  // Abdomen (lower body)
-  for(let s=0;s<4;s++){
-    const sy = 20-s*10, sw = 12-s*1.2;
-    ctx.beginPath(); ctx.ellipse(0,sy,sw,5,0,0,Math.PI*2);
-    ctx.fillStyle = s%2===0 ? bc : gc; ctx.fill();
-  }
-  // Stinger
-  ctx.beginPath(); ctx.moveTo(-3,-15); ctx.lineTo(3,-15); ctx.lineTo(0,-25); ctx.closePath();
-  ctx.fillStyle=gd; ctx.fill();
-
-  // Thorax (main body)
-  const tbg = ctx.createRadialGradient(-4,2,2,0,2,14);
-  tbg.addColorStop(0,gh); tbg.addColorStop(0.4,gc); tbg.addColorStop(1,gd);
-  ctx.beginPath(); ctx.ellipse(0,2,13,14,0,0,Math.PI*2);
-  ctx.fillStyle=tbg; ctx.fill();
-  // Body stripes
-  ctx.fillStyle=bc;
-  ctx.beginPath(); ctx.rect(-13,-2,26,4); ctx.fill();
-  ctx.globalAlpha=0.5;
-  ctx.beginPath(); ctx.rect(-13,6,26,3); ctx.fill();
-  ctx.globalAlpha=1;
-
-  // Wings (semi-transparent iridescent)
-  ctx.save();
-  const wingG = ctx.createLinearGradient(-30,-10,0,5);
-  wingG.addColorStop(0,'rgba(0,255,120,0.55)');
-  wingG.addColorStop(0.5,'rgba(180,255,220,0.35)');
-  wingG.addColorStop(1,'rgba(0,200,80,0.15)');
-  // Left wing
-  ctx.beginPath(); ctx.moveTo(-2,-4); ctx.bezierCurveTo(-18,-20,-30,-8,-16,4); ctx.closePath();
-  ctx.fillStyle=wingG; ctx.fill();
-  ctx.strokeStyle='rgba(0,255,100,0.4)'; ctx.lineWidth=1; ctx.stroke();
-  // Right wing
-  ctx.beginPath(); ctx.moveTo(2,-4); ctx.bezierCurveTo(18,-20,30,-8,16,4); ctx.closePath();
-  ctx.fillStyle=wingG; ctx.fill();
-  ctx.stroke();
-  ctx.restore();
-
-  // Head
-  const hbg = ctx.createRadialGradient(-4,-22,2,0,-20,12);
-  hbg.addColorStop(0,gh); hbg.addColorStop(0.4,gc); hbg.addColorStop(1,gd);
-  ctx.beginPath(); ctx.ellipse(0,-20,11,12,0,0,Math.PI*2);
-  ctx.fillStyle=hbg; ctx.fill();
-
-  // Compound eyes — glowing hexagonal clusters
-  [[-7,-22],[7,-22]].forEach(([ex,ey])=>{
-    // Outer glow
-    const eg=ctx.createRadialGradient(ex,ey,0,ex,ey,8);
-    eg.addColorStop(0,ec); eg.addColorStop(0.5,'rgba(0,255,100,0.4)'); eg.addColorStop(1,'rgba(0,255,100,0)');
-    ctx.beginPath(); ctx.arc(ex,ey,8,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
-    // Eye facets (mini hexagon cluster)
-    ctx.beginPath(); ctx.arc(ex,ey,5,0,Math.PI*2); ctx.fillStyle='#003311'; ctx.fill();
-    for(let f=0;f<6;f++){
-      const fa=f*Math.PI/3, fr=3;
-      ctx.beginPath(); ctx.arc(ex+Math.cos(fa)*fr,ey+Math.sin(fa)*fr,1.2,0,Math.PI*2);
-      ctx.fillStyle=ec; ctx.fill();
-    }
-    ctx.beginPath(); ctx.arc(ex,ey,1.5,0,Math.PI*2); ctx.fillStyle='#ffffff'; ctx.fill();
-  });
-
-  // Antennae
-  ctx.strokeStyle=bc; ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.moveTo(-4,-30); ctx.quadraticCurveTo(-10,-42,-14,-44); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(4,-30); ctx.quadraticCurveTo(10,-42,14,-44); ctx.stroke();
-  ctx.beginPath(); ctx.arc(-14,-44,2.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-  ctx.beginPath(); ctx.arc(14,-44,2.5,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
-
-  // Mandibles
-  ctx.strokeStyle=bc; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(-4,-12); ctx.lineTo(-9,-8); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(4,-12); ctx.lineTo(9,-8); ctx.stroke();
-
-  // Team badge
-  ctx.beginPath(); ctx.arc(0,2,4,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
-
-  ctx.restore();
-}
-
-// ── LASER PROJECTILE (green hornet) ────────────────────────────
-function drawLaserProjectile(ctx, p) {
-  ctx.save();
-  const angle = Math.atan2(p.vy, p.vx);
-  const spd = Math.hypot(p.vx, p.vy);
-  const bLen = Math.min(spd * 0.28, 32);
-
-  // Outer glow
-  ctx.save();
-  ctx.translate(p.x, p.y); ctx.rotate(angle);
-  const outerG = ctx.createLinearGradient(-bLen,0,bLen*0.3,0);
-  outerG.addColorStop(0,'rgba(0,255,80,0)');
-  outerG.addColorStop(0.6,'rgba(0,255,80,0.35)');
-  outerG.addColorStop(1,'rgba(180,255,200,0.7)');
-  ctx.beginPath(); ctx.rect(-bLen,-6,bLen+4,12); ctx.fillStyle=outerG; ctx.fill();
-  // Core beam
-  const coreG = ctx.createLinearGradient(-bLen,0,bLen*0.3,0);
-  coreG.addColorStop(0,'rgba(0,255,80,0)');
-  coreG.addColorStop(0.5,'rgba(0,255,80,0.8)');
-  coreG.addColorStop(1,'#aaffcc');
-  ctx.beginPath(); ctx.rect(-bLen,-2,bLen+4,4); ctx.fillStyle=coreG; ctx.fill();
-  // Hot tip
-  const tipG = ctx.createRadialGradient(bLen*0.3,0,0,bLen*0.3,0,10);
-  tipG.addColorStop(0,'#ffffff'); tipG.addColorStop(0.3,'#88ffcc'); tipG.addColorStop(1,'rgba(0,255,80,0)');
-  ctx.beginPath(); ctx.arc(bLen*0.3,0,10,0,Math.PI*2); ctx.fillStyle=tipG; ctx.fill();
-  ctx.restore();
-
-  // Full-trail glow line
-  if(p.trail && p.trail.length>2){
-    ctx.beginPath(); ctx.moveTo(p.trail[0].x,p.trail[0].y);
-    for(let i=1;i<p.trail.length;i++) ctx.lineTo(p.trail[i].x,p.trail[i].y);
-    ctx.lineTo(p.x,p.y);
-    ctx.strokeStyle='rgba(0,255,80,0.18)'; ctx.lineWidth=8; ctx.lineCap='round'; ctx.stroke();
-    ctx.strokeStyle='rgba(0,255,80,0.45)'; ctx.lineWidth=2; ctx.stroke();
-  }
-  ctx.restore();
-}
-
-// ── COMPUTER / ROBOT CHARACTER ──────────────────────────────
-function drawComputerChar(ctx, x, y, isP2, color) {
-  ctx.save(); ctx.translate(x, y);
-  const mc = isP2 ? '#0a3a6a' : '#3a0a0a'; // body metal dark
-  const ml = isP2 ? '#1a6aaa' : '#aa3a1a'; // body metal light
-  const sc = isP2 ? '#00aaff' : '#ff5500'; // screen/glow color
-  const gl = isP2 ? '#66ccff' : '#ffaa66'; // glow light
-
-  // Shadow
-  ctx.save(); ctx.scale(1,0.22);
-  ctx.beginPath(); ctx.ellipse(0,CHAR_H*3.2,20,9,0,0,Math.PI*2);
-  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.fill();
-  ctx.restore();
-
-  // Legs
-  ctx.beginPath(); ctx.roundRect(-12,16,8,16,2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(4,16,8,16,2); ctx.fillStyle=mc; ctx.fill();
-  // Feet
-  ctx.beginPath(); ctx.roundRect(-14,30,12,6,2); ctx.fillStyle=ml; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(2,30,12,6,2); ctx.fillStyle=ml; ctx.fill();
-  // LED indicators on shins
-  ctx.beginPath(); ctx.arc(-8,22,2,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
-  ctx.beginPath(); ctx.arc(8,22,2,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
-
-  // Body (keyboard-style torso)
-  const bodyG = ctx.createLinearGradient(-15,-8,15,18);
-  bodyG.addColorStop(0,ml); bodyG.addColorStop(1,mc);
-  ctx.beginPath(); ctx.roundRect(-15,-8,30,26,4); ctx.fillStyle=bodyG; ctx.fill();
-  // Keyboard rows on torso
-  for(let row=0;row<3;row++){
-    for(let col=0;col<4;col++){
-      ctx.beginPath(); ctx.roundRect(-11+col*6,(-2+row*6),4,4,1);
-      ctx.fillStyle=`rgba(${isP2?'0,160,255':'255,100,0'},${0.25+row*0.1})`; ctx.fill();
-    }
-  }
-  // Power LED
-  ctx.beginPath(); ctx.arc(10,10,2.5,0,Math.PI*2);
-  const ledG=ctx.createRadialGradient(10,10,0,10,10,5);
-  ledG.addColorStop(0,'#00ff88'); ledG.addColorStop(1,'rgba(0,255,100,0)');
-  ctx.fillStyle=ledG; ctx.fill();
-
-  // Arms
-  ctx.beginPath(); ctx.roundRect(-28,-4,14,8,3); ctx.fillStyle=ml; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(14,-4,14,8,3); ctx.fillStyle=ml; ctx.fill();
-  // Hands (claw grippers)
-  ctx.beginPath(); ctx.roundRect(-34,-7,8,6,2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(-34,1,8,6,2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(26,-7,8,6,2); ctx.fillStyle=mc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(26,1,8,6,2); ctx.fillStyle=mc; ctx.fill();
-
-  // Head (monitor)
-  const headG = ctx.createLinearGradient(-16,-34,16,-10);
-  headG.addColorStop(0,ml); headG.addColorStop(1,mc);
-  ctx.beginPath(); ctx.roundRect(-16,-34,32,26,4); ctx.fillStyle=headG; ctx.fill();
-  // Screen bezel
-  ctx.beginPath(); ctx.roundRect(-13,-31,26,20,3); ctx.fillStyle='#040a0a'; ctx.fill();
-  // Screen glow bg
-  const screenG = ctx.createRadialGradient(0,-22,1,0,-22,12);
-  screenG.addColorStop(0,sc+'cc'); screenG.addColorStop(1,sc+'22');
-  ctx.beginPath(); ctx.roundRect(-11,-29,22,16,2); ctx.fillStyle=screenG; ctx.fill();
-
-  // Animated cursor / face on screen
-  // Eyes = glowing rect cursors
-  ctx.fillStyle=gl;
-  ctx.beginPath(); ctx.roundRect(-9,-25,5,8,1); ctx.fill(); // left eye
-  ctx.beginPath(); ctx.roundRect(4,-25,5,8,1); ctx.fill();  // right eye
-  // Cursor blink mouth
-  ctx.beginPath(); ctx.roundRect(-6,-15,12,3,1); ctx.fillStyle=sc; ctx.fill();
-
-  // Scanline effect on screen
-  ctx.globalAlpha=0.08;
-  for(let sl=0;sl<8;sl++){
-    ctx.beginPath(); ctx.rect(-11,-29+sl*2.1,22,1); ctx.fillStyle='#ffffff'; ctx.fill();
-  }
-  ctx.globalAlpha=1;
-
-  // Screen outer glow
-  ctx.shadowBlur=12; ctx.shadowColor=sc;
-  ctx.beginPath(); ctx.roundRect(-11,-29,22,16,2); ctx.strokeStyle=sc+'88'; ctx.lineWidth=1.5; ctx.stroke();
-  ctx.shadowBlur=0;
-
-  // Antenna
-  ctx.strokeStyle=ml; ctx.lineWidth=2;
-  ctx.beginPath(); ctx.moveTo(0,-34); ctx.lineTo(0,-44); ctx.stroke();
-  ctx.beginPath(); ctx.arc(0,-44,3,0,Math.PI*2); ctx.fillStyle=gl; ctx.fill();
-  // Antenna glow
-  const ag=ctx.createRadialGradient(0,-44,0,0,-44,8);
-  ag.addColorStop(0,gl); ag.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.beginPath(); ctx.arc(0,-44,8,0,Math.PI*2); ctx.fillStyle=ag; ctx.fill();
-
-  // Team badge
-  ctx.beginPath(); ctx.arc(0,-21,3,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
-
-  ctx.restore();
-}
-
-// ── CAR CHARACTER ─────────────────────────────────────────
-function drawCarChar(ctx, x, y, isP2, color) {
-  ctx.save(); ctx.translate(x, y);
-  const bc2 = color;                         // body = player color
-  const bd  = isP2 ? '#1a3a60' : '#601a1a';  // dark body shadow
-  const wc  = '#222222';                      // wheel black
-  const wr  = '#888888';                      // wheel rim
-  const wnd = '#aaddff';                      // windshield
-  const flip = isP2 ? -1 : 1;               // P2 faces left
-
-  ctx.scale(flip, 1);
-
-  // Shadow
-  ctx.save(); ctx.scale(1,0.2);
-  ctx.beginPath(); ctx.ellipse(0,CHAR_H*3.5,26,10,0,0,Math.PI*2);
-  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.fill();
-  ctx.restore();
-
-  // Exhaust flames
-  const fA = 0.6 + Math.random()*0.4;
-  const flameG = ctx.createLinearGradient(28,0,44,0);
-  flameG.addColorStop(0,'rgba(255,140,0,'+fA+')');
-  flameG.addColorStop(0.5,'rgba(255,60,0,'+(fA*0.7)+')');
-  flameG.addColorStop(1,'rgba(255,0,0,0)');
-  ctx.beginPath(); ctx.moveTo(26,-2); ctx.lineTo(44,-1+Math.random()*2); ctx.lineTo(26,2);
-  ctx.closePath(); ctx.fillStyle=flameG; ctx.fill();
-  // Second smaller flame
-  ctx.beginPath(); ctx.moveTo(26,-1); ctx.lineTo(38,0+Math.random()*1.5); ctx.lineTo(26,1);
-  ctx.closePath(); ctx.fillStyle='rgba(255,220,60,0.8)'; ctx.fill();
-
-  // Rear spoiler
-  ctx.beginPath(); ctx.roundRect(22,-20,4,12,1); ctx.fillStyle=bd; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(18,-21,14,3,1); ctx.fillStyle='#333'; ctx.fill();
-
-  // Wheels (back then front drawn after body)
-  function drawWheel(wx, wy) {
-    const wg=ctx.createRadialGradient(wx,wy,1,wx,wy,10);
-    wg.addColorStop(0,'#555'); wg.addColorStop(0.6,wc); wg.addColorStop(1,'#111');
-    ctx.beginPath(); ctx.arc(wx,wy,10,0,Math.PI*2); ctx.fillStyle=wg; ctx.fill();
-    // Rim
-    ctx.beginPath(); ctx.arc(wx,wy,6,0,Math.PI*2); ctx.fillStyle=wr; ctx.fill();
-    // Hub
-    ctx.beginPath(); ctx.arc(wx,wy,2.5,0,Math.PI*2); ctx.fillStyle='#ccc'; ctx.fill();
-    // Spokes
-    for(let s=0;s<5;s++){
-      const sa=s*Math.PI*2/5;
-      ctx.beginPath(); ctx.moveTo(wx+Math.cos(sa)*2.5,wy+Math.sin(sa)*2.5);
-      ctx.lineTo(wx+Math.cos(sa)*6,wy+Math.sin(sa)*6);
-      ctx.strokeStyle='#999'; ctx.lineWidth=1.5; ctx.stroke();
-    }
-  }
-
-  // Car body shape
-  const bodyG = ctx.createLinearGradient(-26,-18,26,14);
-  bodyG.addColorStop(0,'#ffffff44'); bodyG.addColorStop(0.3,bc2); bodyG.addColorStop(1,bd);
-  // Lower chassis
-  ctx.beginPath(); ctx.roundRect(-26,0,52,14,3); ctx.fillStyle=bc2; ctx.fill();
-  // Upper cabin
-  ctx.beginPath();
-  ctx.moveTo(-18,0); ctx.lineTo(-14,-20); ctx.lineTo(16,-20); ctx.lineTo(22,0); ctx.closePath();
-  ctx.fillStyle=bc2; ctx.fill();
-  // Body gradient sheen
-  ctx.beginPath(); ctx.roundRect(-26,0,52,14,3); ctx.fillStyle=bodyG; ctx.fill();
-  // Side stripe
-  ctx.beginPath(); ctx.roundRect(-24,4,48,4,1); ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.fill();
-
-  // Windshield
-  const wG=ctx.createLinearGradient(-10,-19,14,-1);
-  wG.addColorStop(0,'rgba(180,230,255,0.9)'); wG.addColorStop(1,'rgba(100,180,255,0.5)');
-  ctx.beginPath();
-  ctx.moveTo(-12,0); ctx.lineTo(-8,-17); ctx.lineTo(14,-17); ctx.lineTo(18,0); ctx.closePath();
-  ctx.fillStyle=wG; ctx.fill();
-  // Windshield reflection
-  ctx.beginPath(); ctx.moveTo(-8,-15); ctx.lineTo(-4,-15); ctx.lineTo(-6,-3); ctx.lineTo(-10,-3);
-  ctx.closePath(); ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.fill();
-
-  // Headlight
-  ctx.beginPath(); ctx.ellipse(-24,5,5,4,0,0,Math.PI*2);
-  const hlg=ctx.createRadialGradient(-24,5,0,-24,5,5);
-  hlg.addColorStop(0,'#ffffee'); hlg.addColorStop(1,'rgba(255,255,150,0)');
-  ctx.fillStyle=hlg; ctx.fill();
-  // Tail light
-  ctx.beginPath(); ctx.rect(22,2,4,5); ctx.fillStyle='rgba(255,40,40,0.9)'; ctx.fill();
-
-  // Draw wheels on top of chassis
-  drawWheel(-14, 14);
-  drawWheel(14, 14);
-
-  // Team badge on door
-  ctx.beginPath(); ctx.arc(-2,4,5,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
-  ctx.beginPath(); ctx.arc(-2,4,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fill();
-
-  // Racing number
-  ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font='bold 7px '+"'Orbitron', monospace";
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText(isP2?'2':'1', -2, 4);
-
-  ctx.restore();
-}
-
-// ── OIL SLICK / CANNONBALL PROJECTILE (cars) ────────────────
-function drawOilSlickProjectile(ctx, p) {
-  ctx.save();
-  const angle = Math.atan2(p.vy, p.vx);
-  ctx.translate(p.x, p.y); ctx.rotate(angle);
-
-  // Spinning cannonball shell
-  const spin = (Date.now() * 0.004) % (Math.PI*2);
-  ctx.rotate(spin);
-  const cg=ctx.createRadialGradient(-3,-3,1,0,0,9);
-  cg.addColorStop(0,'#888888'); cg.addColorStop(0.5,'#333'); cg.addColorStop(1,'#111');
-  ctx.beginPath(); ctx.arc(0,0,9,0,Math.PI*2); ctx.fillStyle=cg; ctx.fill();
-  // Shell band
-  ctx.beginPath(); ctx.rect(-9,-2,18,4); ctx.fillStyle='rgba(180,140,60,0.7)'; ctx.fill();
-  ctx.beginPath(); ctx.arc(0,0,9,0,Math.PI*2);
-  ctx.strokeStyle='rgba(255,200,80,0.5)'; ctx.lineWidth=1.5; ctx.stroke();
-  // Shine
-  ctx.beginPath(); ctx.ellipse(-3,-3,3,2,-0.5,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.fill();
-  ctx.rotate(-spin);
-
-  ctx.restore();
-
-  // Oil slick trail
-  if(p.trail && p.trail.length>2){
-    ctx.save();
-    for(let i=2;i<p.trail.length;i+=3){
-      const t=p.trail[i], alpha=(i/p.trail.length)*0.5;
-      // Iridescent oil puddle dot
-      const og=ctx.createRadialGradient(t.x,t.y,0,t.x,t.y,7);
-      og.addColorStop(0,`rgba(60,0,80,${alpha})`);
-      og.addColorStop(0.4,`rgba(0,100,60,${alpha*0.8})`);
-      og.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.ellipse(t.x,t.y,7,4,0,0,Math.PI*2); ctx.fillStyle=og; ctx.fill();
-    }
-    ctx.restore();
-  }
-}
-
-// ── WORM CHARACTER (3D-shaded, helmeted) ────────────────────────
-function drawWormChar(ctx, x, y, isP2, color) {
-  ctx.save(); ctx.translate(x, y);
-
-  // Team tint: P1=pinkish, P2=bluish
-  const bodyBase  = isP2 ? '#6bb8e8' : '#e87c7c';
-  const bodyMid   = isP2 ? '#4a9fd4' : '#d45a5a';
-  const bodyDark  = isP2 ? '#2a6fa8' : '#a83030';
-  const bodyHigh  = isP2 ? '#aaddff' : '#ffaaaa';
-  const helmetCol = isP2 ? '#1155aa' : '#aa2211';
-  const helmetRim = isP2 ? '#3377cc' : '#cc4422';
-  const helmetHi  = isP2 ? '#66aaee' : '#ee8866';
-
-  // ── Ground shadow ──
-  ctx.save();
-  ctx.scale(1, 0.22);
-  ctx.beginPath();
-  ctx.ellipse(0, CHAR_H * 3.2, 22, 10, 0, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(0,0,0,0.28)';
-  ctx.fill();
-  ctx.restore();
-
-  // ── Tail (lower body segment — stubby coil) ──
-  // Segment 3 (bottom)
-  const s3g = ctx.createRadialGradient(-3, 24, 1, -3, 24, 11);
-  s3g.addColorStop(0, bodyHigh);
-  s3g.addColorStop(0.35, bodyBase);
-  s3g.addColorStop(1, bodyDark);
-  ctx.beginPath();
-  ctx.ellipse(-3, 24, 11, 10, 0.3, 0, Math.PI * 2);
-  ctx.fillStyle = s3g;
-  ctx.fill();
-  ctx.beginPath();
-  ctx.ellipse(-3, 24, 7, 6, 0.3, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.10)';
-  ctx.fill();
-
-  // Segment 2 (middle)
-  const s2g = ctx.createRadialGradient(2, 10, 1, 2, 10, 13);
-  s2g.addColorStop(0, bodyHigh);
-  s2g.addColorStop(0.3, bodyBase);
-  s2g.addColorStop(1, bodyDark);
-  ctx.beginPath();
-  ctx.ellipse(2, 10, 13, 11, -0.15, 0, Math.PI * 2);
-  ctx.fillStyle = s2g;
-  ctx.fill();
-  // Belly highlight
-  ctx.beginPath();
-  ctx.ellipse(2, 10, 8, 7, -0.15, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.12)';
-  ctx.fill();
-  // Segment crease
-  ctx.beginPath();
-  ctx.arc(0, 18, 12, -0.1, Math.PI + 0.1);
-  ctx.strokeStyle = bodyDark;
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-
-  // ── Head ──
-  const headG = ctx.createRadialGradient(-4, -18, 2, 0, -16, 16);
-  headG.addColorStop(0, bodyHigh);
-  headG.addColorStop(0.4, bodyBase);
-  headG.addColorStop(1, bodyMid);
-  ctx.beginPath();
-  ctx.ellipse(0, -14, 14, 15, 0, 0, Math.PI * 2);
-  ctx.fillStyle = headG;
-  ctx.fill();
-  // Cheek sheen
-  ctx.beginPath();
-  ctx.ellipse(-5, -16, 5, 4, -0.4, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.18)';
-  ctx.fill();
-  // Head crease (neck)
-  ctx.beginPath();
-  ctx.arc(0, -2, 13, -0.2, Math.PI + 0.2);
-  ctx.strokeStyle = bodyDark;
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-
-  // ── Eyes ──
-  // Eye whites
-  ctx.beginPath(); ctx.ellipse(-6, -16, 5, 5.5, -0.2, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff'; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(6, -16, 5, 5.5, 0.2, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff'; ctx.fill();
-  // Pupils
-  ctx.beginPath(); ctx.arc(-5.5, -16, 3, 0, Math.PI * 2);
-  ctx.fillStyle = '#1a1a1a'; ctx.fill();
-  ctx.beginPath(); ctx.arc(6.5, -16, 3, 0, Math.PI * 2);
-  ctx.fillStyle = '#1a1a1a'; ctx.fill();
-  // Eye shine
-  ctx.beginPath(); ctx.arc(-7, -18, 1.2, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(5.5, -18, 1.2, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff'; ctx.fill();
-  // Eye outline
-  ctx.beginPath(); ctx.ellipse(-6, -16, 5, 5.5, -0.2, 0, Math.PI * 2);
-  ctx.strokeStyle = bodyDark; ctx.lineWidth = 1.2; ctx.stroke();
-  ctx.beginPath(); ctx.ellipse(6, -16, 5, 5.5, 0.2, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // ── Mouth (cheeky smirk) ──
-  ctx.beginPath();
-  ctx.moveTo(-5, -7);
-  ctx.quadraticCurveTo(1, -4, 6, -8);
-  ctx.strokeStyle = bodyDark; ctx.lineWidth = 1.8; ctx.lineCap = 'round'; ctx.stroke();
-
-  // ── Team color badge (chin) ──
-  ctx.beginPath();
-  ctx.arc(0, -4, 4, 0, Math.PI * 2);
-  ctx.fillStyle = color;
-  ctx.fill();
-
-  // ── Helmet ──
-  // Main dome
-  const helmG = ctx.createRadialGradient(-5, -33, 2, 0, -30, 16);
-  helmG.addColorStop(0, helmetHi);
-  helmG.addColorStop(0.5, helmetCol);
-  helmG.addColorStop(1, bodyDark);
-  ctx.beginPath();
-  ctx.arc(0, -26, 14, Math.PI, 0); // top semi-circle
-  ctx.fillStyle = helmG;
-  ctx.fill();
-  // Rim band
-  ctx.beginPath();
-  ctx.rect(-14, -28, 28, 5);
-  ctx.fillStyle = helmetRim;
-  ctx.fill();
-  // Visor slit
-  ctx.beginPath();
-  ctx.roundRect(-10, -29, 20, 3, 1);
-  ctx.fillStyle = 'rgba(0,0,0,0.55)';
-  ctx.fill();
-  // Helmet highlight
-  ctx.beginPath();
-  ctx.ellipse(-4, -32, 5, 3, -0.4, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.28)';
-  ctx.fill();
-  // Chin strap
-  ctx.beginPath();
-  ctx.moveTo(-13, -26);
-  ctx.quadraticCurveTo(-14, -20, -10, -22);
-  ctx.strokeStyle = helmetCol; ctx.lineWidth = 2; ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(13, -26);
-  ctx.quadraticCurveTo(14, -20, 10, -22);
-  ctx.stroke();
-
-  ctx.restore();
-}
-
 function drawGorillaChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
   // Shadow
   ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.55,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill(); ctx.restore();
-  const gc = isP2 ? '#2255aa' : '#994422';
-  const lc = isP2 ? '#1a3a88' : '#7a2e10';
+  const gc = color;
+  const lc = shadeColor(color, -35);
   // Legs
   ctx.beginPath(); ctx.roundRect(-14,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
   ctx.beginPath(); ctx.roundRect(4,14,10,18,4); ctx.fillStyle=gc; ctx.fill();
@@ -1398,7 +749,7 @@ function drawHalloweenChar(ctx, x, y, isP2, color) {
 
 function drawSantaChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const sc = isP2 ? '#0044cc' : '#cc2200';
+  const sc = color;
   // Shadow
   ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.5,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fill(); ctx.restore();
   // Body (coat)
@@ -1438,7 +789,7 @@ function drawSantaChar(ctx, x, y, isP2, color) {
 
 function drawRocketChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const rc = isP2 ? '#3388ff' : '#ff4422';
+  const rc = color;
   // Rocket body
   ctx.beginPath();
   ctx.moveTo(0,-28); ctx.bezierCurveTo(12,-28,16,-14,16,4); ctx.lineTo(16,18); ctx.lineTo(-16,18); ctx.lineTo(-16,4); ctx.bezierCurveTo(-16,-14,-12,-28,0,-28);
@@ -1464,16 +815,18 @@ function drawRocketChar(ctx, x, y, isP2, color) {
 function drawCupidChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
   // Wings
-  const wc = isP2 ? 'rgba(100,150,255,0.7)' : 'rgba(255,150,200,0.7)';
+  const wc = hexToRgba(color, 0.7);
   ctx.beginPath(); ctx.ellipse(-18,-8,14,8,Math.PI*0.3,0,Math.PI*2); ctx.fillStyle=wc; ctx.fill();
   ctx.beginPath(); ctx.ellipse(18,-8,14,8,-Math.PI*0.3,0,Math.PI*2); ctx.fillStyle=wc; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(-18,-8,14,8,Math.PI*0.3,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-20); ctx.lineWidth=1.5; ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(18,-8,14,8,-Math.PI*0.3,0,Math.PI*2); ctx.strokeStyle=shadeColor(color,-20); ctx.lineWidth=1.5; ctx.stroke();
   // Body
-  ctx.beginPath(); ctx.ellipse(0,6,13,16,0,0,Math.PI*2); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
+  ctx.beginPath(); ctx.ellipse(0,6,13,16,0,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
   // Diaper
   ctx.beginPath(); ctx.ellipse(0,16,13,7,0,0,Math.PI*2); ctx.fillStyle='#fff'; ctx.fill();
   // Arms
-  ctx.beginPath(); ctx.roundRect(-24,-4,12,8,4); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(12,-4,12,8,4); ctx.fillStyle=isP2?'#aaccff':'#ffaacc'; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(-24,-4,12,8,4); ctx.fillStyle=color; ctx.fill();
+  ctx.beginPath(); ctx.roundRect(12,-4,12,8,4); ctx.fillStyle=color; ctx.fill();
   // Head
   ctx.beginPath(); ctx.arc(0,-14,12,0,Math.PI*2); ctx.fillStyle='#ffcc99'; ctx.fill();
   // Eyes
@@ -1491,7 +844,7 @@ function drawCupidChar(ctx, x, y, isP2, color) {
 
 function drawLeprechaunChar(ctx, x, y, isP2, color) {
   ctx.save(); ctx.translate(x, y);
-  const gc = '#228822', dc = '#115511';
+  const gc = color, dc = shadeColor(color, -30);
   // Legs
   ctx.beginPath(); ctx.roundRect(-12,14,10,16,3); ctx.fillStyle=gc; ctx.fill();
   ctx.beginPath(); ctx.roundRect(2,14,10,16,3); ctx.fillStyle=gc; ctx.fill();
@@ -1559,7 +912,7 @@ function drawSpaceChar(ctx, x, y, isP2, color) {
   vg.addColorStop(0,'rgba(100,200,255,0.85)'); vg.addColorStop(1,'rgba(0,80,200,0.6)');
   ctx.beginPath(); ctx.ellipse(0,-14,9,8,0,0,Math.PI*2); ctx.fillStyle=vg; ctx.fill();
   // Helmet rim
-  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.strokeStyle=sc; ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(0,-14,14,0,Math.PI*2); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
   // Stars on visor
   ctx.fillStyle='rgba(255,255,255,0.6)';
   [[-4,-16],[4,-13]].forEach(([sx,sy])=>{ctx.beginPath();ctx.arc(sx,sy,1,0,Math.PI*2);ctx.fill();});
@@ -1801,198 +1154,66 @@ function drawTerrain(ctx) {
   }
 }
 
-// ── VFX HELPERS ────────────────────────────────────────────────
-function triggerShake(mag){
-  screenShake.mag=Math.max(screenShake.mag, mag);
-}
-function spawnFloater(x,y,text,color){
-  damageFloaters.push({x,y:y-20,text,color,vy:-1.8,alpha:1,born:performance.now()});
-}
-function spawnMuzzleFlash(x,y,angle){
-  muzzleFlashes.push({x,y,angle,born:performance.now(),dur:120});
-}
-function spawnFireWord(text,x,y){
-  fireWordPopup={text,x,y:y-60,born:performance.now(),dur:900};
-}
-
-// ── EXPLOSION DRAWING (skin-specific) ──────────────────────────
+// ── EXPLOSION DRAWING ──────────────────────────────────────────
 function drawExplosions(ctx) {
   const now=performance.now();
-  gameState.explosions=gameState.explosions.filter(e=>now-e.time<750);
+  gameState.explosions=gameState.explosions.filter(e=>now-e.time<700);
   for(const exp of gameState.explosions){
-    const t=(now-exp.time)/750, alpha=1-t;
-    const r=exp.radius*Math.min(t*2.5,1);
-    const sk=Object.keys(SKINS).find(k=>SKINS[k]===currentSkin)||'tanks';
-    let ec='#ffaa22', ec2='#ff6600', sparkEmoji=null, sparkCount=10;
-    switch(sk){
-      case'tanks':    ec='#ff8800'; ec2='#ff4400'; sparkCount=12; break;
-      case'gorillas': ec='#cc8800'; ec2='#ff9900'; sparkEmoji='🍌'; sparkCount=6; break;
-      case'halloween':ec='#8800ff'; ec2='#dd00ff'; sparkEmoji='💀'; sparkCount=8; break;
-      case'christmas':ec='#aaddff'; ec2='#ffffff'; sparkEmoji='❄️'; sparkCount=8; break;
-      case'july4':    ec='#ff2200'; ec2='#ffdd00'; sparkEmoji='✨'; sparkCount=14; break;
-      case'valentines':ec='#ff69b4';ec2='#ff1493'; sparkEmoji='💖'; sparkCount=8; break;
-      case'stpatrick':ec='#44ff44'; ec2='#00cc22'; sparkEmoji='🍀'; sparkCount=8; break;
-      case'space':    ec='#4466ff'; ec2='#aaccff'; sparkEmoji='⭐'; sparkCount=10; break;
-      case'worms':    ec='#886600'; ec2='#cc9900'; sparkCount=10; break;
-      case'greenhornet':ec='#00ff44';ec2='#00cc22'; sparkCount=12; break;
-      case'computer': ec='#00ff88'; ec2='#ffffff'; sparkEmoji='💾'; sparkCount=10; break;
-      case'cars':     ec='#ff8800'; ec2='#888888'; sparkEmoji='💥'; sparkCount=10; break;
-    }
-    // Shockwave ring
-    ctx.beginPath(); ctx.arc(exp.x,exp.y,r*1.25,0,Math.PI*2);
-    ctx.strokeStyle=`rgba(${hexToRgb(ec)},${alpha*0.4})`; ctx.lineWidth=6*(1-t*0.7); ctx.stroke();
-    // Core fireball
-    const eg=ctx.createRadialGradient(exp.x,exp.y,0,exp.x,exp.y,r);
-    eg.addColorStop(0,`rgba(255,255,200,${alpha*0.9})`);
-    eg.addColorStop(0.35,`rgba(${hexToRgb(ec)},${alpha*0.75})`);
-    eg.addColorStop(0.7,`rgba(${hexToRgb(ec2)},${alpha*0.35})`);
-    eg.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.beginPath(); ctx.arc(exp.x,exp.y,r,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
-    // Smoke ring (delayed)
-    if(t>0.3){
-      const smokeT=(t-0.3)/0.7, smokeR=r*1.1*(1+smokeT);
-      const sg=ctx.createRadialGradient(exp.x,exp.y,smokeR*0.5,exp.x,exp.y,smokeR);
-      sg.addColorStop(0,'rgba(80,80,80,0)');
-      sg.addColorStop(0.5,`rgba(60,60,60,${(1-smokeT)*0.18})`);
-      sg.addColorStop(1,'rgba(40,40,40,0)');
-      ctx.beginPath(); ctx.arc(exp.x,exp.y,smokeR,0,Math.PI*2); ctx.fillStyle=sg; ctx.fill();
-    }
+    const t=(now-exp.time)/700, r=exp.radius*t, alpha=1-t;
+    // Choose explosion color by skin
+    const ec = currentSkin===SKINS.halloween?'#8800ff' : currentSkin===SKINS.christmas?'#aaddff' : currentSkin===SKINS.stpatrick?'#44ff44' : currentSkin===SKINS.valentines?'#ff69b4' : '#ffaa22';
+    ctx.beginPath(); ctx.arc(exp.x,exp.y,r,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(${hexToRgb(ec)},${alpha*0.9})`; ctx.lineWidth=4*(1-t); ctx.stroke();
+    // Inner glow
+    const eg=ctx.createRadialGradient(exp.x,exp.y,0,exp.x,exp.y,r*0.7);
+    eg.addColorStop(0,`rgba(255,255,150,${alpha*0.6})`);
+    eg.addColorStop(0.5,`rgba(${hexToRgb(ec)},${alpha*0.25})`);
+    eg.addColorStop(1,'rgba(255,50,0,0)');
+    ctx.beginPath(); ctx.arc(exp.x,exp.y,r*0.7,0,Math.PI*2); ctx.fillStyle=eg; ctx.fill();
     // Sparks
-    for(let i=0;i<sparkCount;i++){
-      const sa=(i/sparkCount)*Math.PI*2+exp.sparkAngle, sd=r*(0.9+0.4*(i%2));
-      const sx2=exp.x+Math.cos(sa)*sd, sy2=exp.y+Math.sin(sa)*sd;
-      if(sparkEmoji && i<6){
-        ctx.font=`${Math.round(12*(1-t*0.5))}px serif`;
-        ctx.textAlign='center'; ctx.textBaseline='middle';
-        ctx.globalAlpha=alpha*0.85;
-        ctx.fillText(sparkEmoji,sx2,sy2);
-        ctx.globalAlpha=1;
-      } else {
-        ctx.beginPath(); ctx.arc(sx2,sy2,Math.max(0.5,3.5*(1-t)),0,Math.PI*2);
-        ctx.fillStyle=`rgba(255,220,80,${alpha})`; ctx.fill();
-      }
-    }
-    // Worms: dirt clods
-    if(sk==='worms'){
-      for(let i=0;i<6;i++){
-        const sa=exp.sparkAngle+i*(Math.PI/3), sd=r*(0.6+t*0.8);
-        ctx.beginPath(); ctx.arc(exp.x+Math.cos(sa)*sd,exp.y+Math.sin(sa)*sd,4*(1-t),0,Math.PI*2);
-        ctx.fillStyle=`rgba(100,70,20,${alpha*0.9})`; ctx.fill();
-      }
-    }
-    // Green Hornet: electric arcs
-    if(sk==='greenhornet' && t<0.5){
-      ctx.save(); ctx.strokeStyle=`rgba(0,255,80,${alpha*0.7})`; ctx.lineWidth=1.5;
-      for(let i=0;i<6;i++){
-        const sa=exp.sparkAngle+i*1.047;
-        ctx.beginPath(); ctx.moveTo(exp.x,exp.y);
-        let ax=exp.x,ay=exp.y;
-        for(let s=0;s<4;s++){
-          ax+=Math.cos(sa+(Math.random()-0.5)*1.2)*r*0.28;
-          ay+=Math.sin(sa+(Math.random()-0.5)*1.2)*r*0.28;
-          ctx.lineTo(ax,ay);
-        }
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-    // Computer: pixel fragments
-    if(sk==='computer' && t<0.6){
-      ctx.save();
-      for(let i=0;i<8;i++){
-        const pa=(i/8)*Math.PI*2+exp.sparkAngle, pd=r*(0.5+t*0.7);
-        const pw=Math.max(1,5*(1-t));
-        ctx.fillStyle=i%2===0?`rgba(0,255,136,${alpha*0.8})`:`rgba(255,255,255,${alpha*0.6})`;
-        ctx.fillRect(exp.x+Math.cos(pa)*pd-pw/2,exp.y+Math.sin(pa)*pd-pw/2,pw,pw);
-      }
-      ctx.restore();
-    }
-    // Cars: tire smoke puffs
-    if(sk==='cars' && t>0.2){
-      ctx.save();
-      for(let i=0;i<5;i++){
-        const sa=exp.sparkAngle+i*1.257, sd=r*(0.4+t*0.6);
-        const puff=ctx.createRadialGradient(exp.x+Math.cos(sa)*sd,exp.y+Math.sin(sa)*sd,0,exp.x+Math.cos(sa)*sd,exp.y+Math.sin(sa)*sd,12*t);
-        puff.addColorStop(0,`rgba(150,150,150,${alpha*0.5})`);
-        puff.addColorStop(1,'rgba(80,80,80,0)');
-        ctx.beginPath(); ctx.arc(exp.x+Math.cos(sa)*sd,exp.y+Math.sin(sa)*sd,12*t,0,Math.PI*2);
-        ctx.fillStyle=puff; ctx.fill();
-      }
-      ctx.restore();
-    }
-  }
-}
-
-// ── MUZZLE FLASH ───────────────────────────────────────────────
-function drawMuzzleFlashes(ctx){
-  const now=performance.now();
-  muzzleFlashes=muzzleFlashes.filter(f=>now-f.born<f.dur);
-  for(const f of muzzleFlashes){
-    const t=(now-f.born)/f.dur, alpha=1-t;
-    ctx.save(); ctx.translate(f.x,f.y); ctx.rotate(-f.angle+Math.PI/2);
     for(let i=0;i<8;i++){
-      const a=(i/8)*Math.PI*2;
-      const len=(i%2===0?28:14)*(1-t*0.6);
-      ctx.beginPath(); ctx.moveTo(0,0);
-      ctx.lineTo(Math.cos(a)*len,Math.sin(a)*len);
-      ctx.strokeStyle=`rgba(255,${180+Math.floor(60*t)},50,${alpha})`;
-      ctx.lineWidth=3*(1-t); ctx.stroke();
+      const a=(i/8)*Math.PI*2+exp.sparkAngle, sr=r*1.1;
+      ctx.beginPath(); ctx.arc(exp.x+Math.cos(a)*sr,exp.y+Math.sin(a)*sr,3*(1-t),0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,220,50,${alpha})`; ctx.fill();
     }
-    const mg=ctx.createRadialGradient(0,0,0,0,0,16*(1-t*0.7));
-    mg.addColorStop(0,`rgba(255,255,200,${alpha})`);
-    mg.addColorStop(0.5,`rgba(255,160,0,${alpha*0.6})`);
-    mg.addColorStop(1,'rgba(255,80,0,0)');
-    ctx.beginPath(); ctx.arc(0,0,16*(1-t*0.7),0,Math.PI*2); ctx.fillStyle=mg; ctx.fill();
-    ctx.restore();
+    // Skin-specific particles
+    if (currentSkin===SKINS.christmas) {
+      for(let i=0;i<6;i++){
+        const a=(i/6)*Math.PI*2+exp.sparkAngle, sr=r*0.8;
+        ctx.font='14px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.globalAlpha=alpha;
+        ctx.fillText('❄️',exp.x+Math.cos(a)*sr,exp.y+Math.sin(a)*sr);
+        ctx.globalAlpha=1;
+      }
+    }
+    if (currentSkin===SKINS.gorillas) {
+      ctx.font='16px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.globalAlpha=alpha*0.8;
+      for(let i=0;i<4;i++){
+        const a=(i/4)*Math.PI*2, sr=r*0.6;
+        ctx.fillText('🍌',exp.x+Math.cos(a)*sr,exp.y+Math.sin(a)*sr);
+      }
+      ctx.globalAlpha=1;
+    }
   }
 }
-
-// ── DAMAGE FLOATERS ────────────────────────────────────────────
-function drawDamageFloaters(ctx){
-  const now=performance.now();
-  damageFloaters=damageFloaters.filter(f=>now-f.born<1100);
-  for(const f of damageFloaters){
-    const age=(now-f.born)/1100;
-    f.y+=f.vy; f.vy*=0.96;
-    const alpha=age<0.6?1:1-(age-0.6)/0.4;
-    const scale=age<0.12?(age/0.12):1;
-    ctx.save(); ctx.translate(f.x,f.y); ctx.scale(scale,scale);
-    ctx.font="bold 22px 'Orbitron',monospace";
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillText(f.text,2,2);
-    const rgb=f.color.startsWith('#')?`${parseInt(f.color.slice(1,3),16)},${parseInt(f.color.slice(3,5),16)},${parseInt(f.color.slice(5,7),16)}`:'255,80,80';
-    ctx.fillStyle=`rgba(${rgb},${alpha})`;
-    ctx.fillText(f.text,0,0);
-    ctx.restore();
-  }
-}
-
-// ── FIRE WORD POPUP ────────────────────────────────────────────
-function drawFireWord(ctx){
-  if(!fireWordPopup) return;
-  const now=performance.now();
-  const age=(now-fireWordPopup.born)/fireWordPopup.dur;
-  if(age>=1){fireWordPopup=null;return;}
-  const alpha=age<0.15?age/0.15:age>0.65?(1-(age-0.65)/0.35):1;
-  const scale=age<0.15?(0.5+age/0.15*0.7):(1.2-age*0.2);
-  const dy=age*-30;
-  ctx.save();
-  ctx.translate(fireWordPopup.x,fireWordPopup.y+dy);
-  ctx.scale(scale,scale);
-  ctx.shadowColor='#ffaa00'; ctx.shadowBlur=18;
-  ctx.font="bold 32px 'Orbitron',monospace";
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillStyle=`rgba(255,200,0,${alpha})`;
-  ctx.fillText(fireWordPopup.text,0,0);
-  ctx.shadowBlur=0;
-  ctx.restore();
-}
-
-
 
 function hexToRgb(hex) {
   const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
   return `${r},${g},${b}`;
+}
+function hexToRgba(hex, alpha) {
+  return `rgba(${hexToRgb(hex)},${alpha})`;
+}
+function shadeColor(hex, pct) {
+  // pct: -100 (black) to +100 (white)
+  try {
+    let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+    r=Math.min(255,Math.max(0,r+Math.round(r*pct/100)));
+    g=Math.min(255,Math.max(0,g+Math.round(g*pct/100)));
+    b=Math.min(255,Math.max(0,b+Math.round(b*pct/100)));
+    return '#'+r.toString(16).padStart(2,'0')+g.toString(16).padStart(2,'0')+b.toString(16).padStart(2,'0');
+  } catch(e){ return hex; }
 }
 
 // ── TRAJECTORY PREVIEW ─────────────────────────────────────────
@@ -2004,8 +1225,7 @@ function drawTrajectoryPreview() {
   const ct=gameState.currentTurn, tank=gameState.tanks[ct];
   const angleRad=(tank.angle*Math.PI)/180, speed=tank.power*7;
   let vx=Math.cos(angleRad)*speed, vy=-Math.sin(angleRad)*speed;
-  const _trajOY=currentSkin.shotOriginY||-20;
-  let px=tank.x+Math.cos(angleRad)*(BARREL_LEN+4), py=(tank.y+_trajOY)-Math.sin(angleRad)*(BARREL_LEN+4);
+  let px=tank.x+Math.cos(angleRad)*(BARREL_LEN+4), py=tank.y-Math.sin(angleRad)*(BARREL_LEN+4);
   const dt=1/60, sx=canvas.width/CANVAS_W, sy=canvas.height/CANVAS_H;
   trajCtx.save(); trajCtx.scale(sx,sy);
   trajCtx.beginPath(); trajCtx.moveTo(px,py);
@@ -2032,10 +1252,10 @@ function renderGame() {
   gameState.tanks.forEach((t,i)=>{
     if(t.hp<=0) return;
     // Use per-tank color from upgrade system if available (tanks skin only)
-    const charColor = (currentSkin===SKINS.tanks && t.color) ? t.color : (i===0?'#ff6b35':'#35c5ff');
+    const charColor = t.color || (i===0?'#ff6b35':'#35c5ff');
     currentSkin.drawChar(ctx,t.x,t.y,i===1,charColor);
     // Draw barrel (gorillas don't need barrel — they throw with arms)
-    if(currentSkin!==SKINS.gorillas && currentSkin!==SKINS.halloween && currentSkin!==SKINS.valentines && currentSkin!==SKINS.stpatrick && currentSkin!==SKINS.cupid && currentSkin!==SKINS.worms && currentSkin!==SKINS.greenhornet && currentSkin!==SKINS.computer && currentSkin!==SKINS.cars){
+    if(currentSkin!==SKINS.gorillas && currentSkin!==SKINS.halloween && currentSkin!==SKINS.valentines && currentSkin!==SKINS.stpatrick && currentSkin!==SKINS.cupid){
       const u=t.upgrades||{};
       const bLen = BARREL_LEN + (u.barrel||0)*6;
       const bWidth = 6 + (u.barrel||0)*1.5;
@@ -2061,9 +1281,6 @@ function renderGame() {
     }
   });
   if(gameState.projectile) currentSkin.drawProjectile(ctx,gameState.projectile);
-  drawMuzzleFlashes(ctx);
-  drawFireWord(ctx);
-  drawDamageFloaters(ctx);
   ctx.restore();
   drawTrajectoryPreview();
 }
@@ -2076,33 +1293,25 @@ function updatePhysics(dt) {
   proj.x+=proj.vx*dt; proj.y+=proj.vy*dt;
   proj.trail.push({x:proj.x,y:proj.y});
   if(proj.trail.length>22) proj.trail.shift();
-  // Grace period: don't collide with anything for first N frames so projectile clears the barrel
-  if(proj.graceFrames>0){ proj.graceFrames--; return; }
   if(proj.x<-60||proj.x>CANVAS_W+60||proj.y>CANVAS_H+60){handleMiss();return;}
   if(proj.y>=getTerrainY(proj.x)){handleImpact(proj.x,proj.y);return;}
   for(let i=0;i<2;i++){
     const tank=gameState.tanks[i]; if(tank.hp<=0) continue;
-    const dx=Math.abs(proj.x-tank.x), dy=Math.abs(proj.y-tank.y);
-    if(dx<CHAR_W/2+8&&dy<CHAR_H+8){
-      console.log('%c[HIT] tank',i,'proj(',proj.x.toFixed(1),proj.y.toFixed(1),') tank(',tank.x.toFixed(1),tank.y.toFixed(1),') dx=',dx.toFixed(1),'dy=',dy.toFixed(1),'color:#f44');
-      handleImpact(proj.x,proj.y,i);return;
-    }
+    if(Math.abs(proj.x-tank.x)<CHAR_W/2+8&&Math.abs(proj.y-tank.y)<CHAR_H+8){handleImpact(proj.x,proj.y,i);return;}
   }
 }
 
 function handleImpact(ix, iy, hitTankIdx=-1) {
   playExplosion();
-  triggerShake(hitTankIdx>=0 ? 14 : 9);
   gameState.explosions.push({x:ix,y:iy,radius:EXPLOSION_RADIUS,time:performance.now(),sparkAngle:Math.random()*Math.PI*2});
   deformTerrain(ix,iy,EXPLOSION_RADIUS);
   if(hitTankIdx>=0){
-    const dmg=28+Math.floor(Math.random()*18);
-    applyDamage(hitTankIdx, dmg, ix, iy);
+    applyDamage(hitTankIdx, 28+Math.floor(Math.random()*18));
   } else {
     for(let i=0;i<2;i++){
       const t=gameState.tanks[i]; if(t.hp<=0) continue;
       const dist=Math.sqrt((ix-t.x)**2+(iy-t.y)**2);
-      if(dist<EXPLOSION_RADIUS+24){ const dmg=Math.floor(28*(1-dist/(EXPLOSION_RADIUS+24))); if(dmg>0)applyDamage(i,dmg,ix,iy); }
+      if(dist<EXPLOSION_RADIUS+24){ const dmg=Math.floor(28*(1-dist/(EXPLOSION_RADIUS+24))); if(dmg>0)applyDamage(i,dmg); }
     }
   }
   gameState.projectile=null;
@@ -2112,12 +1321,8 @@ function handleImpact(ix, iy, hitTankIdx=-1) {
 
 function handleMiss(){gameState.projectile=null;setTimeout(endTurn,400);}
 
-function applyDamage(idx,dmg,fx,fy){
+function applyDamage(idx,dmg){
   const t=gameState.tanks[idx]; t.hp=Math.max(0,t.hp-dmg); updateHealthUI();
-  const floatX = fx!=null ? fx : t.x;
-  const floatY = fy!=null ? fy : t.y-30;
-  const col = idx===0 ? '#ff6b35' : '#35c5ff';
-  spawnFloater(floatX, floatY, '-'+dmg, col);
 }
 
 function updateHealthUI(){
@@ -2184,16 +1389,6 @@ function gameLoop(timestamp){
   const dt=Math.min((timestamp-lastTime)/1000,0.05);
   lastTime=timestamp;
   updatePhysics(dt);
-  // Screen shake decay
-  screenShake.mag*=screenShake.decay;
-  if(screenShake.mag>0.5){
-    screenShake.x=(Math.random()*2-1)*screenShake.mag;
-    screenShake.y=(Math.random()*2-1)*screenShake.mag;
-    canvas.style.transform=`translate(${screenShake.x.toFixed(1)}px,${screenShake.y.toFixed(1)}px)`;
-  } else {
-    canvas.style.transform='';
-    screenShake.mag=0;
-  }
   renderGame();
   animFrameId=requestAnimationFrame(gameLoop);
 }
@@ -2208,42 +1403,7 @@ document.getElementById('power-slider').addEventListener('input',function(){
   document.getElementById('power-val').textContent=this.value; drawTrajectoryPreview();
 });
 
-// ── PAUSE / HOW-TO-PLAY ──────────────────────────────────────────────────
-let _paused = false;
-
-function togglePause() {
-  // Only allow pause during an active game (aiming phase or paused)
-  const gameScreen = document.getElementById('game-screen');
-  if (!gameScreen || gameScreen.classList.contains('hidden')) return;
-  // Don't allow pausing during projectile flight or game-over
-  if (gameState.phase === 'firing' || gameState.phase === 'gameover') return;
-  _paused = !_paused;
-  const overlay = document.getElementById('pause-overlay');
-  if (_paused) {
-    overlay.classList.remove('hidden');
-    if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
-  } else {
-    overlay.classList.add('hidden');
-    // Restart the render loop
-    if (!animFrameId) animFrameId = requestAnimationFrame(gameLoop);
-  }
-}
-
-function quitToLobby() {
-  _paused = false;
-  document.getElementById('pause-overlay').classList.add('hidden');
-  if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
-  gameState.phase = 'gameover';
-  document.getElementById('game-screen').classList.add('hidden');
-  document.getElementById('lobby').classList.remove('hidden');
-}
-
-window.togglePause = togglePause;
-window.quitToLobby = quitToLobby;
-
 document.addEventListener('keydown',(e)=>{
-  if(e.code==='Escape'){e.preventDefault();togglePause();return;}
-  if(_paused) return; // block all other input while paused
   if(gameState.phase!=='aiming') return;
   const ct=gameState.currentTurn;
   const isMyTurn=gameMode==='hotseat'||(gameMode==='network'&&((myRole==='host'&&ct===0)||(myRole==='guest'&&ct===1)));
@@ -2263,26 +1423,10 @@ function fireTank(){
   playFire();
   const ct=gameState.currentTurn, tank=gameState.tanks[ct];
   const a=(tank.angle*Math.PI)/180, speed=tank.power*7;
-  const oy=currentSkin.shotOriginY||-20;
-  const spawnX = tank.x+Math.cos(a)*(BARREL_LEN+4);
-  const spawnY = (tank.y+oy)-Math.sin(a)*(BARREL_LEN+4);
-  console.group('%c[FIRE]','color:#ff0;font-weight:bold');
-  console.log('Firer tank idx:',ct,'angle:',tank.angle,'power:',tank.power);
-  console.log('Tank pos: x=',tank.x.toFixed(1),'y=',tank.y.toFixed(1));
-  console.log('shotOriginY:',oy,'  spawnX:',spawnX.toFixed(1),'spawnY:',spawnY.toFixed(1));
-  console.log('vx=',( Math.cos(a)*speed).toFixed(1),'vy=',(-Math.sin(a)*speed).toFixed(1));
-  console.log('Hit-box check radius: CHAR_W/2+8=',(CHAR_W/2+8),'CHAR_H+8=',(CHAR_H+8));
-  console.log('Dist from spawn to tank.y:', Math.abs(spawnY-tank.y).toFixed(1),'(must be > CHAR_H+8=52 to escape)');
-  console.groupEnd();
-  // VFX: muzzle flash at barrel tip
-  spawnMuzzleFlash(spawnX, spawnY, a);
-  // VFX: fire word popup above shooter
-  spawnFireWord(currentSkin.fireWord, tank.x, tank.y-40);
   gameState.projectile={
-    x:spawnX, y:spawnY,
+    x:tank.x+Math.cos(a)*(BARREL_LEN+4), y:tank.y-Math.sin(a)*(BARREL_LEN+4),
     vx:Math.cos(a)*speed, vy:-Math.sin(a)*speed,
     trail:[], ownerIdx:ct,
-    graceFrames: 24, // skip self-hit for first 24 physics frames
   };
   gameState.phase='firing';
   document.getElementById('fire-btn').disabled=true;
@@ -2290,187 +1434,34 @@ function fireTank(){
   if(gameMode==='network'&&conn) conn.send({type:'shot',angle:tank.angle,power:tank.power,turn:ct});
 }
 
-// ── AUDIO ENGINE ──────────────────────────────────────────────
+// ── AUDIO ─────────────────────────────────────────────────────
 let audioCtx=null;
-function initAudio(){if(audioCtx)return;try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
-function resumeAudio(){if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});else if(!audioCtx)initAudio();}
-document.addEventListener('click',resumeAudio,{once:true});
-document.addEventListener('keydown',resumeAudio,{once:true});
-
-// ─ noise buffer helper ─
-function makeNoise(dur,type='white'){
-  if(!audioCtx)return null;
-  const sr=audioCtx.sampleRate,len=Math.ceil(sr*dur);
-  const buf=audioCtx.createBuffer(1,len,sr),d=buf.getChannelData(0);
-  if(type==='white'){ for(let i=0;i<len;i++)d[i]=Math.random()*2-1; }
-  else if(type==='decay'){ for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,1.8); }
-  else if(type==='rumble'){
-    let v=0; for(let i=0;i<len;i++){v+=(Math.random()*2-1)*0.3;v*=0.92;d[i]=v*Math.pow(1-i/len,1.2);}
-  }
-  return buf;
-}
-function playSrc(buf,gainVal,dur){
-  if(!audioCtx||!buf)return;
-  const g=audioCtx.createGain(),src=audioCtx.createBufferSource();
-  src.buffer=buf; g.gain.setValueAtTime(gainVal,audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+dur);
-  src.connect(g).connect(audioCtx.destination); src.start(); return src;
-}
-function playOsc(type,freq0,freq1,dur,gainVal,startDelay=0){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime+startDelay;
-  o.type=type; o.frequency.setValueAtTime(freq0,t);
-  if(freq1) o.frequency.exponentialRampToValueAtTime(freq1,t+dur);
-  g.gain.setValueAtTime(gainVal,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-  o.connect(g).connect(audioCtx.destination); o.start(t); o.stop(t+dur+0.05);
-}
-
-// ─ LAUNCH SOUNDS per skin ─
+function initAudio(){if(audioCtx)return;try{audioCtx=new AudioContext();}catch(e){}}
 function playFire(){
-  resumeAudio(); if(!audioCtx)return;
-  const sk=Object.keys(SKINS).find(k=>SKINS[k]===currentSkin)||'tanks';
+  if(!audioCtx){initAudio();if(!audioCtx)return;}
   try{
-    switch(sk){
-      case'tanks':// cannon BOOM — low thud + metallic click
-        playOsc('sawtooth',180,38,0.22,0.30);
-        playOsc('square',900,200,0.07,0.12);
-        playSrc(makeNoise(0.15,'decay'),0.18,0.15);
-        break;
-      case'gorillas':// arm grunt — dull thud
-        playOsc('sine',120,60,0.18,0.35);
-        playOsc('triangle',280,90,0.10,0.15);
-        break;
-      case'halloween':// spooky whoosh
-        playOsc('sawtooth',600,120,0.30,0.18);
-        playOsc('sine',300,80,0.25,0.12);
-        playSrc(makeNoise(0.3,'white'),0.06,0.3);
-        break;
-      case'christmas':// sleigh bell jingle
-        [660,880,1100,1320].forEach((f,i)=>playOsc('sine',f,f*0.9,0.15,0.12,i*0.04));
-        playSrc(makeNoise(0.12,'white'),0.05,0.12);
-        break;
-      case'july4':// rocket whoosh + sizzle
-        playOsc('sawtooth',300,60,0.35,0.22);
-        playOsc('square',1200,200,0.12,0.09);
-        playSrc(makeNoise(0.35,'white'),0.10,0.35);
-        break;
-      case'valentines':// soft twang / arrow
-        playOsc('triangle',440,110,0.20,0.22);
-        playOsc('sine',880,220,0.08,0.10);
-        break;
-      case'stpatrick':// harp pluck
-        [523,659,784,1047].forEach((f,i)=>playOsc('sine',f,f*0.5,0.22,0.14,i*0.03));
-        break;
-      case'space':// laser pew
-        playOsc('sawtooth',1400,180,0.20,0.20);
-        playOsc('square',2800,300,0.12,0.10);
-        playSrc(makeNoise(0.18,'white'),0.04,0.18);
-        break;
-      case'worms':// grenade pin pull + click
-        playOsc('square',800,400,0.06,0.20);
-        playOsc('triangle',200,80,0.14,0.18);
-        playSrc(makeNoise(0.08,'decay'),0.12,0.08);
-        break;
-      case'greenhornet':// laser STING — sharp rising zap
-        playOsc('sawtooth',2200,4400,0.06,0.25);
-        playOsc('square',3000,600,0.10,0.15);
-        playSrc(makeNoise(0.10,'white'),0.06,0.10);
-        break;
-      case'computer':// digital bleep execute
-        playOsc('square',880,880,0.05,0.25);
-        playOsc('square',1320,1320,0.05,0.20,0.06);
-        playOsc('square',1760,440,0.10,0.18,0.12);
-        break;
-      case'cars':// engine rev + tire screech
-        playOsc('sawtooth',120,280,0.18,0.28);
-        playOsc('sawtooth',140,300,0.18,0.22,0.02);
-        playSrc(makeNoise(0.25,'white'),0.12,0.25);
-        playOsc('sine',80,40,0.25,0.30);
-        break;
-      default:
-        playOsc('sawtooth',120,55,0.18,0.25);
-    }
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type='sawtooth'; osc.frequency.setValueAtTime(120,audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(55,audioCtx.currentTime+0.18);
+    gain.gain.setValueAtTime(0.25,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.2);
+    osc.connect(gain).connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime+0.2);
   }catch(e){}
 }
-
-// ─ EXPLOSION SOUNDS per skin ─
 function playExplosion(){
-  resumeAudio(); if(!audioCtx)return;
-  const sk=Object.keys(SKINS).find(k=>SKINS[k]===currentSkin)||'tanks';
+  if(!audioCtx){initAudio();if(!audioCtx)return;}
   try{
-    switch(sk){
-      case'tanks':// big cannon boom — sub bass + white noise crunch
-        playOsc('sine',80,20,0.55,0.50);
-        playOsc('triangle',120,30,0.40,0.35);
-        playSrc(makeNoise(0.55,'decay'),0.55,0.55);
-        playSrc(makeNoise(0.35,'rumble'),0.40,0.35);
-        break;
-      case'gorillas':// jungle thud + banana splat
-        playOsc('sine',70,18,0.45,0.45);
-        playSrc(makeNoise(0.30,'decay'),0.35,0.30);
-        playOsc('triangle',200,60,0.20,0.25);
-        break;
-      case'halloween':// screech + bass boom
-        playOsc('sawtooth',440,80,0.35,0.30);
-        playOsc('sine',60,15,0.45,0.45);
-        playSrc(makeNoise(0.40,'decay'),0.38,0.40);
-        break;
-      case'christmas':// snowball poof + chime
-        playSrc(makeNoise(0.25,'decay'),0.28,0.25);
-        [523,659,784].forEach((f,i)=>playOsc('sine',f,f*0.4,0.30,0.14,i*0.05));
-        playOsc('sine',80,30,0.35,0.25);
-        break;
-      case'july4':// firework BANG + crackle
-        playOsc('sine',90,18,0.60,0.55);
-        playSrc(makeNoise(0.60,'decay'),0.60,0.60);
-        playSrc(makeNoise(0.40,'white'),0.20,0.40);
-        playOsc('triangle',150,35,0.45,0.40);
-        break;
-      case'valentines':// heart pop + sparkle
-        playOsc('sine',200,50,0.30,0.30);
-        playSrc(makeNoise(0.20,'decay'),0.20,0.20);
-        [880,1100,1320].forEach((f,i)=>playOsc('sine',f,f*0.3,0.20,0.10,i*0.04));
-        break;
-      case'stpatrick':// lucky explosion + harp burst
-        playSrc(makeNoise(0.35,'decay'),0.35,0.35);
-        playOsc('sine',80,20,0.40,0.40);
-        [523,659,784,1047].forEach((f,i)=>playOsc('sine',f,f*0.2,0.25,0.12,i*0.03));
-        break;
-      case'space':// sci-fi blast + deep rumble
-        playOsc('sawtooth',400,40,0.50,0.35);
-        playOsc('sine',60,12,0.55,0.50);
-        playSrc(makeNoise(0.50,'decay'),0.45,0.50);
-        playOsc('square',800,80,0.25,0.18);
-        break;
-      case'worms':// grenade boom — classic chunky
-        playOsc('sine',100,22,0.50,0.50);
-        playOsc('triangle',140,35,0.40,0.38);
-        playSrc(makeNoise(0.50,'decay'),0.50,0.50);
-        playSrc(makeNoise(0.30,'rumble'),0.35,0.30);
-        break;
-      case'greenhornet':// electric ZAP + sizzle
-        playOsc('sawtooth',1200,80,0.30,0.40);
-        playOsc('square',2400,120,0.20,0.25);
-        playSrc(makeNoise(0.35,'white'),0.30,0.35);
-        playOsc('sine',60,15,0.35,0.35);
-        break;
-      case'computer':// digital glitch crash
-        playOsc('square',440,55,0.35,0.35);
-        playOsc('square',880,110,0.25,0.25);
-        playSrc(makeNoise(0.40,'decay'),0.40,0.40);
-        playOsc('sine',80,20,0.40,0.35);
-        break;
-      case'cars':// crash + metal crunch + bass
-        playOsc('sine',90,18,0.55,0.50);
-        playSrc(makeNoise(0.55,'decay'),0.55,0.55);
-        playSrc(makeNoise(0.30,'white'),0.25,0.30);
-        playOsc('sawtooth',200,40,0.30,0.30);
-        break;
-      default:
-        playSrc(makeNoise(0.5,'decay'),0.4,0.5);
-    }
+    const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.5,audioCtx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+    const src=audioCtx.createBufferSource(),gain=audioCtx.createGain();
+    src.buffer=buf; gain.gain.setValueAtTime(0.4,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.5);
+    src.connect(gain).connect(audioCtx.destination); src.start();
   }catch(e){}
 }
+document.addEventListener('click',()=>{if(audioCtx)audioCtx.resume().catch(()=>{});else initAudio();},{once:true});
+document.addEventListener('keydown',()=>{if(audioCtx)audioCtx.resume().catch(()=>{});else initAudio();},{once:true});
 
 // ── NETWORKING ────────────────────────────────────────────────
 function generateRoomCode(){
@@ -2530,7 +1521,6 @@ function handleNetworkMessage(data){
       gameState.terrain=new Float32Array(data.terrain);
       gameState.tanks[0].x=data.tanks[0].x; gameState.tanks[1].x=data.tanks[1].x;
       if(data.skinKey) { currentSkin=SKINS[data.skinKey]||currentSkin; selectSkin(data.skinKey); }
-      if(data.upgrades) { playerUpgrades[0]=data.upgrades[0]; playerUpgrades[1]=data.upgrades[1]; }
       gameState.tanks.forEach(placeTankOnTerrain);
       gameState.wind=data.wind;
       startGameScreen();
@@ -2539,8 +1529,7 @@ function handleNetworkMessage(data){
       const ct=data.turn, tank=gameState.tanks[ct];
       tank.angle=data.angle; tank.power=data.power;
       const a=(tank.angle*Math.PI)/180, speed=tank.power*7;
-      const _oy=currentSkin.shotOriginY||-20;
-      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:(tank.y+_oy)-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct};
+      gameState.projectile={x:tank.x+Math.cos(a)*(BARREL_LEN+4),y:tank.y-Math.sin(a)*(BARREL_LEN+4),vx:Math.cos(a)*speed,vy:-Math.sin(a)*speed,trail:[],ownerIdx:ct};
       gameState.phase='firing';
       document.getElementById('fire-btn').disabled=true;
       document.getElementById('controls-panel').classList.add('disabled');
@@ -2566,7 +1555,7 @@ function startNetworkGame(){
   gameState.wind=(Math.random()*2-1)*3;
   // Get selected skin key
   const skinKey=Object.keys(SKINS).find(k=>SKINS[k]===currentSkin)||'tanks';
-  if(conn&&conn.open) conn.send({type:'start',terrain:Array.from(terrain),tanks:gameState.tanks.map(t=>({x:t.x})),wind:gameState.wind,skinKey,upgrades:JSON.parse(JSON.stringify(playerUpgrades))});
+  if(conn&&conn.open) conn.send({type:'start',terrain:Array.from(terrain),tanks:gameState.tanks.map(t=>({x:t.x})),wind:gameState.wind,skinKey});
   startGameScreen();
 }
 
@@ -2587,7 +1576,6 @@ function startGameScreen(){
   gameState.tanks[0].name=currentSkin.p1Label; gameState.tanks[1].name=currentSkin.p2Label;
   gameState.currentTurn=0; gameState.phase='aiming';
   gameState.projectile=null; gameState.explosions=[]; gameState.snowParticles=[];
-  damageFloaters=[]; muzzleFlashes=[]; fireWordPopup=null; screenShake.mag=0;
   document.getElementById('lobby').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   document.getElementById('msg-overlay').classList.add('hidden');
@@ -2677,22 +1665,6 @@ const TANK_COLORS = [
 
 // Upgrade definitions — each has 3 levels
 // stat: which game stat it boosts, delta: per level amount
-//
-// ── FUTURE ABILITY EXPANSION NOTES ───────────────────────────────────────────
-// To add a new active ability (e.g. double-shot, airstrike, shield):
-//   1. Add an entry to UPGRADES with stat:'ability_<name>'
-//   2. Add the ability key to playerUpgrades[].levels
-//   3. In applyUpgradesToGame(), set tank.abilities[name] = level
-//   4. In fireTank() or a new useAbility() function, check tank.abilities
-//   5. Add a UI button in buildGarage() and a keybind in the keydown handler
-//
-// Suggested abilities:
-//   'airstrike'  — call in a carpet-bomb pass (level = number of bombs)
-//   'shield'     — absorb one shot per battle (level = absorption %)
-//   'cluster'    — projectile splits into N sub-munitions on impact
-//   'bounce'     — projectile bounces off terrain walls before exploding
-//   'medkit'     — restore HP at turn start (level = HP per turn)
-// ───────────────────────────────────────────────────────────
 const UPGRADES = [
   { id:'hull',   emoji:'🛡️',  name:'Hull',    desc:['Basic','Thick','Reinforced'], stat:'armor',       delta:8  },
   { id:'barrel', emoji:'🔫',  name:'Barrel',  desc:['Stock','Rifled','Mag Steel'], stat:'damage',      delta:6  },
@@ -2883,15 +1855,30 @@ function drawTankPreview(pIdx) {
     pctx.fillStyle=shimmer; pctx.fill();
   }
   pctx.restore();
+
+  // Skin character preview (right side) — shows actual in-game character in chosen color
+  if(currentSkin && currentSkin !== SKINS.tanks) {
+    pctx.save();
+    pctx.translate(W*0.82, 48);
+    pctx.scale(0.72, 0.72);
+    currentSkin.drawChar(pctx, 0, 0, pIdx===1, color);
+    pctx.restore();
+    // Label
+    pctx.fillStyle='rgba(255,255,255,0.3)';
+    pctx.font='9px "Exo 2",sans-serif';
+    pctx.textAlign='center';
+    pctx.fillText(currentSkin.name, W*0.82, 78);
+  }
 }
 
-let _pendingMode = 'hotseat';
 function openGarage(mode) {
   _pendingMode = mode;
   document.getElementById('lobby').classList.add('hidden');
   document.getElementById('garage-screen').classList.remove('hidden');
   buildGarage();
 }
+let _pendingMode = 'hotseat';
+
 function backToLobby() {
   document.getElementById('garage-screen').classList.add('hidden');
   document.getElementById('lobby').classList.remove('hidden');
