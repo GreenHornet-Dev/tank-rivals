@@ -2163,7 +2163,7 @@ document.addEventListener('keydown',(e)=>{
   // ESC toggles pause (works in any game phase)
   if(e.code === 'Escape') {
     const po = document.getElementById('pause-overlay');
-    const gameWrap = document.getElementById('game-wrap');
+    const gameWrap = document.getElementById('game-screen');
     if(!gameWrap || gameWrap.classList.contains('hidden')) return;
     if(po.classList.contains('hidden')) {
       po.classList.remove('hidden');
@@ -2540,6 +2540,7 @@ function startGameScreen(){
   document.getElementById('lobby').classList.add('hidden');
   document.getElementById('game-screen').classList.remove('hidden');
   document.getElementById('msg-overlay').classList.add('hidden');
+  document.getElementById('pause-overlay').classList.add('hidden');
   document.getElementById('skin-label').textContent=currentSkin.name;
 
   canvas=document.getElementById('game-canvas');
