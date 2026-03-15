@@ -2835,6 +2835,14 @@ updateHealthUI = function() {
 initCodeBoxes();
 startGameScanner();
 checkUrlJoin();
+// Skin grid click delegation — robust fallback for skin card selection
+document.getElementById('skin-grid').addEventListener('click', function(e) {
+  var card = e.target.closest('.skin-card');
+  if (card) {
+    var key = card.getAttribute('data-skin');
+    if (key && SKINS[key]) selectSkin(key);
+  }
+});
 </script>
 </body>
 </html>
