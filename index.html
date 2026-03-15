@@ -1533,12 +1533,12 @@ function drawCarChar(ctx, x, y, isP2, color) {   ctx.save();   ctx.translate(x, 
     ctx.strokeStyle = wDark; ctx.lineWidth = 1; ctx.stroke();
   });
   // Tail tip
-  ctx.beginPath(); wDark.arc(0, 29, 4, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.arc(0, 29, 4, 0, Math.PI*2); ctx.fillStyle = wDark; ctx.fill();
   // HEAD segment (drawn last so helmet sits on top)
   ctx.beginPath(); ctx.arc(0, -16, 8, 0, Math.PI*2);
   ctx.fillStyle = wc; ctx.fill();
   ctx.beginPath(); ctx.arc(0, -16, 8, 0, Math.PI*2);
-  ctx.wDark = dark; ctx.lineWidth = 1; ctx.stroke();
+  ctx.strokeStyle = wDark; ctx.lineWidth = 1; ctx.stroke();
   // Eyes (on head segment)
   ctx.beginPath(); ctx.arc(-4, -18, 3, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
   ctx.beginPath(); ctx.arc(4, -18, 3, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
