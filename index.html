@@ -2757,7 +2757,7 @@ function buildGarage() {
     document.getElementById('pts-'+pKey).textContent = getPointsLeft(pIdx);
 
     // Draw preview
-    drawTankPreview(pIdx);
+    try { drawTankPreview(pIdx); } catch(e) { console.warn('Preview err',e); }
   });
 }
 
@@ -2785,7 +2785,7 @@ function drawTankPreview(pIdx) {
 
   // Scale down to fit 80px tall canvas — characters are ~72px tall total
   pctx.save();
-  pctx.translate(W/2, 38);
+  pctx.translate(W/2, 48);
   pctx.scale(1.0, 1.0);
   currentSkin.drawChar(pctx, 0, 0, isP2, color);
   pctx.restore();
