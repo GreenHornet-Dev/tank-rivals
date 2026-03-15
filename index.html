@@ -1381,67 +1381,61 @@ function drawSummerChar(ctx, x, y, isP2, color) {
 }
 
 function drawGreenHornetChar(ctx, x, y, isP2, color) {
-  ctx.save(); ctx.translate(x, y);
-  const gc = color || '#00cc44';
-  const dark = shadeColor(gc, -35);
-  const light = shadeColor(gc, 20);
-  // Cape (behind body)
-  ctx.beginPath();
-  ctx.moveTo(-14, -4); ctx.quadraticCurveTo(-22, 14, -16, 28);
-  ctx.lineTo(16, 28); ctx.quadraticCurveTo(22, 14, 14, -4); ctx.closePath();
-  ctx.fillStyle = dark; ctx.fill();
-  // Cape highlights
-  ctx.beginPath(); ctx.moveTo(-8,8); ctx.lineTo(-4,26); ctx.lineTo(4,26); ctx.lineTo(8,8); ctx.closePath();
-  ctx.fillStyle = 'rgba(0,255,80,0.12)'; ctx.fill();
-  // Body / suit
-  ctx.beginPath(); ctx.ellipse(0, 6, 13, 16, 0, 0, Math.PI*2);
-  ctx.fillStyle = gc; ctx.fill();
-  // Suit stripe / chest
-  ctx.beginPath(); ctx.rect(-12, 0, 24, 8);
-  ctx.fillStyle = dark; ctx.fill();
-  // Hornet stinger logo on chest
-  ctx.fillStyle = '#ffd700';
-  ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('GH', 0, 7);
-  // Legs
-  ctx.beginPath(); ctx.roundRect(-10, 20, 8, 12, 2); ctx.fillStyle = dark; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(2, 20, 8, 12, 2); ctx.fillStyle = dark; ctx.fill();
-  // Boots
-  ctx.beginPath(); ctx.ellipse(-6, 33, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(6, 33, 8, 4, 0, 0, Math.PI*2); ctx.fillStyle = '#111'; ctx.fill();
-  // Arms
-  ctx.beginPath(); ctx.roundRect(-24, -2, 13, 8, 4); ctx.fillStyle = gc; ctx.fill();
-  ctx.beginPath(); ctx.roundRect(11, -2, 13, 8, 4); ctx.fillStyle = gc; ctx.fill();
-  // Laser gun (right hand)
-  ctx.beginPath(); ctx.rect(24, 0, 12, 5); ctx.fillStyle = '#333'; ctx.fill();
-  ctx.beginPath(); ctx.rect(35, 1, 4, 3); ctx.fillStyle = '#00ff44'; ctx.fill();
-  ctx.beginPath(); ctx.rect(23, 2, 3, 5); ctx.fillStyle = '#555'; ctx.fill();
-  // Gloves
-  ctx.beginPath(); ctx.arc(-18, 2, 6, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
-  ctx.beginPath(); ctx.arc(18, 2, 6, 0, Math.PI*2); ctx.fillStyle = dark; ctx.fill();
-  // Head
-  ctx.beginPath(); ctx.arc(0, -14, 12, 0, Math.PI*2); ctx.fillStyle = '#ffcc99'; ctx.fill();
-  // Mask over eyes
-  ctx.beginPath(); ctx.rect(-12, -19, 24, 8); ctx.fillStyle = dark; ctx.fill();
-  // Eye lenses (glowing)
-  ctx.beginPath(); ctx.ellipse(-4, -15, 4, 3, 0, 0, Math.PI*2);
-  ctx.fillStyle = '#00ff44'; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(4, -15, 4, 3, 0, 0, Math.PI*2);
-  ctx.fillStyle = '#00ff44'; ctx.fill();
-  // Glow
-  ctx.shadowColor='#00ff44'; ctx.shadowBlur=6;
-  ctx.beginPath(); ctx.ellipse(-4,-15,4,3,0,0,Math.PI*2); ctx.fillStyle='rgba(0,255,68,0.4)'; ctx.fill();
-  ctx.beginPath(); ctx.ellipse(4,-15,4,3,0,0,Math.PI*2); ctx.fillStyle='rgba(0,255,68,0.4)'; ctx.fill();
-  ctx.shadowBlur=0;
-  // Hat / fedora brim
-  ctx.beginPath(); ctx.rect(-15, -25, 30, 4); ctx.fillStyle = '#111'; ctx.fill();
-  // Hat crown
-  ctx.beginPath(); ctx.rect(-9, -40, 18, 17); ctx.fillStyle = dark; ctx.fill();
-  // Hat band
-  ctx.beginPath(); ctx.rect(-9, -27, 18, 4); ctx.fillStyle = gc; ctx.fill();
-  // Hornet wing-sticker on hat
-  ctx.beginPath(); ctx.arc(0, -35, 3, 0, Math.PI*2); ctx.fillStyle = '#ffd700'; ctx.fill();
-  ctx.restore();
+    ctx.save(); ctx.translate(x, y);
+    const gc = color || '#00cc44';
+    const dark = shadeColor(gc, -40);
+    const yellow = '#ffd700';
+    const black = '#111111';
+    // Shadow
+    ctx.save(); ctx.scale(1,0.25); ctx.beginPath(); ctx.arc(0,CHAR_H*3,CHAR_W*0.5,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill(); ctx.restore();
+    // Stinger (at bottom)
+    ctx.beginPath(); ctx.moveTo(-3,32); ctx.lineTo(3,32); ctx.lineTo(0,44); ctx.closePath(); ctx.fillStyle=dark; ctx.fill();
+    // Abdomen — yellow/black striped oval
+    ctx.beginPath(); ctx.ellipse(0,18,12,16,0,0,Math.PI*2); ctx.fillStyle=yellow; ctx.fill();
+    // Abdomen stripes
+    [4,10,16,22].forEach(sy=>{
+        ctx.beginPath(); ctx.rect(-12,sy-2,24,3); ctx.fillStyle=black; ctx.fill();
+    });
+    // Abdomen outline
+    ctx.beginPath(); ctx.ellipse(0,18,12,16,0,0,Math.PI*2); ctx.strokeStyle=black; ctx.lineWidth=1.5; ctx.stroke();
+    // Thorax (middle segment)
+    ctx.beginPath(); ctx.ellipse(0,-2,11,10,0,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0,-2,11,10,0,0,Math.PI*2); ctx.strokeStyle=black; ctx.lineWidth=1; ctx.stroke();
+    // Wing pair (back)
+    ctx.save(); ctx.globalAlpha=0.55;
+    ctx.beginPath(); ctx.ellipse(-20,-8,16,6,0.5,0,Math.PI*2); ctx.fillStyle='rgba(200,240,255,0.8)'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-20,-8,16,6,0.5,0,Math.PI*2); ctx.strokeStyle='rgba(100,180,255,0.6)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(20,-8,16,6,-0.5,0,Math.PI*2); ctx.fillStyle='rgba(200,240,255,0.8)'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(20,-8,16,6,-0.5,0,Math.PI*2); ctx.strokeStyle='rgba(100,180,255,0.6)'; ctx.lineWidth=1; ctx.stroke();
+    // Wing pair (front)
+    ctx.beginPath(); ctx.ellipse(-16,-4,12,4,0.3,0,Math.PI*2); ctx.fillStyle='rgba(220,250,255,0.7)'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(16,-4,12,4,-0.3,0,Math.PI*2); ctx.fillStyle='rgba(220,250,255,0.7)'; ctx.fill();
+    ctx.restore();
+    // Legs (3 pairs)
+    ctx.strokeStyle=black; ctx.lineWidth=1.5;
+    [[-10,2,-22,12],[-10,4,-24,16],[-10,8,-20,22],[10,2,22,12],[10,4,24,16],[10,8,20,22]].forEach(([x1,y1,x2,y2])=>{
+        ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    });
+    // Head
+    ctx.beginPath(); ctx.arc(0,-16,11,0,Math.PI*2); ctx.fillStyle=gc; ctx.fill();
+    ctx.beginPath(); ctx.arc(0,-16,11,0,Math.PI*2); ctx.strokeStyle=black; ctx.lineWidth=1; ctx.stroke();
+    // Eyes (compound — large)
+    ctx.beginPath(); ctx.ellipse(-6,-16,5,6,0.2,0,Math.PI*2); ctx.fillStyle='#1a0a00'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(6,-16,5,6,-0.2,0,Math.PI*2); ctx.fillStyle='#1a0a00'; ctx.fill();
+    // Eye shine
+    ctx.beginPath(); ctx.arc(-5,-18,1.5,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(7,-18,1.5,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fill();
+    // Mandibles
+    ctx.beginPath(); ctx.moveTo(-5,-7); ctx.lineTo(-8,-4); ctx.strokeStyle=dark; ctx.lineWidth=2; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(5,-7); ctx.lineTo(8,-4); ctx.strokeStyle=dark; ctx.lineWidth=2; ctx.stroke();
+    // Antennae
+    ctx.beginPath(); ctx.moveTo(-4,-26); ctx.quadraticCurveTo(-12,-36,-16,-32); ctx.strokeStyle=black; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.beginPath(); ctx.arc(-16,-32,2.5,0,Math.PI*2); ctx.fillStyle=dark; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(4,-26); ctx.quadraticCurveTo(12,-36,16,-32); ctx.strokeStyle=black; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.beginPath(); ctx.arc(16,-32,2.5,0,Math.PI*2); ctx.fillStyle=dark; ctx.fill();
+    // Player color badge on thorax
+    ctx.beginPath(); ctx.arc(0,-2,4,0,Math.PI*2); ctx.fillStyle=color; ctx.fill();
+    ctx.restore();
 }
 
 function drawComputerChar(ctx, x, y, isP2, color) {
@@ -1556,10 +1550,10 @@ function drawCarChar(ctx, x, y, isP2, color) {   ctx.save();   ctx.translate(x, 
   });
   // HELMET on top — sits ON the head segment
   // Brim
-  ctx.beginPath(); ctx.rect(-12, -24, 24, 4); ctx.fillStyle = dark; ctx.fill();
+  ctx.beginPath(); ctx.rect(-12, -24, 24, 4); ctx.fillStyle = wDark; ctx.fill();
   // Dome
   ctx.beginPath(); ctx.ellipse(0, -24, 10, 7, 0, Math.PI, Math.PI*2);
-  ctx.fillStyle = dark; ctx.fill();
+  ctx.fillStyle = wDark; ctx.fill();
   // Helmet stripe across front
   ctx.beginPath(); ctx.rect(-8, -25, 16, 3); ctx.fillStyle = wc; ctx.fill();
   // Visor slit
