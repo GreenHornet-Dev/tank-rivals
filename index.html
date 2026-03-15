@@ -641,7 +641,7 @@ const SKINS = {
     sky: ['#4a7ab8','#5a8ac8','#6a9ad8'],
     ground: ['#2a5a0a','#1a3a05','#4a8a1a','#1a3008'],
     groundLine: '#88dd44',
-    drawChar(ctx, x, y, isP2, color) { drawWormChar(ctx, x, y, isP2, color); },
+    drawChar(ctx, x, y, isP2, color) { drawWormChar(ctx, x, y - 8, isP2, color); },
     drawProjectile(ctx, p) { drawGrenadeProjectile(ctx, p); },
     fireWord: 'LOBB!',
   },
@@ -653,7 +653,7 @@ const SKINS = {
       sky: ['#87ceeb','#a0d4f5','#c0e8ff'],
       ground: ['#5a8a3a','#3a6a1a','#7aaa4a','#2a4a10'],
       groundLine: '#ffffff',
-      drawChar(ctx, x, y, isP2, color) { drawCarChar(ctx, x, y, isP2, color); },
+      drawChar(ctx, x, y, isP2, color) { drawCarChar(ctx, x, y - 20, isP2, color); },
       drawProjectile(ctx, p) { drawBulletProjectile(ctx, p, '#ffd700'); },
       fireWord: 'RACE!',
     },
@@ -2785,8 +2785,8 @@ function drawTankPreview(pIdx) {
 
   // Scale down to fit 80px tall canvas — characters are ~72px tall total
   pctx.save();
-  pctx.translate(W/2, 50);
-  pctx.scale(0.85, 0.85);
+  pctx.translate(W/2, 38);
+  pctx.scale(1.0, 1.0);
   currentSkin.drawChar(pctx, 0, 0, isP2, color);
   pctx.restore();
 }
